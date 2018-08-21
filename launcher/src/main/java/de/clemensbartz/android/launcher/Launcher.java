@@ -544,6 +544,7 @@ public final class Launcher extends Activity {
     private void openApp(final ApplicationModel applicationModel) {
         final ComponentName component = new ComponentName(applicationModel.packageName, applicationModel.className);
         final Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setComponent(component);
 
         if (IntentUtil.isCallable(getPackageManager(), intent)) {
