@@ -18,12 +18,14 @@
 package de.clemensbartz.android.launcher.util;
 
 import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -87,8 +89,11 @@ public final class IntentUtil {
         final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_BIND);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, provider);
-        // This is the options bundle discussed above
-        //intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_OPTIONS, options);
+
+        final Bundle bundle = new Bundle();
+        bundle.putInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, AppWidgetProviderInfo.WIDGET_CATEGORY_HOME_SCREEN);
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_OPTIONS, bundle);
 
         return intent;
     }
