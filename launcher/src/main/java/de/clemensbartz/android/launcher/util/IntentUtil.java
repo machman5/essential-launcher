@@ -29,6 +29,8 @@ import android.os.Bundle;
 
 import java.util.List;
 
+import de.clemensbartz.android.launcher.BuildConfig;
+
 /**
  * Utility class for constructing intents.
  */
@@ -128,9 +130,17 @@ public final class IntentUtil {
         final List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
         for (ResolveInfo resolveInfo : resolveInfos) {
-            if (resolveInfo.activityInfo.exported) {
-                return true;
+            // Check if exported
+            if (!resolveInfo.activityInfo.exported) {
+                continue;
             }
+
+            if (resolveInfo.activityInfo.permission != null
+                    && !(pm.checkPermission(resolveInfo.activityInfo.permission, BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED)) {
+                continue;
+            }
+
+            return true;
         }
 
         return false;
