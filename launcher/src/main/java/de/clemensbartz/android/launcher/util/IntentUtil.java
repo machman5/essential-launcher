@@ -63,7 +63,8 @@ public final class IntentUtil {
      * @return the intent to uninstall application.
      */
     public static Intent uninstallAppIntent(final String packageName) {
-        Intent intent = new Intent(Intent.ACTION_DELETE);
+        final Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setData(Uri.parse("package:" + packageName));
         return intent;
     }
