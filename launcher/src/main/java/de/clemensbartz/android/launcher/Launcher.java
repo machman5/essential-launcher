@@ -38,6 +38,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.ContextMenu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,6 +46,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
@@ -80,7 +82,7 @@ public final class Launcher extends Activity {
     private static final double TWO_THIRD = 0.66;
 
     /** Default height in dp of the dock. */
-    private static final int DOCK_HEIGHT = 60;
+    private static final int DOCK_HEIGHT = 82;
 
     /** Id to identify the home layout. */
     public static final int HOME_ID = 0;
@@ -191,7 +193,6 @@ public final class Launcher extends Activity {
         }
 
         final GridView lvApplications = findViewById(R.id.lvApplications);
-        final ImageView ivDrawer = findViewById(R.id.ivDrawer);
 
         dockImageViews.add((ImageView) findViewById(R.id.ivDock1));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock2));
@@ -199,17 +200,12 @@ public final class Launcher extends Activity {
         dockImageViews.add((ImageView) findViewById(R.id.ivDock4));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock5));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock6));
+        dockImageViews.add((ImageView) findViewById(R.id.ivDock7));
 
         /*
          * Set handlers.
          */
-        if (hasAppWidgets(this)) {
-            ivDrawer.setOnCreateContextMenuListener(new DrawerContextMenuListener());
-        }
-
-        ivDrawer.setOnClickListener(new DrawerOnClickListener());
-
-        for (ImageView imageView : dockImageViews) {
+        for (final ImageView imageView : dockImageViews) {
             imageView.setOnCreateContextMenuListener(new DockContextMenuListener());
         }
 
@@ -230,12 +226,6 @@ public final class Launcher extends Activity {
         /*
          * Initialize data.
          */
-        // Animate the image of the drawer button.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Drawable rd = new RippleDrawable(ColorStateList.valueOf(Color.GRAY), ivDrawer.getDrawable(), null);
-            ivDrawer.setImageDrawable(rd);
-        }
-
         // Initialize widget handling.
         if (hasAppWidgets(this)) {
             appWidgetManager = AppWidgetManager.getInstance(this);
@@ -290,6 +280,17 @@ public final class Launcher extends Activity {
         }
 
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onTouchEvent(final MotionEvent event) {
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_UP:
+                switchTo(DRAWER_ID);
+                return true;
+            default:
+                return super.onTouchEvent(event);
+        }
     }
 
     @Override
@@ -835,32 +836,6 @@ public final class Launcher extends Activity {
                     toggleStickyItem.setChecked(model.sticky);
                 }
             }
-        }
-    }
-
-    /**
-     * Listener for drawer icon context menu.
-     */
-    private class DrawerContextMenuListener implements View.OnCreateContextMenuListener {
-
-        @Override
-        public void onCreateContextMenu(final ContextMenu contextMenu, final View view, final ContextMenu.ContextMenuInfo contextMenuInfo) {
-            contextMenu.add(0, ITEM_CHOOSE_WIDGET, 0, R.string.choose_widget);
-            if (model.getAppWidgetId() != -1) {
-                contextMenu.add(0, ITEM_LAYOUT_WIDGET, 0, R.string.adjustWidgetLayout);
-                contextMenu.add(0, ITEM_REMOVE_WIDGET, 0, R.string.remove_widget);
-            }
-        }
-    }
-
-    /**
-     * Lister for drawer icon.
-     */
-    private class DrawerOnClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(final View view) {
-            switchTo(DRAWER_ID);
         }
     }
 

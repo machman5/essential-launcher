@@ -16,6 +16,7 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vsLauncher"
     android:layout_width="match_parent"
@@ -46,6 +47,14 @@
             android:id="@+id/bottomFiller"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/tvDrawer"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:contentDescription="@string/open_drawer"
+            android:text="@string/up"
+            android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -83,22 +92,6 @@
                 android:src="@drawable/ic_launcher" />
 
             <ImageView
-                android:id="@+id/ivDrawer"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:clickable="true"
-                android:contentDescription="@string/open_drawer"
-                android:focusable="true"
-                android:longClickable="true"
-                android:padding="5dp"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_view_module_white_48dp" />
-
-            <ImageView
                 android:id="@+id/ivDock3"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
@@ -108,8 +101,8 @@
                 android:contentDescription="@string/unassigned_dock"
                 android:focusable="true"
                 android:padding="5dp"
-                android:paddingEnd="5dp"
                 android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_launcher" />
 
@@ -138,6 +131,21 @@
                 android:contentDescription="@string/unassigned_dock"
                 android:focusable="true"
                 android:padding="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/ivDock6"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:contentDescription="@string/unassigned_dock"
+                android:focusable="true"
+                android:padding="5dp"
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
                 android:scaleType="fitCenter"
@@ -145,7 +153,7 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/ivDock6"
+                android:id="@+id/ivDock7"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
                 android:layout_weight="1"

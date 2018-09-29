@@ -46,6 +46,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/tvDrawer"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:contentDescription="@string/open_drawer"
+            android:text="@string/up"
+            android:textAlignment="center" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="60dp"
@@ -97,22 +105,6 @@
                 android:src="@drawable/ic_launcher" />
 
             <ImageView
-                android:id="@+id/ivDrawer"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:clickable="true"
-                android:contentDescription="@string/open_drawer"
-                android:focusable="true"
-                android:longClickable="true"
-                android:padding="5dp"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_view_module_white_48dp" />
-
-            <ImageView
                 android:id="@+id/ivDock4"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
@@ -144,6 +136,21 @@
 
             <ImageView
                 android:id="@+id/ivDock6"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:contentDescription="@string/unassigned_dock"
+                android:focusable="true"
+                android:padding="5dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/ivDock7"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
                 android:layout_weight="1"

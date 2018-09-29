@@ -37,4 +37,5 @@
     <string name="widgetLayoutBottomHalf" translatable="false">Bottom 1/2</string>
     <string name="widgetLayoutBottomThird" translatable="false">Bottom 1/3</string>
     <string name="widgetLayoutBottomQuarter" translatable="false">Bottom 1/4</string>
+    <string name="up">^</string>
 </resources>

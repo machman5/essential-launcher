@@ -46,7 +46,7 @@ import de.clemensbartz.android.launcher.db.ApplicationUsageModel;
 public final class HomeModel {
 
     /** The total cached number of apps. */
-    public static final int NUMBER_OF_APPS = 6;
+    public static final int NUMBER_OF_APPS = 7;
     /** Constant for descending sorting. */
     private static final String SPACE_DESC = " DESC";
     /** Columns of ApplicationUsage. */
