@@ -18,7 +18,6 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.os.AsyncTask;
-import android.util.Pair;
 
 import java.lang.ref.WeakReference;
 
@@ -30,7 +29,7 @@ import de.clemensbartz.android.launcher.models.HomeModel;
  * @author Clemens Bartz
  * @since 1.5
  */
-public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, Pair<Integer, Integer>> {
+public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadModelAsyncTask.LoadModelAsyncTaskResult> {
 
     /** Weak reference to {@link Launcher}. */
     private final WeakReference<Launcher> launcherWeakReference;
@@ -49,30 +48,42 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, Pair<I
     }
 
     @Override
-    protected Pair<Integer, Integer> doInBackground(final Integer... params) {
+    protected LoadModelAsyncTask.LoadModelAsyncTaskResult doInBackground(final Integer... params) {
         final HomeModel model = homeModelWeakReference.get();
 
         if (model != null) {
             model.loadValues();
 
-            return new Pair<>(model.getAppWidgetId(), model.getAppWidgetLayout());
+            final LoadModelAsyncTaskResult result = new LoadModelAsyncTaskResult();
+            result.selectedWidget = model.getAppWidgetId();
+            result.widgetLayout = model.getAppWidgetLayout();
+
+            return result;
         }
 
         return null;
     }
 
     @Override
-    protected void onPostExecute(final Pair<Integer, Integer> result) {
+    protected void onPostExecute(final LoadModelAsyncTask.LoadModelAsyncTaskResult result) {
         final Launcher launcher = launcherWeakReference.get();
 
         if (result != null && launcher != null) {
             // Show last selected widget.
-            if (result.first > -1) {
-                launcher.addHostView(result.first);
+            if (result.selectedWidget > -1) {
+                launcher.addHostView(result.selectedWidget);
             }
 
             // Layout widget
-            launcher.adjustWidget(result.second);
+            launcher.adjustWidget(result.widgetLayout);
         }
+    }
+
+    /** Holder class for return values. */
+    final class LoadModelAsyncTaskResult {
+        /** The selected widget. */
+        int selectedWidget;
+        /** The layout for the widget. */
+        int widgetLayout;
     }
 }

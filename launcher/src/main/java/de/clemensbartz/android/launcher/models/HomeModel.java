@@ -112,11 +112,15 @@ public final class HomeModel {
     //private static final String KEY_HIDE_OVERLAY_ID = "hideOverlay";
     /** Key for the appWidgetLayout property. */
     private static final String KEY_APPWIDGET_LAYOUT = "appWidgetLayout";
+    /** Key for choosing which layout to display. */
+    private static final String KEY_DRAWER_LAYOUT = "drawerLayout";
 
     /** Value for the appWidgetId property. */
     private int appWidgetId = -1;
     /** Value for the appWidgetLayout property. */
     private int appWidgetLayout = Launcher.WIDGET_LAYOUT_FULL_SCREEN;
+    /** Value for the drawerLayout property. */
+    private int drawerLayout = 1;
 
     /**
      *
@@ -191,6 +195,7 @@ public final class HomeModel {
 
         appWidgetId = preferences.getInt(KEY_APPWIDGET_ID, -1);
         appWidgetLayout = preferences.getInt(KEY_APPWIDGET_LAYOUT, Launcher.WIDGET_LAYOUT_FULL_SCREEN);
+        drawerLayout = preferences.getInt(KEY_DRAWER_LAYOUT, 1);
     }
 
     /**
@@ -660,4 +665,19 @@ public final class HomeModel {
         this.appWidgetLayout = appWidgetLayout;
     }
 
+    /**
+     *
+     * @return the current drawer layout
+     */
+    public int getDrawerLayout() {
+        return drawerLayout;
+    }
+
+    /**
+     * Set the drawer layout.
+     * @param drawerLayout the new layout
+     */
+    public void setDrawerLayout(final int drawerLayout) {
+        this.drawerLayout = drawerLayout;
+    }
 }
