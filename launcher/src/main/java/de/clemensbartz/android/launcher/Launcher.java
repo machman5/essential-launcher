@@ -46,8 +46,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +134,7 @@ public final class Launcher extends Activity {
     /** The launcher drawable. */
     private Drawable icLauncher;
     /** The view switcher of the launcher. */
-    private ViewSwitcher vsLauncher;
+    private ViewFlipper vsLauncher;
     /** The view for holding the widget. */
     private FrameLayout frWidget;
     /** The view for holding the widget filler for top. */

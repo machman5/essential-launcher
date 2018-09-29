@@ -16,7 +16,7 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vsLauncher"
     android:layout_width="match_parent"
@@ -189,4 +189,4 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp" />
     </LinearLayout>
-</ViewSwitcher>
+</ViewFlipper>
