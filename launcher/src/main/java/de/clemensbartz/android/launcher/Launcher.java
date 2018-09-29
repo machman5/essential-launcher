@@ -85,8 +85,8 @@ public final class Launcher extends Activity {
 
     /** Id to identify the home layout. */
     public static final int HOME_ID = 0;
-    /** Id to identify the launcher layout. */
-    private static final int DRAWER_ID = 1;
+    /** Id to identify the grid layout. */
+    private static final int GRID_ID = 1;
 
     /** Request code for binding widget. */
     private static final int REQUEST_BIND_APPWIDGET = 0;
@@ -285,7 +285,7 @@ public final class Launcher extends Activity {
     public boolean onTouchEvent(final MotionEvent event) {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
-                switchTo(DRAWER_ID);
+                switchTo(GRID_ID);
                 return true;
             default:
                 return super.onTouchEvent(event);
