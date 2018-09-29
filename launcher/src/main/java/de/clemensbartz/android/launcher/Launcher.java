@@ -560,20 +560,7 @@ public final class Launcher extends Activity {
      * @param id the id of the layout
      */
     public void switchTo(final int id) {
-        switch (vsLauncher.getDisplayedChild()) {
-            case HOME_ID:
-                if (id == DRAWER_ID) {
-                    vsLauncher.showNext();
-                }
-                break;
-            case DRAWER_ID:
-                if (id == HOME_ID) {
-                    vsLauncher.showPrevious();
-                }
-                break;
-            default:
-                break;
-        }
+        vsLauncher.setDisplayedChild(id);
     }
 
     /**
