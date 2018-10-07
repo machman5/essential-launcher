@@ -41,6 +41,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     /** The resource id. */
     private final int resource;
 
+    /** The list of all application models. */
+    private final List<ApplicationModel> unfilteredList;
+
     /**
      * Initializes a new adapter.
      * @param context the activity
@@ -50,8 +53,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
             final Context context,
             final List<ApplicationModel> objects) {
 
-        super(context, R.layout.drawer_item, objects);
+        super(context, R.layout.drawer_item);
         this.resource = R.layout.drawer_item;
+        unfilteredList = objects;
     }
 
     @Override
@@ -83,6 +87,26 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
         }
 
         return v;
+    }
+
+    @Override
+    public ApplicationModel getItem(final int position) {
+        return unfilteredList.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return unfilteredList.size();
+    }
+
+    @Override
+    public int getPosition(final ApplicationModel item) {
+        return unfilteredList.indexOf(item);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return unfilteredList.isEmpty();
     }
 
     /**
