@@ -38,6 +38,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -175,6 +177,9 @@ public final class Launcher extends Activity {
 
         // Adjust strict mode
         adjustStrictMode();
+
+        // Customize the action bar
+        customizeActionBar(getActionBar());
 
         /*
          * Assign components.
@@ -334,49 +339,58 @@ public final class Launcher extends Activity {
             // "Consume" the model
             contextMenuApplicationModel = null;
             return true;
-        } else {
-            switch (item.getItemId()) {
-
-                case ITEM_REMOVE_WIDGET:
-                    // Remove widget
-                    createWidget(-1);
-                    break;
-                case ITEM_CHOOSE_WIDGET:
-                    final ShowWidgetListAsPopupMenuTask showWidgetListAsPopupMenuTask = new ShowWidgetListAsPopupMenuTask(this, appWidgetManager);
-                    showWidgetListAsPopupMenuTask.execute();
-                    break;
-                case ITEM_LAYOUT_WIDGET:
-                    final PopupMenu popupMenu = new PopupMenu(this, vTopFiller);
-
-                    final int currentLayout = model.getAppWidgetLayout();
-
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_FULL_SCREEN, currentLayout, R.string.widgetLayoutFull);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_QUARTER, currentLayout, R.string.widgetLayoutTopQuarter);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_THIRD, currentLayout, R.string.widgetLayoutTopThird);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_HALF, currentLayout, R.string.widgetLayoutTopHalf);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_CENTER, currentLayout, R.string.widgetLayoutCenter);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_HALF, currentLayout, R.string.widgetLayoutBottomHalf);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_THIRD, currentLayout, R.string.widgetLayoutBottomThird);
-                    addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_QUARTER, currentLayout, R.string.widgetLayoutBottomQuarter);
-
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(final MenuItem item) {
-                            model.setKeyAppwidgetLayout(item.getItemId());
-                            adjustWidget(item.getItemId());
-                            return true;
-                        }
-                    });
-
-                    popupMenu.show();
-
-                    break;
-                default:
-                    break;
-            }
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.actionbar_options_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.abm_choose_widget:
+                final ShowWidgetListAsPopupMenuTask showWidgetListAsPopupMenuTask = new ShowWidgetListAsPopupMenuTask(this, appWidgetManager);
+                showWidgetListAsPopupMenuTask.execute();
+                return true;
+            case R.id.abm_layout_widget:
+                final PopupMenu popupMenu = new PopupMenu(this, vTopFiller);
+
+                final int currentLayout = model.getAppWidgetLayout();
+
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_FULL_SCREEN, currentLayout, R.string.widgetLayoutFull);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_QUARTER, currentLayout, R.string.widgetLayoutTopQuarter);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_THIRD, currentLayout, R.string.widgetLayoutTopThird);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_TOP_HALF, currentLayout, R.string.widgetLayoutTopHalf);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_CENTER, currentLayout, R.string.widgetLayoutCenter);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_HALF, currentLayout, R.string.widgetLayoutBottomHalf);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_THIRD, currentLayout, R.string.widgetLayoutBottomThird);
+                addLayoutPopupMenuItem(popupMenu, WIDGET_LAYOUT_BOTTOM_QUARTER, currentLayout, R.string.widgetLayoutBottomQuarter);
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(final MenuItem item) {
+                        model.setKeyAppwidgetLayout(item.getItemId());
+                        adjustWidget(item.getItemId());
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+
+                return true;
+            case R.id.abm_remove_widget:
+                createWidget(-1);
+                return true;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -432,6 +446,18 @@ public final class Launcher extends Activity {
                     .detectAll()
                     .penaltyLog()
                     .build());
+        }
+    }
+
+    /**
+     * Customize the actionbar
+     * @param actionBar the actionbar or <code>null</code>, when no action bar is present
+     */
+    private void customizeActionBar(final ActionBar actionBar) {
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayUseLogoEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
     }
 
