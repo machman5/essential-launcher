@@ -105,14 +105,8 @@ public final class Launcher extends Activity {
     private static final int ITEM_RESET = 3;
     /** Request code for toggle disabling app. */
     private static final int ITEM_TOGGLE_DISABLED = 4;
-    /** Request code for removing the widget. */
-    private static final int ITEM_REMOVE_WIDGET = 5;
-    /** Request code for choosing widget. */
-    private static final int ITEM_CHOOSE_WIDGET = 6;
     /** Request code for toggle sticky app. */
     private static final int ITEM_TOGGLE_STICKY = 7;
-    /** Request code for layouting widget. */
-    private static final int ITEM_LAYOUT_WIDGET = 8;
 
     // Layout constants for widget
     /** Layout constant for default full screen layout. */
