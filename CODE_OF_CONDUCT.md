@@ -12,7 +12,7 @@ Examples of behavior that contributes to creating a positive environment include
 
 * Using welcoming language
 * Treating people with respect
-* Showing people how to improve the code
+* Valuing technical contributions
 * Disclosing any business related interests upfront
 * Focusing on what is best for the project in technical sense
 
