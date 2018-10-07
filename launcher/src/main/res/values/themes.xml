@@ -17,5 +17,5 @@
   -->
 
 <resources>
-    <style name="API17ActivityStyle" parent="android:Theme.Holo.Wallpaper.NoTitleBar" />
+    <style name="API17ActivityStyle" parent="android:Theme.Holo.Wallpaper" />
 </resources>

@@ -17,6 +17,7 @@
 
 package de.clemensbartz.android.launcher;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetHostView;
@@ -557,6 +558,21 @@ public final class Launcher extends Activity {
      * @param id the id of the layout
      */
     public void switchTo(final int id) {
+        final ActionBar actionBar = getActionBar();
+
+        switch (id) {
+            case HOME_ID:
+                if (actionBar != null) {
+                    actionBar.hide();
+                }
+                break;
+            default:
+                if (actionBar != null) {
+                    actionBar.show();
+                }
+                break;
+        }
+
         vsLauncher.setDisplayedChild(id);
     }
 
