@@ -178,9 +178,6 @@ public final class Launcher extends Activity {
         // Adjust strict mode
         adjustStrictMode();
 
-        // Customize the action bar
-        customizeActionBar(getActionBar());
-
         /*
          * Assign components.
          */
@@ -349,6 +346,12 @@ public final class Launcher extends Activity {
         final MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.actionbar_options_menu, menu);
 
+        if (!hasAppWidgets(this)) {
+            menu.findItem(R.id.abm_choose_widget).setVisible(false);
+            menu.findItem(R.id.abm_layout_widget).setVisible(false);
+            menu.findItem(R.id.abm_remove_widget).setVisible(false);
+        }
+
         return true;
     }
 
@@ -446,18 +449,6 @@ public final class Launcher extends Activity {
                     .detectAll()
                     .penaltyLog()
                     .build());
-        }
-    }
-
-    /**
-     * Customize the actionbar
-     * @param actionBar the actionbar or <code>null</code>, when no action bar is present
-     */
-    private void customizeActionBar(final ActionBar actionBar) {
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayUseLogoEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
         }
     }
 
