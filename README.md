@@ -33,10 +33,10 @@ If you want to support development, please make sure:
 
 - You use Android Studio >= 3.1.4
 - You must not enable [minify](http://developer.android.com/tools/help/proguard.html)
-- You use SDK Version >= 28.
-- You specify minimum SDK Version as 17 (Android 4.2).
-- You specify maximum SDK Version as 28 (Android 9 Pie).
-- You use Java >= 8.
+- You use SDK Version >= [28](https://developer.android.com/about/versions/pie/).
+- You specify minimum SDK Version as 17 ([Android 4.2](https://developer.android.com/about/versions/android-4.2)).
+- You specify maximum SDK Version as 28 ([Android 9 Pie](https://developer.android.com/about/versions/pie/)).
+- You use Java >= [8](https://docs.oracle.com/javase/8/docs/api/).
 - The APK in Android Studio _APK Analyzer_ must be smaller than 50 KB
 
 ## Not yet supported features
