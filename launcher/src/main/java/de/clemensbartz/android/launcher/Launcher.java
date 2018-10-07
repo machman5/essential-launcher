@@ -162,6 +162,8 @@ public final class Launcher extends Activity {
     private ApplicationModel contextMenuApplicationModel;
     /** The temporary configure component for widgets. */
     private ComponentName widgetConfigure;
+    /** The action bar menu. */
+    private Menu actionBarMenu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -337,6 +339,8 @@ public final class Launcher extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
+        actionBarMenu = menu;
+
         final MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.actionbar_options_menu, menu);
 
@@ -344,6 +348,11 @@ public final class Launcher extends Activity {
             menu.findItem(R.id.abm_choose_widget).setVisible(false);
             menu.findItem(R.id.abm_layout_widget).setVisible(false);
             menu.findItem(R.id.abm_remove_widget).setVisible(false);
+        } else {
+            final boolean widgetConfigured = model.getAppWidgetId() > -1;
+
+            menu.findItem(R.id.abm_layout_widget).setVisible(widgetConfigured);
+            menu.findItem(R.id.abm_remove_widget).setVisible(widgetConfigured);
         }
 
         return true;
@@ -612,6 +621,10 @@ public final class Launcher extends Activity {
         }
 
         model.setAppWidgetId(appWidgetId);
+
+        actionBarMenu.findItem(R.id.abm_remove_widget).setVisible(appWidgetId > -1);
+        actionBarMenu.findItem(R.id.abm_layout_widget).setVisible(appWidgetId > -1);
+
         addHostView(appWidgetId);
     }
 
