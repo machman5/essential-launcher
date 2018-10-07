@@ -18,8 +18,8 @@ Examples of behavior that contributes to creating a positive environment include
 
 Examples of unacceptable behavior by participants include:
 
-* Forcing ideas, perceptions or thoughts onto other people
-* Misuse other people for one's own ideas
+* Forcing perceptions or thoughts onto other people
+* Misuse other people for one's own perceptions or thoughts
 * Blaming or scrutinizing actual or perceived minorities or majorities
 * Trolling, personal, political or sociological attacks
 * Public or private harassment
