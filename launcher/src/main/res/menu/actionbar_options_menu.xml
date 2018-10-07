@@ -23,7 +23,7 @@
         android:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/ic_search_black_24dp"
         android:showAsAction="always|collapseActionView"
-        android:title="Search"></item>
+        android:title="Search" />
     <item
         android:id="@+id/abm_choose_widget"
         android:title="@string/choose_widget" />
