@@ -29,7 +29,7 @@ Examples of unacceptable behavior by participants include:
 
 The project maintainer is responsible for clarifying the standards of acceptable behavior and is expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
 
-The project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+The project maintainer has the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that he deems inappropriate, threatening, offensive, or harmful.
 
 ## Scope
 
