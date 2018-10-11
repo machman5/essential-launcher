@@ -597,11 +597,13 @@ public final class Launcher extends Activity {
                 if (actionBar != null && actionBar.isShowing()) {
                     actionBar.hide();
                 }
+
                 break;
             default:
                 if (actionBar != null && !actionBar.isShowing()) {
                     actionBar.show();
                 }
+
                 break;
         }
 
