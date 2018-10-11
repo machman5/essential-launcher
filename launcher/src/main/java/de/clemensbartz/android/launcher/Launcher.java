@@ -594,12 +594,12 @@ public final class Launcher extends Activity {
 
         switch (id) {
             case HOME_ID:
-                if (actionBar != null) {
+                if (actionBar != null && actionBar.isShowing()) {
                     actionBar.hide();
                 }
                 break;
             default:
-                if (actionBar != null) {
+                if (actionBar != null && !actionBar.isShowing()) {
                     actionBar.show();
                 }
                 break;
