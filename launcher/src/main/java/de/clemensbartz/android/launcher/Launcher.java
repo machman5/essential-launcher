@@ -623,7 +623,7 @@ public final class Launcher extends Activity {
         }
 
         // Show grid as fall-back if somebody hacked our config
-        if (id <= 0 || id > vsLauncher.getChildCount()) {
+        if (id < 0 || id > vsLauncher.getChildCount()) {
             switchTo(HomeModel.GRID_ID);
         } else {
             vsLauncher.setDisplayedChild(id);
