@@ -188,7 +188,7 @@ public final class Launcher extends Activity {
             icLauncher = getResources().getDrawable(R.drawable.ic_launcher);
         }
 
-        final GridView lvApplications = findViewById(R.id.lvApplications);
+        final GridView gvApplications = findViewById(R.id.gvApplications);
 
         dockImageViews.add((ImageView) findViewById(R.id.ivDock1));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock2));
@@ -205,7 +205,7 @@ public final class Launcher extends Activity {
             imageView.setOnCreateContextMenuListener(new DockContextMenuListener());
         }
 
-        lvApplications.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gvApplications.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(
                     final AdapterView<?> adapterView,
@@ -216,8 +216,8 @@ public final class Launcher extends Activity {
                 openApp(applicationModels.get(i));
             }
         });
-        registerForContextMenu(lvApplications);
-        lvApplications.setOnCreateContextMenuListener(new ApplicationsContextMenuListener());
+        registerForContextMenu(gvApplications);
+        gvApplications.setOnCreateContextMenuListener(new ApplicationsContextMenuListener());
 
         /*
          * Initialize data.
@@ -232,7 +232,7 @@ public final class Launcher extends Activity {
         // Initialize applications adapter and set it.
         lvApplicationsAdapter = new DrawerListAdapter(this, applicationModels);
 
-        lvApplications.setAdapter(lvApplicationsAdapter);
+        gvApplications.setAdapter(lvApplicationsAdapter);
     }
 
     @Override

@@ -176,7 +176,7 @@
         tools:context=".DrawerActivity">
 
         <GridView
-            android:id="@+id/lvApplications"
+            android:id="@+id/gvApplications"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:clipChildren="true"
@@ -185,10 +185,11 @@
             android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:paddingTop="10dp"
+            android:paddingRight="10dp"
             android:smoothScrollbar="false"
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp" />
     </LinearLayout>
+
 </ViewFlipper>
