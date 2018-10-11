@@ -413,9 +413,24 @@ public final class Launcher extends Activity {
                     model.setDrawerLayout(HomeModel.LIST_ID);
                 }
 
+                setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
             default:
                 return false;
+        }
+    }
+
+    /**
+     * Set the new value for the grid toggle icon
+     * @param isGrid whether the grid is currently shown
+     */
+    public void setGridToggle(final boolean isGrid) {
+        if (actionBarMenu != null) {
+            final MenuItem gridToggleMenuItem = actionBarMenu.findItem(R.id.abm_grid_toggle);
+
+            if (gridToggleMenuItem != null) {
+                gridToggleMenuItem.setChecked(isGrid);
+            }
         }
     }
 

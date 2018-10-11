@@ -57,6 +57,7 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
             final LoadModelAsyncTaskResult result = new LoadModelAsyncTaskResult();
             result.selectedWidget = model.getAppWidgetId();
             result.widgetLayout = model.getAppWidgetLayout();
+            result.gridLayout = model.getDrawerLayout();
 
             return result;
         }
@@ -76,6 +77,9 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
 
             // Layout widget
             launcher.adjustWidget(result.widgetLayout);
+
+            // Set grid toggle
+            launcher.setGridToggle(result.gridLayout == HomeModel.GRID_ID);
         }
     }
 
@@ -85,5 +89,7 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
         int selectedWidget;
         /** The layout for the widget. */
         int widgetLayout;
+        /** The grid layout. */
+        int gridLayout;
     }
 }
