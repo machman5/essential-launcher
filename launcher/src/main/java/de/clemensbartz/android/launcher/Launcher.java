@@ -44,14 +44,18 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
@@ -186,7 +190,10 @@ public final class Launcher extends Activity {
             icLauncher = getResources().getDrawable(R.drawable.ic_launcher);
         }
 
-        final GridView gvApplications = findViewById(R.id.gvApplications);
+        final List<AbsListView> listViews = Arrays.asList(
+                (AbsListView) findViewById(R.id.gvApplications),
+                (AbsListView) findViewById(R.id.lvApplications)
+        );
 
         dockImageViews.add((ImageView) findViewById(R.id.ivDock1));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock2));
@@ -203,23 +210,25 @@ public final class Launcher extends Activity {
             imageView.setOnCreateContextMenuListener(new DockContextMenuListener());
         }
 
-        gvApplications.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(
-                    final AdapterView<?> adapterView,
-                    final View view,
-                    final int i,
-                    final long l) {
+        for (final AbsListView listView : listViews) {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        final AdapterView<?> adapterView,
+                        final View view,
+                        final int i,
+                        final long l) {
 
-                final ApplicationModel applicationModel = lvApplicationsAdapter.getItem(i);
+                    final ApplicationModel applicationModel = lvApplicationsAdapter.getItem(i);
 
-                if (applicationModel != null) {
-                    openApp(applicationModel);
+                    if (applicationModel != null) {
+                        openApp(applicationModel);
+                    }
                 }
-            }
-        });
-        registerForContextMenu(gvApplications);
-        gvApplications.setOnCreateContextMenuListener(new ApplicationsContextMenuListener());
+            });
+            registerForContextMenu(listView);
+            listView.setOnCreateContextMenuListener(new ApplicationsContextMenuListener());
+        }
 
         /*
          * Initialize data.
@@ -234,7 +243,9 @@ public final class Launcher extends Activity {
         // Initialize applications adapter and set it.
         lvApplicationsAdapter = new DrawerListAdapter(this);
 
-        gvApplications.setAdapter(lvApplicationsAdapter);
+        for (final AbsListView listView : listViews) {
+            listView.setAdapter(lvApplicationsAdapter);
+        }
     }
 
     @Override
