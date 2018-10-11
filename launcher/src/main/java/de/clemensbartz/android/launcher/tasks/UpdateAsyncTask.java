@@ -24,7 +24,6 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 import java.text.Collator;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
