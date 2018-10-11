@@ -149,8 +149,6 @@ public final class Launcher extends Activity {
     private DrawerListAdapter lvApplicationsAdapter;
     /** The asynchronous task for updating the list view. */
     private UpdateAsyncTask updateAsyncTask;
-    /** The list of installed applications. */
-    private final List<ApplicationModel> applicationModels = new ArrayList<>(0);
     /** The broadcast receiver for package changes. */
     private final BroadcastReceiver packageChangedBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -213,7 +211,11 @@ public final class Launcher extends Activity {
                     final int i,
                     final long l) {
 
-                openApp(applicationModels.get(i));
+                final ApplicationModel applicationModel = lvApplicationsAdapter.getItem(i);
+
+                if (applicationModel != null) {
+                    openApp(applicationModel);
+                }
             }
         });
         registerForContextMenu(gvApplications);
@@ -230,7 +232,7 @@ public final class Launcher extends Activity {
         }
 
         // Initialize applications adapter and set it.
-        lvApplicationsAdapter = new DrawerListAdapter(this, applicationModels);
+        lvApplicationsAdapter = new DrawerListAdapter(this);
 
         gvApplications.setAdapter(lvApplicationsAdapter);
     }
@@ -421,14 +423,6 @@ public final class Launcher extends Activity {
      */
     public List<ImageView> getDockImageViews() {
         return dockImageViews;
-    }
-
-    /**
-     *
-     * @return the application models list
-     */
-    public List<ApplicationModel> getApplicationModels() {
-        return applicationModels;
     }
 
     /**
@@ -805,7 +799,12 @@ public final class Launcher extends Activity {
         @Override
         public void onCreateContextMenu(final ContextMenu contextMenu, final View view, final ContextMenu.ContextMenuInfo contextMenuInfo) {
             final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) contextMenuInfo;
-            final ApplicationModel applicationModel = applicationModels.get(info.position);
+            final ApplicationModel applicationModel = lvApplicationsAdapter.getItem(info.position);
+
+            if (applicationModel == null) {
+                return;
+            }
+
             contextMenuApplicationModel = applicationModel;
 
             contextMenu.setHeaderTitle(applicationModel.label);

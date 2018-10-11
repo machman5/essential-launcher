@@ -25,6 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.clemensbartz.android.launcher.R;
@@ -42,20 +45,17 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     private final int resource;
 
     /** The list of all application models. */
-    private final List<ApplicationModel> unfilteredList;
+    private final List<ApplicationModel> unfilteredList = new ArrayList<>();
 
     /**
      * Initializes a new adapter.
      * @param context the activity
-     * @param objects the list of application models
      */
     public DrawerListAdapter(
-            final Context context,
-            final List<ApplicationModel> objects) {
+            final Context context) {
 
         super(context, R.layout.drawer_item);
         this.resource = R.layout.drawer_item;
-        unfilteredList = objects;
     }
 
     @Override
@@ -107,6 +107,26 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     @Override
     public boolean isEmpty() {
         return unfilteredList.isEmpty();
+    }
+
+    @Override
+    public void add(final ApplicationModel object) {
+        unfilteredList.add(object);
+    }
+
+    @Override
+    public void remove(final ApplicationModel object) {
+        unfilteredList.remove(object);
+    }
+
+    @Override
+    public void clear() {
+        unfilteredList.clear();
+    }
+
+    @Override
+    public void sort(final Comparator<? super ApplicationModel> comparator) {
+        Collections.sort(unfilteredList, comparator);
     }
 
     /**

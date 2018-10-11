@@ -104,11 +104,11 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
                     applicationModel.icon = launcher.getIcLauncher();
                 }
 
-                launcher.getApplicationModels().add(applicationModel);
+                launcher.getListViewApplicationsAdapter().add(applicationModel);
             }
 
             // Sort
-            Collections.sort(launcher.getApplicationModels(), new Comparator<ApplicationModel>() {
+            launcher.getListViewApplicationsAdapter().sort(new Comparator<ApplicationModel>() {
                 @Override
                 public int compare(final ApplicationModel o1, final ApplicationModel o2) {
                     return Collator.getInstance().compare(o1.label, o2.label);
@@ -133,7 +133,7 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
         final Launcher launcher = launcherWeakReference.get();
 
         if (launcher != null) {
-            launcher.getApplicationModels().clear();
+            launcher.getListViewApplicationsAdapter().clear();
             launcher.getListViewApplicationsAdapter().notifyDataSetChanged();
         }
     }
