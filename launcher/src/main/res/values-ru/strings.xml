@@ -27,4 +27,5 @@
     <string name="choose_widget">Выбрать виджет</string>
     <string name="showInDockSticky">Закрепить в доке</string>
     <string name="app_name">Essential Launcher</string>
+    <string name="showAsGrid">Mostrar como grade</string>
 </resources>

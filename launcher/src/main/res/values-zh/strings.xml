@@ -27,4 +27,5 @@
     <string name="showInDockSticky">钉到托盘上</string>
     <string name="showInDock">在托盘中显示</string>
     <string name="unassigned_dock">未分配的托盘图标</string>
+    <string name="showAsGrid">顯示為網格</string>
 </resources>
