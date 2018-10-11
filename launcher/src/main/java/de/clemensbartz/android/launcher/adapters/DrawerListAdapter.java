@@ -41,8 +41,11 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
  */
 public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
 
-    /** The resource id. */
-    private final int resource;
+    /** The layouts per abs list view. */
+    private static final int[] ITEM_RESOURCE_IDS = {
+            R.layout.grid_drawer_item,
+            R.layout.list_drawer_item
+    };
 
     /** The list of all application models. */
     private final List<ApplicationModel> unfilteredList = new ArrayList<>();
@@ -55,7 +58,6 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
             final Context context) {
 
         super(context, R.layout.grid_drawer_item);
-        this.resource = R.layout.grid_drawer_item;
     }
 
     @Override
@@ -67,7 +69,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
         View v = convertView;
 
         if (convertView == null) {
-            v = LayoutInflater.from(getContext()).inflate(resource, null);
+            v = LayoutInflater.from(getContext()).inflate(getResource(parent), null);
 
             viewHolder = new ViewHolder();
             viewHolder.icon = v.findViewById(R.id.icon);
@@ -127,6 +129,22 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     @Override
     public void sort(final Comparator<? super ApplicationModel> comparator) {
         Collections.sort(unfilteredList, comparator);
+    }
+
+    /**
+     * Return the resource for the view
+     * @param view the view
+     * @return the resource id or <code>-1</code>, if none was found
+     */
+    private int getResource(final View view) {
+        switch (view.getId()) {
+            case R.id.gvApplications:
+                return ITEM_RESOURCE_IDS[0];
+            case R.id.lvApplications:
+                return ITEM_RESOURCE_IDS[1];
+            default:
+                return -1;
+        }
     }
 
     /**
