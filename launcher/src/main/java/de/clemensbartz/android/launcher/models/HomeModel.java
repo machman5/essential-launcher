@@ -47,6 +47,9 @@ public final class HomeModel {
 
     /** The ID for the grid layout. */
     public static final int GRID_ID = 1;
+    /** The ID for the list layout. */
+    public static final int LIST_ID = 2;
+
     /** The total cached number of apps. */
     public static final int NUMBER_OF_APPS = 7;
     /** Constant for descending sorting. */

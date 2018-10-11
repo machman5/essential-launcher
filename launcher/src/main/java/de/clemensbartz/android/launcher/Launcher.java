@@ -404,6 +404,16 @@ public final class Launcher extends Activity {
             case R.id.abm_remove_widget:
                 createWidget(-1);
                 return true;
+            case R.id.abm_grid_toggle:
+                final boolean isGrid = model.getDrawerLayout() == HomeModel.GRID_ID;
+
+                if (!isGrid) {
+                    model.setDrawerLayout(HomeModel.GRID_ID);
+                } else {
+                    model.setDrawerLayout(HomeModel.LIST_ID);
+                }
+
+                switchTo(model.getDrawerLayout());
             default:
                 return false;
         }
