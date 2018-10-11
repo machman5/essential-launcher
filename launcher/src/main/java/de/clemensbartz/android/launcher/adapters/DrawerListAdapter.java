@@ -54,8 +54,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     public DrawerListAdapter(
             final Context context) {
 
-        super(context, R.layout.drawer_item);
-        this.resource = R.layout.drawer_item;
+        super(context, R.layout.grid_drawer_item);
+        this.resource = R.layout.grid_drawer_item;
     }
 
     @Override
