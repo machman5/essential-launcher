@@ -67,6 +67,7 @@ import de.clemensbartz.android.launcher.tasks.ToggleDockAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ToggleStickyAsyncTask;
 import de.clemensbartz.android.launcher.tasks.UpdateAsyncTask;
 import de.clemensbartz.android.launcher.util.IntentUtil;
+import de.clemensbartz.android.launcher.util.ThemeUtil;
 
 /**
  * Launcher class.
@@ -167,7 +168,7 @@ public final class Launcher extends Activity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        setTheme();
+        ThemeUtil.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launcher);
 
@@ -509,35 +510,6 @@ public final class Launcher extends Activity {
                     .detectAll()
                     .penaltyLog()
                     .build());
-        }
-    }
-
-    /**
-     * Adjust the theme.
-     * <br>
-     * This function is necessary, because API 21-25 do not
-     * support theme inheritance in emulators (and I assume in real
-     * devices as well.
-     */
-    private void setTheme() {
-        switch (Build.VERSION.SDK_INT) {
-            case Build.VERSION_CODES.JELLY_BEAN_MR1:
-            case Build.VERSION_CODES.JELLY_BEAN_MR2:
-            case Build.VERSION_CODES.KITKAT:
-            case Build.VERSION_CODES.KITKAT_WATCH:
-                setTheme(R.style.API17ActivityStyle);
-                break;
-            case Build.VERSION_CODES.LOLLIPOP:
-            case Build.VERSION_CODES.LOLLIPOP_MR1:
-            case Build.VERSION_CODES.M:
-            case Build.VERSION_CODES.N:
-            case Build.VERSION_CODES.N_MR1:
-            case Build.VERSION_CODES.O:
-            case Build.VERSION_CODES.O_MR1:
-                setTheme(R.style.API21ActivityStyle);
-                break;
-            default:
-                // leave highest default
         }
     }
 
