@@ -20,5 +20,12 @@
     <style name="API21ActivityStyle" parent="@android:style/Theme.DeviceDefault.Wallpaper">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:actionBarStyle">@style/EssentialLauncherActionBar</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="EssentialLauncherActionBar"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
