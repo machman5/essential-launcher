@@ -893,7 +893,7 @@ public final class Launcher extends Activity {
 
             // Check for system apps
             try {
-                ApplicationInfo ai = getPackageManager().getApplicationInfo(applicationModel.packageName, 0);
+                final ApplicationInfo ai = getPackageManager().getApplicationInfo(applicationModel.packageName, 0);
                 if ((ai.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) == 0) {
                     final MenuItem itemUninstall = contextMenu.add(0, ITEM_UNINSTALL, 1, R.string.uninstall);
                     itemUninstall.setIntent(IntentUtil.uninstallAppIntent(applicationModel.packageName));
