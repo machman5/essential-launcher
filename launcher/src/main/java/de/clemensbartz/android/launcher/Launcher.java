@@ -891,15 +891,17 @@ public final class Launcher extends Activity {
             toggleStickyItem.setCheckable(true);
             toggleStickyItem.setChecked(applicationModel.sticky);
 
-            // Check for system apps
-            try {
-                final ApplicationInfo ai = getPackageManager().getApplicationInfo(applicationModel.packageName, 0);
-                if ((ai.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) == 0) {
-                    final MenuItem itemUninstall = contextMenu.add(0, ITEM_UNINSTALL, 1, R.string.uninstall);
-                    itemUninstall.setIntent(IntentUtil.uninstallAppIntent(applicationModel.packageName));
+            // Check for system apps and also for Android <28 (new permission since 28 required)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                try {
+                    final ApplicationInfo ai = getPackageManager().getApplicationInfo(applicationModel.packageName, 0);
+                    if ((ai.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) == 0) {
+                        final MenuItem itemUninstall = contextMenu.add(0, ITEM_UNINSTALL, 1, R.string.uninstall);
+                        itemUninstall.setIntent(IntentUtil.uninstallAppIntent(applicationModel.packageName));
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    // Do nothing here
                 }
-            } catch (PackageManager.NameNotFoundException e) {
-                // Do nothing here
             }
         }
     }
