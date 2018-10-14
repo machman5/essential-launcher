@@ -25,7 +25,6 @@ android {
         applicationId "de.clemensbartz.android.launcher"
         minSdkVersion 17
         targetSdkVersion 28
-        maxSdkVersion 28
         versionCode 12
         versionName "1.5"
     }
