@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
  * @author Clemens Bartz
  * @since 1.0
  */
-public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
+public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> implements SearchView.OnQueryTextListener {
 
     /** The layouts per abs list view. */
     private static final int[] ITEM_RESOURCE_IDS = {
@@ -47,8 +48,16 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
             R.layout.list_drawer_item
     };
 
+    /** The separator for search terms. */
+    private static final String FILTER_SEPARATOR = " ";
+
     /** The list of all application models. */
     private final List<ApplicationModel> unfilteredList = new ArrayList<>();
+    /** The list of filtered application models. */
+    private final List<ApplicationModel> filteredList = new ArrayList<>();
+
+    /** The lower-cased lowerCaseFilter string. */
+    private String lowerCaseFilter = "";
 
     /**
      * Initializes a new adapter.
@@ -93,17 +102,17 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
 
     @Override
     public ApplicationModel getItem(final int position) {
-        return unfilteredList.get(position);
+        return filteredList.get(position);
     }
 
     @Override
     public int getCount() {
-        return unfilteredList.size();
+        return filteredList.size();
     }
 
     @Override
     public int getPosition(final ApplicationModel item) {
-        return unfilteredList.indexOf(item);
+        return filteredList.indexOf(item);
     }
 
     @Override
@@ -114,21 +123,80 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> {
     @Override
     public void add(final ApplicationModel object) {
         unfilteredList.add(object);
+
+        filter();
     }
 
     @Override
     public void remove(final ApplicationModel object) {
         unfilteredList.remove(object);
+
+        filter();
     }
 
     @Override
     public void clear() {
         unfilteredList.clear();
+
+        filter();
     }
 
     @Override
     public void sort(final Comparator<? super ApplicationModel> comparator) {
         Collections.sort(unfilteredList, comparator);
+
+        filter();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(final String query) {
+        lowerCaseFilter = (query == null) ? "" : query.toLowerCase();
+
+        filter();
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(final String newText) {
+        return onQueryTextSubmit(newText);
+    }
+
+    /**
+     * Update the filtered list.
+     */
+    private void filter() {
+        filteredList.clear();
+
+        // Check for an empty string or a string only consisting of spaces
+        if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
+            filteredList.addAll(unfilteredList);
+
+            notifyDataSetChanged();
+
+            return;
+        }
+
+        final String[] lowerCaseWords = lowerCaseFilter.split(FILTER_SEPARATOR);
+
+        for (ApplicationModel applicationModel : unfilteredList) {
+            for (String lowerCaseWord : lowerCaseWords) {
+                if (lowerCaseWord.isEmpty() || lowerCaseWord.trim().isEmpty()) {
+                    continue;
+                }
+
+                if (applicationModel.label.toLowerCase().contains(lowerCaseWord) ||
+                        applicationModel.className.toLowerCase().contains(lowerCaseWord) ||
+                        applicationModel.packageName.toLowerCase().contains(lowerCaseWord)) {
+
+                    filteredList.add(applicationModel);
+
+                    break;
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     /**

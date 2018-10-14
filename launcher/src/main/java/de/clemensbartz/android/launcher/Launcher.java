@@ -49,6 +49,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
@@ -351,9 +352,11 @@ public final class Launcher extends Activity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         actionBarMenu = menu;
 
+        // Inflate menu
         final MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.actionbar_options_menu, menu);
 
+        // Check for widgets and disable button accordingly
         if (!hasAppWidgets(this)) {
             menu.findItem(R.id.abm_choose_widget).setVisible(false);
             menu.findItem(R.id.abm_layout_widget).setVisible(false);
@@ -363,6 +366,33 @@ public final class Launcher extends Activity {
 
             menu.findItem(R.id.abm_layout_widget).setVisible(widgetConfigured);
             menu.findItem(R.id.abm_remove_widget).setVisible(widgetConfigured);
+        }
+
+        // Assign text watcher to search field
+        final MenuItem abmSearchViewMenuItem = menu.findItem(R.id.app_bar_search);
+        final View view = abmSearchViewMenuItem.getActionView();
+
+        if (view instanceof SearchView) {
+            final SearchView searchView = (SearchView) view;
+            searchView.setOnQueryTextListener(lvApplicationsAdapter);
+            abmSearchViewMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(final MenuItem item) {
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(final MenuItem item) {
+                    final View view = item.getActionView();
+
+                    if (view instanceof SearchView) {
+                        final SearchView searchView = (SearchView) view;
+                        searchView.setQuery("", true);
+                    }
+
+                    return true;
+                }
+            });
         }
 
         return true;
