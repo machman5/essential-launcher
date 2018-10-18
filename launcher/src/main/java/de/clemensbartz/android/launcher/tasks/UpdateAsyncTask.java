@@ -67,6 +67,11 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
             final List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 
             for (ResolveInfo resolveInfo : resolveInfoList) {
+                // Break if the task has been stopped
+                if (isCancelled()) {
+                    break;
+                }
+
                 // Skip for non-launchable activities
                 if (!resolveInfo.activityInfo.exported) {
                     continue;
@@ -106,13 +111,15 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
                 launcher.getListViewApplicationsAdapter().add(applicationModel);
             }
 
-            // Sort
-            launcher.getListViewApplicationsAdapter().sort(new Comparator<ApplicationModel>() {
-                @Override
-                public int compare(final ApplicationModel o1, final ApplicationModel o2) {
-                    return Collator.getInstance().compare(o1.label, o2.label);
-                }
-            });
+            // Sort, only if not already cancelled
+            if (!isCancelled()) {
+                launcher.getListViewApplicationsAdapter().sort(new Comparator<ApplicationModel>() {
+                    @Override
+                    public int compare(final ApplicationModel o1, final ApplicationModel o2) {
+                        return Collator.getInstance().compare(o1.label, o2.label);
+                    }
+                });
+            }
         }
 
         return 0;
