@@ -435,6 +435,7 @@ public final class Launcher extends Activity {
                 return true;
             case R.id.abm_remove_widget:
                 new CreateWidgetAsyncTask(this).execute(-1);
+                switchTo(HOME_ID);
                 return true;
             case R.id.abm_grid_toggle:
                 final boolean isGrid = model.getDrawerLayout() == HomeModel.GRID_ID;
