@@ -123,7 +123,7 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
         final Launcher launcher = launcherWeakReference.get();
 
         if (launcher != null) {
-            launcher.getListViewApplicationsAdapter().notifyDataSetChanged();
+            launcher.getListViewApplicationsAdapter().filter();
         }
     }
 
@@ -133,7 +133,7 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
 
         if (launcher != null) {
             launcher.getListViewApplicationsAdapter().clear();
-            launcher.getListViewApplicationsAdapter().notifyDataSetChanged();
+            launcher.getListViewApplicationsAdapter().filter();
         }
     }
 }

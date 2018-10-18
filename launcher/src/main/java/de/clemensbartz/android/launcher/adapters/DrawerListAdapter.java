@@ -123,29 +123,21 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     @Override
     public void add(final ApplicationModel object) {
         unfilteredList.add(object);
-
-        filter();
     }
 
     @Override
     public void remove(final ApplicationModel object) {
         unfilteredList.remove(object);
-
-        filter();
     }
 
     @Override
     public void clear() {
         unfilteredList.clear();
-
-        filter();
     }
 
     @Override
     public void sort(final Comparator<? super ApplicationModel> comparator) {
         Collections.sort(unfilteredList, comparator);
-
-        filter();
     }
 
     @Override
@@ -165,7 +157,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /**
      * Update the filtered list.
      */
-    private void filter() {
+    public void filter() {
         filteredList.clear();
 
         // Check for an empty string or a string only consisting of spaces
