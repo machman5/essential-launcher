@@ -666,6 +666,8 @@ public final class Launcher extends Activity {
         }
 
         addHostView(appWidgetId);
+
+        switchTo(HOME_ID);
     }
 
     /**
