@@ -30,7 +30,7 @@ import de.clemensbartz.android.launcher.Launcher;
  * @author Clemens Bartz
  * @since 1.6
  */
-public class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Integer> {
+public final class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
     /** Weak reference to the launcher. */
     private final WeakReference<Launcher> launcherWeakReference;
