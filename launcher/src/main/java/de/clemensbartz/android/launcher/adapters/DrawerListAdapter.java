@@ -177,9 +177,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
                     continue;
                 }
 
-                if (applicationModel.label.toLowerCase().contains(lowerCaseWord) ||
-                        applicationModel.className.toLowerCase().contains(lowerCaseWord) ||
-                        applicationModel.packageName.toLowerCase().contains(lowerCaseWord)) {
+                if (applicationModel.label.toLowerCase().contains(lowerCaseWord)
+                        || applicationModel.className.toLowerCase().contains(lowerCaseWord)
+                        || applicationModel.packageName.toLowerCase().contains(lowerCaseWord)) {
 
                     filteredList.add(applicationModel);
 
