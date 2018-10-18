@@ -59,6 +59,7 @@ import java.util.List;
 import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
 import de.clemensbartz.android.launcher.models.HomeModel;
+import de.clemensbartz.android.launcher.tasks.CreateWidgetAsyncTask;
 import de.clemensbartz.android.launcher.tasks.LoadModelAsyncTask;
 import de.clemensbartz.android.launcher.tasks.LoadMostUsedAppsAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ResetUsageAsyncTask;
@@ -311,12 +312,12 @@ public final class Launcher extends Activity {
             final Integer appWidgetId = data.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
 
             if (requestCode == REQUEST_CREATE_APPWIDGET) {
-                createWidget(appWidgetId);
+                new CreateWidgetAsyncTask(this).execute(appWidgetId);
             } else if (requestCode == REQUEST_BIND_APPWIDGET) {
                 if (widgetConfigure != null) {
                     configureWidget(appWidgetId, widgetConfigure);
                 } else {
-                    createWidget(appWidgetId);
+                    new CreateWidgetAsyncTask(this).execute(appWidgetId);
                 }
             }
         }
@@ -433,7 +434,7 @@ public final class Launcher extends Activity {
 
                 return true;
             case R.id.abm_remove_widget:
-                createWidget(-1);
+                new CreateWidgetAsyncTask(this).execute(-1);
                 return true;
             case R.id.abm_grid_toggle:
                 final boolean isGrid = model.getDrawerLayout() == HomeModel.GRID_ID;
@@ -535,7 +536,7 @@ public final class Launcher extends Activity {
             }
         } else {
             // Configuring not necessary, go strait to creation
-            createWidget(appWidgetId);
+            new CreateWidgetAsyncTask(this).execute(appWidgetId);
         }
 
         // Reset widget configure
@@ -647,7 +648,7 @@ public final class Launcher extends Activity {
      * Create a widget from an intent.
      * @param appWidgetId the appWidgetId
      */
-    private void createWidget(final Integer appWidgetId) {
+    public void createWidget(final Integer appWidgetId) {
         if (model.getAppWidgetId() > -1) {
             appWidgetHost.deleteAppWidgetId(model.getAppWidgetId());
             frWidget.removeAllViews();
