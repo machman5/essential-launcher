@@ -67,6 +67,7 @@ import de.clemensbartz.android.launcher.tasks.ShowWidgetListAsPopupMenuTask;
 import de.clemensbartz.android.launcher.tasks.ToggleDockAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ToggleStickyAsyncTask;
 import de.clemensbartz.android.launcher.tasks.UpdateAsyncTask;
+import de.clemensbartz.android.launcher.util.BundleUtil;
 import de.clemensbartz.android.launcher.util.IntentUtil;
 import de.clemensbartz.android.launcher.util.ThemeUtil;
 
@@ -738,7 +739,9 @@ public final class Launcher extends Activity {
             if (child instanceof AppWidgetHostView) {
                 final AppWidgetHostView hostView = (AppWidgetHostView) child;
 
-                hostView.updateAppWidgetSize(null, hostView.getMinimumWidth(), hostView.getMinimumHeight(), hostView.getWidth(), hostView.getHeight());
+                final Bundle options = BundleUtil.getWidgetOptionsBundle(frWidget.getMeasuredWidth(), frWidget.getMeasuredHeight(), frWidget.getMeasuredWidth(), frWidget.getMeasuredHeight());
+
+                hostView.updateAppWidgetOptions(options);
             }
         }
 
@@ -761,7 +764,9 @@ public final class Launcher extends Activity {
                 frWidget.addView(hostView);
                 frWidget.requestLayout();
 
-                hostView.updateAppWidgetSize(null, hostView.getMinimumWidth(), hostView.getMinimumHeight(), hostView.getWidth(), hostView.getHeight());
+                final Bundle options = BundleUtil.getWidgetOptionsBundle(frWidget.getMeasuredWidth(), frWidget.getMeasuredHeight(), frWidget.getMeasuredWidth(), frWidget.getMeasuredHeight());
+
+                hostView.updateAppWidgetOptions(options);
             } else {
                 model.setAppWidgetId(-1);
             }
