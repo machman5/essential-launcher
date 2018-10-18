@@ -741,6 +741,8 @@ public final class Launcher extends Activity {
                 hostView.updateAppWidgetSize(null, hostView.getMinimumWidth(), hostView.getMinimumHeight(), hostView.getWidth(), hostView.getHeight());
             }
         }
+
+        switchTo(HOME_ID);
     }
 
     /**
