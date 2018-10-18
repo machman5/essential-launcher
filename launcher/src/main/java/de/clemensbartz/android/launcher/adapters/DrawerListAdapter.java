@@ -192,7 +192,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     /**
-     * Return the resource for the view
+     * Return the resource for the view.
      * @param view the view
      * @return the resource id or <code>-1</code>, if none was found
      */

@@ -34,6 +34,14 @@ public final class BundleUtil {
 
     }
 
+    /**
+     * Create an options bundle for appwidget handling.
+     * @param minimumWidth the mininum width
+     * @param minimumHeight the minimum height
+     * @param maximumWidth the maximum width
+     * @param maximumHeight the maximum height
+     * @return an options bundle
+     */
     public static Bundle getWidgetOptionsBundle(final int minimumWidth, final int minimumHeight, final int maximumWidth, final int maximumHeight) {
         final Bundle bundle = new Bundle(4);
 

@@ -35,6 +35,10 @@ public class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Integer> 
     /** Weak reference to the launcher. */
     private final WeakReference<Launcher> launcherWeakReference;
 
+    /**
+     * Create a new async task.
+     * @param launcher the launcher to run the tasks in
+     */
     public CreateWidgetAsyncTask(final Launcher launcher) {
         launcherWeakReference = new WeakReference<>(launcher);
     }

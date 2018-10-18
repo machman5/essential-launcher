@@ -455,7 +455,7 @@ public final class Launcher extends Activity {
     }
 
     /**
-     * Set the new value for the grid toggle icon
+     * Set the new value for the grid toggle icon.
      * @param isGrid whether the grid is currently shown
      */
     public void setGridToggle(final boolean isGrid) {
