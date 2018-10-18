@@ -142,7 +142,11 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
     @Override
     public boolean onQueryTextSubmit(final String query) {
-        lowerCaseFilter = (query == null) ? "" : query.toLowerCase();
+        if (query == null) {
+            lowerCaseFilter = "";
+        } else {
+            lowerCaseFilter = query.toLowerCase();
+        }
 
         filter();
 
