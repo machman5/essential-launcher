@@ -17,7 +17,6 @@
 
 package de.clemensbartz.android.launcher.util;
 
-import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 
