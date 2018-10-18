@@ -660,8 +660,10 @@ public final class Launcher extends Activity {
 
         model.setAppWidgetId(appWidgetId);
 
-        actionBarMenu.findItem(R.id.abm_remove_widget).setVisible(appWidgetId > -1);
-        actionBarMenu.findItem(R.id.abm_layout_widget).setVisible(appWidgetId > -1);
+        if (actionBarMenu != null) {
+            actionBarMenu.findItem(R.id.abm_remove_widget).setVisible(appWidgetId > -1);
+            actionBarMenu.findItem(R.id.abm_layout_widget).setVisible(appWidgetId > -1);
+        }
 
         addHostView(appWidgetId);
     }
