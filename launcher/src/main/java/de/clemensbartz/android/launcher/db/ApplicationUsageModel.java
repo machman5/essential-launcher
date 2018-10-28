@@ -48,17 +48,17 @@ public final class ApplicationUsageModel {
                     + ApplicationUsage.COLUMN_NAME_STICKY + " "
                     + ApplicationUsage.COLUMN_TYPE_STICKY
             + ")";
-    /** The DDM update for Version 2 of the database. */
-    static final String ALTER_TABLE_2 = "ALTER TABLE "
+    /** The DDM update for Version 3 of the database. */
+    static final String ALTER_TABLE_3 = "ALTER TABLE "
                     + ApplicationUsage.TABLE_NAME
                     + " ADD COLUMN "
-                    + ApplicationUsage.COLUMN_NAME_STICKY + " "
-                    + ApplicationUsage.COLUMN_TYPE_STICKY;
-    /** The content update for Version 2 of the database. */
-    static final String UPDATE_CONTENT_2 = "UPDATE "
+                    + ApplicationUsage.COLUMN_NAME_HIDDEN + " "
+                    + ApplicationUsage.COLUMN_TYPE_HIDDEN;
+    /** The content update for Version 3 of the database. */
+    static final String UPDATE_CONTENT_3 = "UPDATE "
                     + ApplicationUsage.TABLE_NAME
                     + " SET "
-                    + ApplicationUsage.COLUMN_NAME_STICKY
+                    + ApplicationUsage.COLUMN_NAME_HIDDEN
                     + "=0";
     /** The drop SQL String. */
     static final String DROP_SQL =
@@ -99,5 +99,9 @@ public final class ApplicationUsageModel {
         /** Type of the column for sticky. */
         @SuppressWarnings("WeakerAccess")
         public static final String COLUMN_TYPE_STICKY = "BOOLEAN";
+        /** Name of the column for hidden. */
+        public static final String COLUMN_NAME_HIDDEN = "hidden";
+        /** Type of the column for hidden. */
+        public static final String COLUMN_TYPE_HIDDEN = "BOOLEAN";
     }
 }

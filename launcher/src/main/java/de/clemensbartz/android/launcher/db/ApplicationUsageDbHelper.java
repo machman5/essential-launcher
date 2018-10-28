@@ -31,7 +31,7 @@ public final class ApplicationUsageDbHelper extends SQLiteOpenHelper {
     /** The instance for static lookup. */
     private static ApplicationUsageDbHelper instance;
     /** The version of the database. */
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     /** The database name. */
     private static final String DATABASE_NAME = "ApplicationUsage.db";
 
@@ -70,9 +70,9 @@ public final class ApplicationUsageDbHelper extends SQLiteOpenHelper {
             recreateDatabase(sqLiteDatabase);
         } else {
             switch (oldVersion) {
-                case 2:
-                    sqLiteDatabase.execSQL(ApplicationUsageModel.ALTER_TABLE_2);
-                    sqLiteDatabase.execSQL(ApplicationUsageModel.UPDATE_CONTENT_2);
+                case 3:
+                    sqLiteDatabase.execSQL(ApplicationUsageModel.ALTER_TABLE_3);
+                    sqLiteDatabase.execSQL(ApplicationUsageModel.UPDATE_CONTENT_3);
                     break;
                 default:
                     recreateDatabase(sqLiteDatabase);
