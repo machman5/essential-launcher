@@ -26,6 +26,7 @@ import java.lang.ref.WeakReference;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import de.clemensbartz.android.launcher.Launcher;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
@@ -113,10 +114,20 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
 
             // Sort, only if not already cancelled
             if (!isCancelled()) {
+                final Locale locale = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) ? launcher.getResources().getConfiguration().getLocales().get(0) : launcher.getResources().getConfiguration().locale;
+
                 launcher.getListViewApplicationsAdapter().sort(new Comparator<ApplicationModel>() {
                     @Override
                     public int compare(final ApplicationModel o1, final ApplicationModel o2) {
-                        return Collator.getInstance().compare(o1.label, o2.label);
+                        if (locale != null) {
+                            return Collator.getInstance(locale).compare(o1.label, o2.label);
+                        }
+
+                        if (o1.label != null) {
+                            return o1.label.compareTo(o2.label);
+                        } else {
+                            return "".compareTo(o2.label);
+                        }
                     }
                 });
             }
