@@ -34,6 +34,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -782,7 +783,7 @@ public final class Launcher extends Activity {
         }
 
         updateAsyncTask = new UpdateAsyncTask(this, model);
-        updateAsyncTask.execute();
+        updateAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**

@@ -54,7 +54,7 @@ public abstract class ToggleFieldAsyncTask extends AsyncTask<ApplicationModel, I
 
         if (launcher != null && model != null) {
             new LoadMostUsedAppsAsyncTask(launcher, model).execute();
-            new UpdateAsyncTask(launcher, model).execute();
+            new UpdateAsyncTask(launcher, model).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             launcher.switchTo(Launcher.HOME_ID);
         }
     }
