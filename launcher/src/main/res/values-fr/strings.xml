@@ -29,4 +29,5 @@
     <string name="unassigned_dock">L\'icône de la barre vide</string>
     <string name="showAsGrid">Montrer en grille</string>
     <string name="hide">Cacher</string>
+    <string name="showHiddenApps">Montrer caché</string>
 </resources>

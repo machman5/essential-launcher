@@ -456,6 +456,9 @@ public final class Launcher extends Activity {
 
                 setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
+            case R.id.abm_show_hidden:
+
+                return true;
             default:
                 return false;
         }

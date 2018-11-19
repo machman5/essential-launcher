@@ -29,4 +29,5 @@
     <string name="showInDockSticky">Vastzetten</string>
     <string name="showAsGrid">Toon als raster</string>
     <string name="hide">Verbergen</string>
+    <string name="showHiddenApps">Toon verborgen</string>
 </resources>

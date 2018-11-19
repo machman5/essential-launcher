@@ -29,4 +29,5 @@
     <string name="unassigned_dock">未分配的托盘图标</string>
     <string name="showAsGrid">顯示為網格</string>
     <string name="hide">隐藏</string>
+    <string name="showHiddenApps">顯示隱藏</string>
 </resources>

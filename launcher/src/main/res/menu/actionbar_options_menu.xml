@@ -37,4 +37,8 @@
         android:id="@+id/abm_grid_toggle"
         android:checkable="true"
         android:title="@string/showAsGrid" />
+    <item
+        android:id="@+id/abm_show_hidden"
+        android:checkable="true"
+        android:title="@string/showHiddenApps" />
 </menu>
