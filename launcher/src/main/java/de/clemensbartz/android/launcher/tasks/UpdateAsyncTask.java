@@ -117,7 +117,12 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
 
             // Sort, only if not already cancelled
             if (!isCancelled()) {
-                final Locale locale = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) ? launcher.getResources().getConfiguration().getLocales().get(0) : launcher.getResources().getConfiguration().locale;
+                final Locale locale;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    locale = launcher.getResources().getConfiguration().getLocales().get(0);
+                } else {
+                    locale = launcher.getResources().getConfiguration().locale;
+                }
 
                 launcher.getListViewApplicationsAdapter().sort(new Comparator<ApplicationModel>() {
                     @Override
