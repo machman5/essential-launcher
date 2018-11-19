@@ -60,7 +60,8 @@ public final class HomeModel {
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_CLASS_NAME,
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE,
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED,
-            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY
+            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY,
+            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN
     };
     /** Order by sticky DESC, usage DESC, package name DESC, class name DESC constant. */
     private static final String ORDER_BY =
