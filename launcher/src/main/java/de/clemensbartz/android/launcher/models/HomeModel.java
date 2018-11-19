@@ -445,6 +445,57 @@ public final class HomeModel {
     }
 
     /**
+     * Toggle the hidden state for an application.
+     * @param packageName the package name
+     * @param className the class name
+     */
+    public void toggleHidden(final String packageName, final String className) {
+        // Check for deletion
+        if (canBeDeleted(packageName, className)) {
+            return;
+        }
+
+        final SQLiteDatabase db = getDatabase();
+
+        db.beginTransaction();
+        Cursor c = null;
+        try {
+            // Get entry
+            c = db.query(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
+                    new String[]{
+                            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN
+                    },
+                    SELECTION, new String[]{packageName, className},
+                    null, null, null);
+            if (c != null) {
+                if (c.getCount() > 1) {
+                    delete(packageName, className);
+                }
+                if (c.moveToFirst()) {
+                    final boolean hidden = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN)) > 0;
+                    // update
+                    final ContentValues values = createContentValues(packageName, className, null, null, null, !hidden);
+
+                    db.update(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
+                            values, SELECTION, new String[]{packageName, className});
+                    db.setTransactionSuccessful();
+                } else {
+                    // insert
+                    final ContentValues values = createContentValues(packageName, className, 0, false, false, true);
+
+                    db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
+                    db.setTransactionSuccessful();
+                }
+            }
+        } finally {
+            db.endTransaction();
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    /**
      * Check if an application is sticky.
      * @param packageName the package name
      * @param className the class name
