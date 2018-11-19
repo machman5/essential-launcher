@@ -63,12 +63,16 @@ public final class HomeModel {
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY,
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN
     };
-    /** Order by sticky DESC, usage DESC, package name DESC, class name DESC constant. */
-    private static final String ORDER_BY =
-            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY
-                    + SPACE_DESC
+    /** Order sticky apps by package name DESC, class name DESC constant. */
+    private static final String STICKY_ORDER_BY =
+            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_PACKAGE_NAME
+                + SPACE_DESC
             + ", "
-            + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE
+            + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_CLASS_NAME
+                + SPACE_DESC;
+    /** Order regular apps by usage DESC, package name DESC, class name DESC constant. */
+    private static final String REGULAR_ORDER_BY =
+            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE
                     + SPACE_DESC
             + ", "
             + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_PACKAGE_NAME
@@ -82,14 +86,22 @@ public final class HomeModel {
                     + "=? AND "
             + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_CLASS_NAME
                     + "=?";
-    /** Where statement for getting only enabled applications. */
-    private static final String WHERE =
+    /** Where statement for getting only enabled, regular applications. */
+    private static final String REGULAR_WHERE =
             ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED
-                    + "=0 AND ("
+                    + "=0 AND "
             + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE
-                    + ">0 OR "
+                    + ">0 AND "
             + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY
-                    + ">0)";
+                    + "=0";
+    /** Where statement for getting only enabled, regular applications. */
+    private static final String STICKY_WHERE =
+            ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED
+                    + "=0 AND "
+            + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE
+                    + ">0 AND "
+            + ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY
+                    + ">0";
 
     /** Database helper. */
     private final SQLiteOpenHelper dbHelper;
@@ -292,17 +304,33 @@ public final class HomeModel {
      * This method has to be called from an async task.
      */
     public void updateApplications() {
+        mostUsedApplications.clear();
+
+        mostUsedApplications.addAll(retrieveApplications(STICKY_WHERE, STICKY_ORDER_BY, NUMBER_OF_APPS));
+        if (mostUsedApplications.size() < NUMBER_OF_APPS) {
+            // Only fetch the remaining apps
+            mostUsedApplications.addAll(retrieveApplications(REGULAR_WHERE, REGULAR_ORDER_BY, NUMBER_OF_APPS - mostUsedApplications.size()));
+        }
+    }
+
+    /**
+     * Only put sticky applications at the end of the list of most used apps.
+     * @param whereClause the where clause to use
+     * @param orderByClause the order by clause to use
+     * @param numberOfApps the number of apps to fetch
+     */
+    private List<ApplicationModel> retrieveApplications(final String whereClause, final String orderByClause, final int numberOfApps) {
         final Map<String, String> applicationsToBeDeleted = new HashMap<>();
 
-        final SQLiteDatabase db = getDatabase();
+        final List<ApplicationModel> retrievedApplications = new ArrayList<>(numberOfApps);
 
-        mostUsedApplications.clear();
+        final SQLiteDatabase db = getDatabase();
 
         Cursor c = null;
         try {
             c = db.query(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
-                    COLUMNS, WHERE, null, null, null,
-                    ORDER_BY, Integer.toString(NUMBER_OF_APPS));
+                    COLUMNS, whereClause, null, null, null,
+                    orderByClause, Integer.toString(numberOfApps));
 
             if (c != null) {
                 for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
@@ -326,7 +354,7 @@ public final class HomeModel {
                         applicationsToBeDeleted.put(packageName, className);
                         break;
                     } else {
-                        mostUsedApplications.add(applicationModel);
+                        retrievedApplications.add(applicationModel);
                     }
                 }
             }
@@ -340,6 +368,8 @@ public final class HomeModel {
         for (Map.Entry<String, String> entry : applicationsToBeDeleted.entrySet()) {
             delete(entry.getKey(), entry.getValue());
         }
+
+        return retrievedApplications;
     }
 
     /**
