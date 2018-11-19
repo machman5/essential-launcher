@@ -54,9 +54,20 @@ public final class ToggleHideAppsAsyncTask extends AsyncTask<Boolean, Integer, I
 
             drawerListAdapter.setHidingApps(hideApps);
 
-            drawerListAdapter.filter();
+            return 0;
         }
 
-        return 0;
+        return -1;
+    }
+
+    @Override
+    protected void onPostExecute(final Integer integer) {
+        if (integer != null && integer >= 0) {
+            final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
+
+            if (drawerListAdapter != null) {
+                drawerListAdapter.filter();
+            }
+        }
     }
 }
