@@ -59,7 +59,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /** The lower-cased lowerCaseFilter string. */
     private String lowerCaseFilter = "";
     /** Should hidden apps be shown. */
-    private boolean hideApps = false;
+    private boolean hideApps = true;
 
     /**
      * Initializes a new adapter.
@@ -184,7 +184,13 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         // Check for an empty string or a string only consisting of spaces
         if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
-            filteredList.addAll(unfilteredList);
+            for (ApplicationModel applicationModel : unfilteredList) {
+                if (hideApps && applicationModel.hidden) {
+                    continue;
+                }
+
+                filteredList.add(applicationModel);
+            }
 
             notifyDataSetChanged();
 
@@ -196,6 +202,10 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
         for (ApplicationModel applicationModel : unfilteredList) {
             for (String lowerCaseWord : lowerCaseWords) {
                 if (lowerCaseWord.isEmpty() || lowerCaseWord.trim().isEmpty()) {
+                    continue;
+                }
+
+                if (hideApps && applicationModel.hidden) {
                     continue;
                 }
 

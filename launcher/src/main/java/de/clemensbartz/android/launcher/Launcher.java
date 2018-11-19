@@ -458,11 +458,11 @@ public final class Launcher extends Activity {
                 setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
             case R.id.abm_show_hidden:
-                final boolean hideApps = !item.isChecked();
+                final boolean showHidden = !item.isChecked();
 
-                new ToggleHideAppsAsyncTask(lvApplicationsAdapter).execute(hideApps);
+                new ToggleHideAppsAsyncTask(lvApplicationsAdapter).execute(!showHidden);
 
-                item.setChecked(hideApps);
+                item.setChecked(showHidden);
                 return true;
             default:
                 return false;
