@@ -457,6 +457,7 @@ public final class Launcher extends Activity {
 
                 setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
+                return true;
             case R.id.abm_show_hidden:
                 final boolean showHidden = !item.isChecked();
 
