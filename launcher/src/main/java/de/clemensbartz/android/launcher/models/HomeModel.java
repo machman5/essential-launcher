@@ -149,9 +149,10 @@ public final class HomeModel {
      * @param usage the usage
      * @param disabled the disabled state
      * @param sticky the sticky state
+     * @param hidden the hidden state
      * @return the content value pair
      */
-    private static ContentValues createContentValues(final String packageName, final String className, final Integer usage, final Boolean disabled, final Boolean sticky) {
+    private static ContentValues createContentValues(final String packageName, final String className, final Integer usage, final Boolean disabled, final Boolean sticky, final Boolean hidden) {
         final ContentValues values = new ContentValues(5);
 
         values.put(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_PACKAGE_NAME, packageName);
@@ -164,6 +165,9 @@ public final class HomeModel {
         }
         if (usage != null) {
             values.put(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE, usage);
+        }
+        if (hidden != null) {
+            values.put(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN, hidden);
         }
 
         return values;
@@ -309,7 +313,7 @@ public final class HomeModel {
                         boolean disabled = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED)) > 0;
                         boolean sticky = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY)) > 0;
 
-                        contentValue = createContentValues(packageName, className, null, disabled, sticky);
+                        contentValue = createContentValues(packageName, className, null, disabled, sticky, null);
                     } catch (IllegalArgumentException e) {
                         continue;
                     }
@@ -365,14 +369,14 @@ public final class HomeModel {
                 if (c.moveToFirst()) {
                     final boolean sticky = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY)) > 0;
                     // update
-                    final ContentValues values = createContentValues(packageName, className, null, null, !sticky);
+                    final ContentValues values = createContentValues(packageName, className, null, null, !sticky, null);
 
                     db.update(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
                             values, SELECTION, new String[]{packageName, className});
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, false, true);
+                    final ContentValues values = createContentValues(packageName, className, 0, false, true, null);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -416,14 +420,14 @@ public final class HomeModel {
                 if (c.moveToFirst()) {
                     final boolean disabled = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED)) > 0;
                     // update
-                    final ContentValues values = createContentValues(packageName, className, null, !disabled, null);
+                    final ContentValues values = createContentValues(packageName, className, null, !disabled, null, null);
 
                     db.update(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
                             values, SELECTION, new String[]{packageName, className});
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, true, false);
+                    final ContentValues values = createContentValues(packageName, className, 0, true, false, null);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -530,14 +534,14 @@ public final class HomeModel {
                 }
                 if (c.moveToFirst()) {
                     // update
-                    final ContentValues values = createContentValues(packageName, className, 0, null, null);
+                    final ContentValues values = createContentValues(packageName, className, 0, null, null, null);
 
                     db.update(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
                             values, SELECTION, new String[]{packageName, className});
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, false, false);
+                    final ContentValues values = createContentValues(packageName, className, 0, false, false, null);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -585,7 +589,7 @@ public final class HomeModel {
                     final int usage = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_USAGE));
 
                     if (usage < Integer.MAX_VALUE) {
-                        final ContentValues values = createContentValues(packageName, className, usage + 1, null, null);
+                        final ContentValues values = createContentValues(packageName, className, usage + 1, null, null, null);
 
                         db.update(ApplicationUsageModel.ApplicationUsage.TABLE_NAME,
                                 values, SELECTION, new String[]{packageName, className});
@@ -595,7 +599,7 @@ public final class HomeModel {
                     }
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 1, false, false);
+                    final ContentValues values = createContentValues(packageName, className, 1, false, false, null);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
