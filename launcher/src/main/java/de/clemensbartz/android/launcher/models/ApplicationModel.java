@@ -45,4 +45,7 @@ public final class ApplicationModel {
     /** The sticky flag. */
     @SuppressWarnings("CheckStyle")
     public boolean sticky;
+    /** The hidden flag. */
+    @SuppressWarnings("CheckStyle")
+    public boolean hidden;
 }

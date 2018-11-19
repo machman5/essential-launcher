@@ -245,6 +245,7 @@ public final class HomeModel {
 
         final boolean disabled = contentValue.getAsBoolean(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED);
         final boolean sticky = contentValue.getAsBoolean(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY);
+        final boolean hidden = contentValue.getAsBoolean(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN);
 
         try {
             final ComponentName componentName = new ComponentName(packageName, className);
@@ -258,6 +259,7 @@ public final class HomeModel {
             applicationModel.className = className;
             applicationModel.disabled = disabled;
             applicationModel.sticky = sticky;
+            applicationModel.hidden = hidden;
 
             final CharSequence label = info.loadLabel(pm);
 
@@ -312,8 +314,9 @@ public final class HomeModel {
                         className = c.getString(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_CLASS_NAME));
                         boolean disabled = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED)) > 0;
                         boolean sticky = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_STICKY)) > 0;
+                        boolean hidden = c.getInt(c.getColumnIndexOrThrow(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN)) > 0;
 
-                        contentValue = createContentValues(packageName, className, null, disabled, sticky, null);
+                        contentValue = createContentValues(packageName, className, null, disabled, sticky, hidden);
                     } catch (IllegalArgumentException e) {
                         continue;
                     }
@@ -376,7 +379,7 @@ public final class HomeModel {
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, false, true, null);
+                    final ContentValues values = createContentValues(packageName, className, 0, false, true, false);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -427,7 +430,7 @@ public final class HomeModel {
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, true, false, null);
+                    final ContentValues values = createContentValues(packageName, className, 0, true, false, false);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -459,6 +462,16 @@ public final class HomeModel {
      */
     public boolean isDisabled(final String packageName, final String className) {
         return isField(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_DISABLED, packageName, className);
+    }
+
+    /**
+     * Check if an application is hidden.
+     * @param packageName the package name
+     * @param className the class name
+     * @return if the application is disabled
+     */
+    public boolean isHidden(final String packageName, final String className) {
+        return isField(ApplicationUsageModel.ApplicationUsage.COLUMN_NAME_HIDDEN, packageName, className);
     }
 
     /**
@@ -541,7 +554,7 @@ public final class HomeModel {
                     db.setTransactionSuccessful();
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 0, false, false, null);
+                    final ContentValues values = createContentValues(packageName, className, 0, false, false, false);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
@@ -599,7 +612,7 @@ public final class HomeModel {
                     }
                 } else {
                     // insert
-                    final ContentValues values = createContentValues(packageName, className, 1, false, false, null);
+                    final ContentValues values = createContentValues(packageName, className, 1, false, false, false);
 
                     db.insertOrThrow(ApplicationUsageModel.ApplicationUsage.TABLE_NAME, null, values);
                     db.setTransactionSuccessful();
