@@ -80,11 +80,14 @@ public final class UpdateAsyncTask extends AsyncTask<Integer, Integer, Integer> 
 
                 final boolean disabled = model.isDisabled(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
                 final boolean sticky = model.isSticky(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
+                final boolean hidden = model.isHidden(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
+
                 final ApplicationModel applicationModel = new ApplicationModel();
                 applicationModel.packageName = resolveInfo.activityInfo.packageName;
                 applicationModel.className = resolveInfo.activityInfo.name;
                 applicationModel.disabled = disabled;
                 applicationModel.sticky = sticky;
+                applicationModel.hidden = hidden;
 
                 if (applicationModel.packageName == null || applicationModel.className == null) {
                     continue;

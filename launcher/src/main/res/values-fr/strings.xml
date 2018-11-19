@@ -28,4 +28,5 @@
     <string name="showInDock">Afficher a la barre</string>
     <string name="unassigned_dock">L\'icône de la barre vide</string>
     <string name="showAsGrid">Montrer en grille</string>
+    <string name="hide">Cacher</string>
 </resources>

@@ -28,4 +28,5 @@
     <string name="choose_widget">Widget kiezen</string>
     <string name="showInDockSticky">Vastzetten</string>
     <string name="showAsGrid">Toon als raster</string>
+    <string name="hide">Verbergen</string>
 </resources>

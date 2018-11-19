@@ -28,4 +28,5 @@
     <string name="open_drawer">Mostrar todos os aplicativos</string>
     <string name="showInDockSticky">Pin para dock</string>
     <string name="showAsGrid">Mostrar como grade</string>
+    <string name="hide">Ocultar</string>
 </resources>

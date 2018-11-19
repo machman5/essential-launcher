@@ -39,4 +39,5 @@
     <string name="widgetLayoutBottomQuarter" translatable="false">Bottom 1/4</string>
     <string name="up" translatable="false">^</string>
     <string name="showAsGrid">Show as grid</string>
+    <string name="hide">Hide</string>
 </resources>

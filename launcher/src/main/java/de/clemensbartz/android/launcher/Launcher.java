@@ -66,6 +66,7 @@ import de.clemensbartz.android.launcher.tasks.LoadMostUsedAppsAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ResetUsageAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ShowWidgetListAsPopupMenuTask;
 import de.clemensbartz.android.launcher.tasks.ToggleDockAsyncTask;
+import de.clemensbartz.android.launcher.tasks.ToggleHiddenAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ToggleStickyAsyncTask;
 import de.clemensbartz.android.launcher.tasks.UpdateAsyncTask;
 import de.clemensbartz.android.launcher.util.BundleUtil;
@@ -113,6 +114,8 @@ public final class Launcher extends Activity {
     private static final int ITEM_TOGGLE_DISABLED = 4;
     /** Request code for toggle sticky app. */
     private static final int ITEM_TOGGLE_STICKY = 7;
+    /** Request code for toggle hidden app. */
+    private static final int ITEM_TOGGLE_HIDDEN = 8;
 
     // Layout constants for widget
     /** Layout constant for default full screen layout. */
@@ -339,6 +342,9 @@ public final class Launcher extends Activity {
                     break;
                 case ITEM_TOGGLE_STICKY:
                     new ToggleStickyAsyncTask(this, model).execute(contextMenuApplicationModel);
+                    break;
+                case ITEM_TOGGLE_HIDDEN:
+                    new ToggleHiddenAsyncTask(this, model).execute(contextMenuApplicationModel);
                     break;
                 default:
                     break;
@@ -876,6 +882,10 @@ public final class Launcher extends Activity {
             final MenuItem toggleStickyItem = contextMenu.add(0, ITEM_TOGGLE_STICKY, 0, R.string.showInDockSticky);
             toggleStickyItem.setCheckable(true);
             toggleStickyItem.setChecked(applicationModel.sticky);
+
+            final MenuItem toggleHiddenItem = contextMenu.add(0, ITEM_TOGGLE_HIDDEN, 0, R.string.hide);
+            toggleHiddenItem.setCheckable(true);
+            toggleHiddenItem.setChecked(applicationModel.hidden);
 
             // Check for system apps and also for Android <28 (new permission since 28 required)
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
