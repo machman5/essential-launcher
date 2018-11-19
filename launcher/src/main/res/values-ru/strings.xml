@@ -20,13 +20,13 @@
     <string name="open_drawer">Показать все приложения</string>
     <string name="uninstall">Удалить</string>
     <string name="appinfo">О приложении</string>
-    <string name="unassigned_dock">Unassigned dock item</string>
+    <string name="unassigned_dock">Нераспределенный элемент док-станции</string>
     <string name="resetcounter">Сбросить счëтчик</string>
     <string name="showInDock">Показывать в доке</string>
     <string name="remove_widget">Убрать виджет</string>
     <string name="choose_widget">Выбрать виджет</string>
     <string name="showInDockSticky">Закрепить в доке</string>
-    <string name="app_name">Essential Launcher</string>
+    <string name="app_name">Лаунчера основной</string>
     <string name="showAsGrid">Mostrar como grade</string>
     <string name="hide">Спрятать</string>
     <string name="showHiddenApps">Показать скрытое</string>
