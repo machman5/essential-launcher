@@ -58,6 +58,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
     /** The lower-cased lowerCaseFilter string. */
     private String lowerCaseFilter = "";
+    /** Should hidden apps be shown. */
+    private boolean hideApps = false;
 
     /**
      * Initializes a new adapter.
@@ -156,6 +158,22 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     @Override
     public boolean onQueryTextChange(final String newText) {
         return onQueryTextSubmit(newText);
+    }
+
+    /**
+     *
+     * @return if the drawer is hiding apps
+     */
+    public boolean isHidingApps() {
+        return hideApps;
+    }
+
+    /**
+     * Set if the drawer should be hiding hidden apps.
+     * @param hideApps if it is hiding apps
+     */
+    public void setHidingApps(final boolean hideApps) {
+        this.hideApps = hideApps;
     }
 
     /**

@@ -67,6 +67,7 @@ import de.clemensbartz.android.launcher.tasks.ResetUsageAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ShowWidgetListAsPopupMenuTask;
 import de.clemensbartz.android.launcher.tasks.ToggleDockAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ToggleHiddenAsyncTask;
+import de.clemensbartz.android.launcher.tasks.ToggleHideAppsAsyncTask;
 import de.clemensbartz.android.launcher.tasks.ToggleStickyAsyncTask;
 import de.clemensbartz.android.launcher.tasks.UpdateAsyncTask;
 import de.clemensbartz.android.launcher.util.BundleUtil;
@@ -457,7 +458,11 @@ public final class Launcher extends Activity {
                 setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
             case R.id.abm_show_hidden:
+                final boolean hideApps = !item.isChecked();
 
+                new ToggleHideAppsAsyncTask(lvApplicationsAdapter).execute(hideApps);
+
+                item.setChecked(hideApps);
                 return true;
             default:
                 return false;
