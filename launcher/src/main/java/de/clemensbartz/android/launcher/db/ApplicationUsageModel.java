@@ -47,6 +47,9 @@ public final class ApplicationUsageModel {
                     + COMMA + " "
                     + ApplicationUsage.COLUMN_NAME_STICKY + " "
                     + ApplicationUsage.COLUMN_TYPE_STICKY
+                    + COMMA + " "
+                    + ApplicationUsage.COLUMN_NAME_HIDDEN + " "
+                    + ApplicationUsage.COLUMN_TYPE_HIDDEN
             + ")";
     /** The DDM update for Version 3 of the database. */
     static final String ALTER_TABLE_3 = "ALTER TABLE "
