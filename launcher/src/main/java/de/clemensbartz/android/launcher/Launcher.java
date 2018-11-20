@@ -458,6 +458,15 @@ public final class Launcher extends Activity {
                 setGridToggle(model.getDrawerLayout() == HomeModel.GRID_ID);
                 switchTo(model.getDrawerLayout());
                 return true;
+            case R.id.abm_sort_sticky_alphabetically:
+                final boolean isStickySortedAlphabetically = model.isSortStickyAlphabetically();
+
+                model.setSortStickyAlphabetically(!isStickySortedAlphabetically);
+                setStickySortedAlphabetically(model.isSortStickyAlphabetically());
+
+                new LoadMostUsedAppsAsyncTask(this, model).execute();
+                switchTo(HOME_ID);
+                return true;
             case R.id.abm_show_hidden:
                 final boolean showHidden = !item.isChecked();
 
@@ -480,6 +489,20 @@ public final class Launcher extends Activity {
 
             if (gridToggleMenuItem != null) {
                 gridToggleMenuItem.setChecked(isGrid);
+            }
+        }
+    }
+
+    /**
+     * Set the new value for the sticky alphabetically sorting option
+     * @param isStickySortedAlphabetically the new values
+     */
+    public void setStickySortedAlphabetically(final boolean isStickySortedAlphabetically) {
+        if (actionBarMenu != null) {
+            final MenuItem stickySortedAlphabeticallyMenuItem = actionBarMenu.findItem(R.id.abm_sort_sticky_alphabetically);
+
+            if (stickySortedAlphabeticallyMenuItem != null) {
+                stickySortedAlphabeticallyMenuItem.setChecked(isStickySortedAlphabetically);
             }
         }
     }

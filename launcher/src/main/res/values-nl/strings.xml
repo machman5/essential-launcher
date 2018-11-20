@@ -39,4 +39,5 @@
     <string name="widgetLayoutBottomHalf">Verlaag 1/2</string>
     <string name="widgetLayoutBottomQuarter">Onderste 1/4</string>
     <string name="widgetLayoutBottomThird">Onderste 1/3</string>
+    <string name="sort_sticky_alphabetically">Kleverig alfabetisch sorteren</string>
 </resources>

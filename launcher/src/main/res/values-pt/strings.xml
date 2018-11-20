@@ -39,4 +39,5 @@
     <string name="widgetLayoutBottomHalf">Metade inferior</string>
     <string name="widgetLayoutBottomThird">Inferior 1/3</string>
     <string name="widgetLayoutBottomQuarter">Inferior 1/4</string>
+    <string name="sort_sticky_alphabetically">Ordenar brega em ordem alfabética</string>
 </resources>

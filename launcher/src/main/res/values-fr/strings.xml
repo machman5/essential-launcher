@@ -39,4 +39,5 @@
     <string name="widgetLayoutBottomHalf" translatable="false">Inférieur 1/2</string>
     <string name="widgetLayoutBottomThird">1/3 inférieur</string>
     <string name="widgetLayoutBottomQuarter">1/4 inférieur</string>
+    <string name="sort_sticky_alphabetically">Trier par ordre alphabétique</string>
 </resources>

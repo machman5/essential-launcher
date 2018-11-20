@@ -34,6 +34,10 @@
         android:id="@+id/abm_remove_widget"
         android:title="@string/remove_widget" />
     <item
+        android:id="@+id/abm_sort_sticky_alphabetically"
+        android:checkable="true"
+        android:title="@string/sort_sticky_alphabetically" />
+    <item
         android:id="@+id/abm_grid_toggle"
         android:checkable="true"
         android:title="@string/showAsGrid" />

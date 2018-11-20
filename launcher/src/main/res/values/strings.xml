@@ -41,4 +41,5 @@
     <string name="showAsGrid">Show as grid</string>
     <string name="hide">Hide</string>
     <string name="showHiddenApps">Show hidden</string>
+    <string name="sort_sticky_alphabetically">Sort sticky alphabetically</string>
 </resources>

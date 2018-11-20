@@ -39,4 +39,5 @@
     <string name="widgetLayoutBottomHalf" translatable="false">降低1/2</string>
     <string name="widgetLayoutBottomThird">降低1/3</string>
     <string name="widgetLayoutBottomQuarter">降低1/4</string>
+    <string name="sort_sticky_alphabetically">按字母順序排序俗氣</string>
 </resources>

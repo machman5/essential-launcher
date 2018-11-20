@@ -58,6 +58,7 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
             result.selectedWidget = model.getAppWidgetId();
             result.widgetLayout = model.getAppWidgetLayout();
             result.gridLayout = model.getDrawerLayout();
+            result.sortStickyAlphabetically = model.isSortStickyAlphabetically();
 
             return result;
         }
@@ -80,6 +81,9 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
 
             // Set grid toggle
             launcher.setGridToggle(result.gridLayout == HomeModel.GRID_ID);
+
+            // Set the sticky sorting option
+            launcher.setStickySortedAlphabetically(result.sortStickyAlphabetically);
         }
     }
 
@@ -91,5 +95,7 @@ public final class LoadModelAsyncTask extends AsyncTask<Integer, Integer, LoadMo
         int widgetLayout;
         /** The grid layout. */
         int gridLayout;
+        /** The sorting of sticky entries. */
+        boolean sortStickyAlphabetically;
     }
 }

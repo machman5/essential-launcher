@@ -132,6 +132,8 @@ public final class HomeModel {
     private static final String KEY_APPWIDGET_LAYOUT = "appWidgetLayout";
     /** Key for choosing which layout to display. */
     private static final String KEY_DRAWER_LAYOUT = "drawerLayout";
+    /** Key for sorting sticky entries. */
+    private static final String KEY_SORT_STICKY_ALPHABETICALLY = "sortStickyAlphabetically";
 
     /** Value for the appWidgetId property. */
     private int appWidgetId = -1;
@@ -139,6 +141,8 @@ public final class HomeModel {
     private int appWidgetLayout = Launcher.WIDGET_LAYOUT_FULL_SCREEN;
     /** Value for the drawerLayout property. */
     private int drawerLayout = 1;
+    /** Value for sortStickyAlphabetically. */
+    private boolean sortStickyAlphabetically = false;
 
     /**
      *
@@ -218,6 +222,7 @@ public final class HomeModel {
         appWidgetId = preferences.getInt(KEY_APPWIDGET_ID, -1);
         appWidgetLayout = preferences.getInt(KEY_APPWIDGET_LAYOUT, Launcher.WIDGET_LAYOUT_FULL_SCREEN);
         drawerLayout = preferences.getInt(KEY_DRAWER_LAYOUT, 1);
+        sortStickyAlphabetically = preferences.getBoolean(KEY_SORT_STICKY_ALPHABETICALLY, false);
     }
 
     /**
@@ -306,7 +311,9 @@ public final class HomeModel {
     public void updateApplications() {
         mostUsedApplications.clear();
 
-        mostUsedApplications.addAll(retrieveApplications(STICKY_WHERE, STICKY_ORDER_BY, NUMBER_OF_APPS));
+        final String stickyOrderByClause = isSortStickyAlphabetically() ? STICKY_ORDER_BY : REGULAR_ORDER_BY;
+
+        mostUsedApplications.addAll(retrieveApplications(STICKY_WHERE, stickyOrderByClause, NUMBER_OF_APPS));
         if (mostUsedApplications.size() < NUMBER_OF_APPS) {
             // Only fetch the remaining apps
             mostUsedApplications.addAll(retrieveApplications(REGULAR_WHERE, REGULAR_ORDER_BY, NUMBER_OF_APPS - mostUsedApplications.size()));
@@ -784,5 +791,22 @@ public final class HomeModel {
     public void setDrawerLayout(final int drawerLayout) {
         preferences.edit().putInt(KEY_DRAWER_LAYOUT, drawerLayout).apply();
         this.drawerLayout = drawerLayout;
+    }
+
+    /**
+     *
+     * @return if stickies are sorted alphabetically
+     */
+    public boolean isSortStickyAlphabetically() {
+        return sortStickyAlphabetically;
+    }
+
+    /**
+     * Set if stickies should be sorted alphabetically
+     * @param sortStickyAlphabetically the new sort sticky alphabetically
+     */
+    public void setSortStickyAlphabetically(final boolean sortStickyAlphabetically) {
+        preferences.edit().putBoolean(KEY_SORT_STICKY_ALPHABETICALLY, sortStickyAlphabetically).apply();
+        this.sortStickyAlphabetically = sortStickyAlphabetically;
     }
 }
