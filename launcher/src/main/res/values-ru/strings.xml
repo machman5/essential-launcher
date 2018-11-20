@@ -27,7 +27,7 @@
     <string name="choose_widget">Выбрать виджет</string>
     <string name="showInDockSticky">Закрепить в доке</string>
     <string name="app_name">Лаунчера основной</string>
-    <string name="showAsGrid">Mostrar como grade</string>
+    <string name="showAsGrid">Показать как сетку</string>
     <string name="hide">Спрятать</string>
     <string name="showHiddenApps">Показать скрытое</string>
     <string name="adjustWidgetLayout">Компоновка виджетов</string>
