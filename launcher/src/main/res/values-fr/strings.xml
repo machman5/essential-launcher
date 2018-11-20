@@ -30,4 +30,13 @@
     <string name="showAsGrid">Montrer en grille</string>
     <string name="hide">Cacher</string>
     <string name="showHiddenApps">Montrer caché</string>
+    <string name="adjustWidgetLayout">Disposition du widget</string>
+    <string name="widgetLayoutTopQuarter">1/4 supérieur</string>
+    <string name="widgetLayoutTopThird">Supérieur 1/3</string>
+    <string name="widgetLayoutTopHalf">Supérieur 1/2</string>
+    <string name="widgetLayoutFull">Plein écran</string>
+    <string name="widgetLayoutCenter">Milieu 1/2</string>
+    <string name="widgetLayoutBottomHalf" translatable="false">Inférieur 1/2</string>
+    <string name="widgetLayoutBottomThird">1/3 inférieur</string>
+    <string name="widgetLayoutBottomQuarter">1/4 inférieur</string>
 </resources>

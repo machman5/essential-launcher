@@ -30,4 +30,13 @@
     <string name="showAsGrid">顯示為網格</string>
     <string name="hide">隐藏</string>
     <string name="showHiddenApps">顯示隱藏</string>
+    <string name="adjustWidgetLayout">小部件佈局</string>
+    <string name="widgetLayoutTopQuarter">上1/4</string>
+    <string name="widgetLayoutTopThird">上1/3</string>
+    <string name="widgetLayoutTopHalf">上1/2</string>
+    <string name="widgetLayoutFull" translatable="false">全屏</string>
+    <string name="widgetLayoutCenter">中間1/2</string>
+    <string name="widgetLayoutBottomHalf" translatable="false">降低1/2</string>
+    <string name="widgetLayoutBottomThird">降低1/3</string>
+    <string name="widgetLayoutBottomQuarter">降低1/4</string>
 </resources>

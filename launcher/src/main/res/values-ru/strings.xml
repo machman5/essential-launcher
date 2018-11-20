@@ -30,4 +30,13 @@
     <string name="showAsGrid">Mostrar como grade</string>
     <string name="hide">Спрятать</string>
     <string name="showHiddenApps">Показать скрытое</string>
+    <string name="adjustWidgetLayout">Компоновка виджетов</string>
+    <string name="widgetLayoutTopHalf" translatable="false">Верхний 1/2</string>
+    <string name="widgetLayoutTopThird" translatable="false">Верхняя 1/3</string>
+    <string name="widgetLayoutTopQuarter" translatable="false">Верхняя 1/4</string>
+    <string name="widgetLayoutFull">Полноэкранный</string>
+    <string name="widgetLayoutCenter" translatable="false">Средний 1/2</string>
+    <string name="widgetLayoutBottomQuarter">Нижний 1/4</string>
+    <string name="widgetLayoutBottomThird">Нижняя 1/3</string>
+    <string name="widgetLayoutBottomHalf">Нижняя 1/2</string>
 </resources>

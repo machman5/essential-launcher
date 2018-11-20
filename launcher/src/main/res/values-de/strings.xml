@@ -30,4 +30,13 @@
     <string name="showAsGrid">Als Grid anzeigen</string>
     <string name="hide">Ausblenden</string>
     <string name="showHiddenApps">Ausgeblendete anzeigen</string>
+    <string name="adjustWidgetLayout">Widget anordnen</string>
+  <string name="widgetLayoutTopQuarter">Oberes 1/4</string>
+  <string name="widgetLayoutTopThird">Oberes 1/3</string>
+  <string name="widgetLayoutTopHalf">Obere 1/2</string>
+  <string name="widgetLayoutFull">Ganzer Bildschirm</string>
+  <string name="widgetLayoutCenter" translatable="false">Mittig 1/2</string>
+  <string name="widgetLayoutBottomHalf">Untere 1/2</string>
+  <string name="widgetLayoutBottomThird" translatable="false">Unteres 1/3</string>
+  <string name="widgetLayoutBottomQuarter" translatable="false">Unteres 1/4</string>
 </resources>

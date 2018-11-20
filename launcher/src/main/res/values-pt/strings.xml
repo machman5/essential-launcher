@@ -30,4 +30,13 @@
     <string name="showAsGrid">Mostrar como grade</string>
     <string name="hide">Ocultar</string>
     <string name="showHiddenApps">Mostrar escondido</string>
+    <string name="adjustWidgetLayout">Layout de widget</string>
+    <string name="widgetLayoutTopHalf">Superior 1/2</string>
+    <string name="widgetLayoutTopThird">Superior 1/3</string>
+    <string name="widgetLayoutTopQuarter">Superior 1/4</string>
+    <string name="widgetLayoutFull">Tela cheia</string>
+    <string name="widgetLayoutCenter">Meio 1/2</string>
+    <string name="widgetLayoutBottomHalf">Metade inferior</string>
+    <string name="widgetLayoutBottomThird">Inferior 1/3</string>
+    <string name="widgetLayoutBottomQuarter">Inferior 1/4</string>
 </resources>
