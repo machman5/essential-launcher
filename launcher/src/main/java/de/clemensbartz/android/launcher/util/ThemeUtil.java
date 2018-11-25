@@ -18,7 +18,9 @@
 package de.clemensbartz.android.launcher.util;
 
 import android.app.Activity;
+import android.content.res.TypedArray;
 import android.os.Build;
+import android.util.TypedValue;
 
 import de.clemensbartz.android.launcher.R;
 
@@ -63,5 +65,24 @@ public final class ThemeUtil {
             default:
                 // leave highest default
         }
+    }
+
+    /**
+     *
+     * @param activity the activity where the action bar resides
+     * @see <a href="https://gist.github.com/hamakn/8939eb68a920a6d7a498">hamakn's Github gist</a>
+     * @return the height of the action bar of that activity
+     */
+    public static int getActionBarHeight(final Activity activity) {
+        // action bar height
+        final TypedArray styledAttributes = activity.getTheme().obtainStyledAttributes(
+                new int[] {
+                        android.R.attr.actionBarSize
+                }
+        );
+        final int actionBarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return actionBarHeight;
     }
 }

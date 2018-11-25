@@ -217,6 +217,12 @@ public final class Launcher extends Activity {
         }
 
         for (final AbsListView listView : listViews) {
+            listView.setPadding(
+                    listView.getPaddingLeft(),
+                    ThemeUtil.getActionBarHeight(this) + listView.getPaddingTop(),
+                    listView.getPaddingRight(),
+                    listView.getPaddingBottom()
+            );
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
