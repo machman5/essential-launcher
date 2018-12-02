@@ -217,12 +217,25 @@ public final class Launcher extends Activity {
         }
 
         for (final AbsListView listView : listViews) {
-            listView.setPadding(
-                    listView.getPaddingLeft(),
-                    ThemeUtil.getActionBarHeight(this) + listView.getPaddingTop(),
-                    listView.getPaddingRight(),
-                    listView.getPaddingBottom()
-            );
+            final int topPx = ThemeUtil.getActionBarHeight(this);
+
+            final ViewGroup.LayoutParams layoutParams = listView.getLayoutParams();
+            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+                final ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+                marginLayoutParams.setMargins(
+                        marginLayoutParams.leftMargin,
+                        topPx + marginLayoutParams.topMargin,
+                        marginLayoutParams.rightMargin,
+                        marginLayoutParams.bottomMargin
+                );
+            } else {
+                listView.setPadding(
+                        listView.getPaddingLeft(),
+                        topPx + listView.getPaddingTop(),
+                        listView.getPaddingRight(),
+                        listView.getPaddingBottom()
+                );
+            }
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
