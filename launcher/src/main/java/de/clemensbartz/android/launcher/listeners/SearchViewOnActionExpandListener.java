@@ -15,26 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.clemensbartz.android.launcher.models;
+package de.clemensbartz.android.launcher.listeners;
+
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 
 /**
- * Model for applications. For performance reasons, this class will be excluded from
- * CheckStyle checks.
- *
+ * Expand listener for the SearchView.
  * @author Clemens Bartz
- * @since 1.0
+ * @since 2.0
  */
-public final class ApplicationModel {
-    /** The localized label. */
-    @SuppressWarnings("CheckStyle")
-    public String label;
-    /** The package name. */
-    @SuppressWarnings("CheckStyle")
-    public String packageName;
-    /** The full class name. */
-    @SuppressWarnings("CheckStyle")
-    public String className;
-    /** The hidden flag. */
-    @SuppressWarnings("CheckStyle")
-    public boolean hidden;
+public final class SearchViewOnActionExpandListener implements MenuItem.OnActionExpandListener {
+
+    @Override
+    public boolean onMenuItemActionExpand(final MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(final MenuItem item) {
+        final View view = item.getActionView();
+
+        if (view instanceof SearchView) {
+            final SearchView searchView = (SearchView) view;
+            searchView.setQuery("", true);
+        }
+
+        return true;
+    }
 }

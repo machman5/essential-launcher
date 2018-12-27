@@ -1,23 +1,25 @@
 /*
- * Copyright (C) 2017  Clemens Bartz
+ * Copyright (C) 2018  Clemens Bartz
  *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package de.clemensbartz.android.launcher.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +29,15 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import de.clemensbartz.android.launcher.R;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
+import de.clemensbartz.android.launcher.tasks.LoadApplicationModelIconIntoImageViewTask;
 
 /**
  * Array adapter for the drawer. Takes an @{ApplicationModel}.
@@ -56,19 +61,25 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /** The list of filtered application models. */
     private final List<ApplicationModel> filteredList = new ArrayList<>();
 
+    /** The default drawable. */
+    private final Drawable defaultDrawable;
+
     /** The lower-cased lowerCaseFilter string. */
     private String lowerCaseFilter = "";
     /** Should hidden apps be shown. */
-    private boolean hideApps = true;
+    private boolean showHiddenApps = false;
 
     /**
      * Initializes a new adapter.
      * @param context the activity
+     * @param defaultDrawable the default drawable
      */
     public DrawerListAdapter(
-            final Context context) {
+            final Context context,
+            final Drawable defaultDrawable) {
 
         super(context, R.layout.grid_drawer_item);
+        this.defaultDrawable = defaultDrawable;
     }
 
     @Override
@@ -95,8 +106,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         if (resolveInfo != null && viewHolder != null) {
             viewHolder.icon.setContentDescription(resolveInfo.label);
-            viewHolder.icon.setImageDrawable(resolveInfo.icon);
             viewHolder.name.setText(resolveInfo.label);
+            // Load icon asynchronously
+            new LoadApplicationModelIconIntoImageViewTask(viewHolder.icon, resolveInfo, getContext().getPackageManager(), defaultDrawable).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         return v;
@@ -125,6 +137,16 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     @Override
     public void add(final ApplicationModel object) {
         unfilteredList.add(object);
+    }
+
+    @Override
+    public void addAll(final Collection<? extends ApplicationModel> collection) {
+        unfilteredList.addAll(collection);
+    }
+
+    @Override
+    public void addAll(final ApplicationModel... items) {
+        unfilteredList.addAll(Arrays.asList(items));
     }
 
     @Override
@@ -164,16 +186,16 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
      *
      * @return if the drawer is hiding apps
      */
-    public boolean isHidingApps() {
-        return hideApps;
+    public boolean isShowingHiddenApps() {
+        return showHiddenApps;
     }
 
     /**
-     * Set if the drawer should be hiding hidden apps.
-     * @param hideApps if it is hiding apps
+     * Set if the drawer should be showing hidden apps.
+     * @param showHiddenApps new boolean values
      */
-    public void setHidingApps(final boolean hideApps) {
-        this.hideApps = hideApps;
+    public void setShowHiddenApps(final boolean showHiddenApps) {
+        this.showHiddenApps = showHiddenApps;
     }
 
     /**
@@ -185,7 +207,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
         // Check for an empty string or a string only consisting of spaces
         if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
             for (ApplicationModel applicationModel : unfilteredList) {
-                if (hideApps && applicationModel.hidden) {
+                if (!showHiddenApps && applicationModel.hidden) {
                     continue;
                 }
 
@@ -205,7 +227,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
                     continue;
                 }
 
-                if (hideApps && applicationModel.hidden) {
+                if (!showHiddenApps && applicationModel.hidden) {
                     continue;
                 }
 

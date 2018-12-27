@@ -20,8 +20,8 @@ package de.clemensbartz.android.launcher.tasks;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.MenuItem;
@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import de.clemensbartz.android.launcher.Launcher;
+import de.clemensbartz.android.launcher.controllers.WidgetController;
 import de.clemensbartz.android.launcher.util.IntentUtil;
 
 /**
@@ -43,22 +43,24 @@ import de.clemensbartz.android.launcher.util.IntentUtil;
  */
 public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Integer, List<ShowWidgetListAsPopupMenuTask.FilledAppWidgetProviderInfo>> {
 
-    /** The weak reference to our activity where the widget list should be shown. */
-    private final WeakReference<Launcher> launcherWeakReference;
+    /** The weak reference to our widget controller. */
+    private final WeakReference<WidgetController> widgetControllerWeakReference;
+    /** The weak reference to the package manager. */
+    private final WeakReference<Context> contextWeakReference;
     /** The weak reference to the app widget manager. */
     private final WeakReference<AppWidgetManager> appWidgetManagerWeakReference;
 
     /**
      * Create a new widget list task. When the listing is done, show the popup menu in
      * the activity.
-     * @param activity the activity to show the popup menu
+     * @param widgetController the widget controller
+     * @param context the context to run in
      * @param appWidgetManager the app widget manager
      */
-    public ShowWidgetListAsPopupMenuTask(
-            final Launcher activity,
-            final AppWidgetManager appWidgetManager) {
+    public ShowWidgetListAsPopupMenuTask(final WidgetController widgetController, final Context context, final AppWidgetManager appWidgetManager) {
 
-        this.launcherWeakReference = new WeakReference<>(activity);
+        this.widgetControllerWeakReference = new WeakReference<>(widgetController);
+        this.contextWeakReference = new WeakReference<>(context);
         this.appWidgetManagerWeakReference = new WeakReference<>(appWidgetManager);
     }
 
@@ -66,13 +68,12 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
     protected List<FilledAppWidgetProviderInfo> doInBackground(final Integer... integers) {
 
         final AppWidgetManager appWidgetManager = appWidgetManagerWeakReference.get();
-        final Launcher launcher = launcherWeakReference.get();
+        final WidgetController widgetController = widgetControllerWeakReference.get();
+        final Context context = contextWeakReference.get();
 
-        if (appWidgetManager == null || launcher == null) {
+        if (appWidgetManager == null || widgetController == null || context == null) {
             return null;
         }
-
-        final PackageManager pm = launcher.getPackageManager();
 
         final List<AppWidgetProviderInfo> appWidgetProviderInfos = appWidgetManager.getInstalledProviders();
         final List<FilledAppWidgetProviderInfo> infoList = new ArrayList<>(appWidgetProviderInfos.size());
@@ -83,7 +84,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
             if (appWidgetProviderInfo.configure != null) {
                 final Intent intent = IntentUtil.createWidgetConfigureIntent(appWidgetProviderInfo.configure);
 
-                if (!IntentUtil.isCallable(pm, intent)) {
+                if (!IntentUtil.isCallable(context.getPackageManager(), intent)) {
                     continue;
                 }
             }
@@ -91,12 +92,12 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
             // Fill info
             final FilledAppWidgetProviderInfo info = new FilledAppWidgetProviderInfo();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                info.setLabel(appWidgetProviderInfo.loadLabel(pm));
+                info.label = appWidgetProviderInfo.loadLabel(context.getPackageManager());
             } else {
-                info.setLabel(appWidgetProviderInfo.label);
+                info.label = appWidgetProviderInfo.label;
             }
-            info.setProvider(appWidgetProviderInfo.provider);
-            info.setConfigure(appWidgetProviderInfo.configure);
+            info.provider = appWidgetProviderInfo.provider;
+            info.configure = appWidgetProviderInfo.configure;
 
             infoList.add(info);
         }
@@ -104,7 +105,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
         Collections.sort(infoList, new Comparator<FilledAppWidgetProviderInfo>() {
             @Override
             public int compare(final FilledAppWidgetProviderInfo o1, final FilledAppWidgetProviderInfo o2) {
-                return o1.getLabel().compareTo(o2.getLabel());
+                return o1.label.compareTo(o2.label);
             }
         });
 
@@ -114,17 +115,18 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
     @Override
     protected void onPostExecute(final List<FilledAppWidgetProviderInfo> appWidgetProviderInfos) {
 
-        final Launcher launcher = launcherWeakReference.get();
+        final Context context = contextWeakReference.get();
+        final WidgetController widgetController = widgetControllerWeakReference.get();
 
-        if (appWidgetProviderInfos != null && launcher != null && appWidgetProviderInfos.size() > 0) {
-            final PopupMenu popupMenu = new PopupMenu(launcher, launcher.getTopFiller());
+        if (appWidgetProviderInfos != null && context != null && widgetController != null && appWidgetProviderInfos.size() > 0) {
+            final PopupMenu popupMenu = new PopupMenu(context, widgetController.getTopFiller());
 
             for (ShowWidgetListAsPopupMenuTask.FilledAppWidgetProviderInfo info : appWidgetProviderInfos) {
-                final MenuItem menuItem = popupMenu.getMenu().add(info.getLabel());
+                final MenuItem menuItem = popupMenu.getMenu().add(info.label);
 
                 final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
-                intent.setComponent(info.getConfigure());
-                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, info.getProvider());
+                intent.setComponent(info.configure);
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, info.provider);
 
                 menuItem.setIntent(intent);
             }
@@ -135,7 +137,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
                     final ComponentName provider = item.getIntent().getParcelableExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER);
 
                     if (provider != null) {
-                        launcher.bindWidget(provider, item.getIntent().getComponent());
+                        widgetController.bindWidget(provider, item.getIntent().getComponent());
                     }
 
                     return true;
@@ -149,61 +151,12 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
     /**
      * Holds filled AppWidgetProviderInfo.
      */
-    @SuppressWarnings("WeakerAccess")
-    public final class FilledAppWidgetProviderInfo {
+    static final class FilledAppWidgetProviderInfo {
         /** The label for the provider. */
-        private String label;
+        String label;
         /** The provider component. */
-        private ComponentName provider;
+        ComponentName provider;
         /** The configure component. */
-        private ComponentName configure;
-
-        /**
-         *
-         * @return the label
-         */
-        public String getLabel() {
-            return label;
-        }
-
-        /**
-         * Set the new label.
-         * @param label the new label.
-         */
-        public void setLabel(final String label) {
-            this.label = label;
-        }
-
-        /**
-         *
-         * @return the provider component name
-         */
-        public ComponentName getProvider() {
-            return provider;
-        }
-
-        /**
-         * Set the new provider component name.
-         * @param provider the provider component name
-         */
-        public void setProvider(final ComponentName provider) {
-            this.provider = provider;
-        }
-
-        /**
-         *
-         * @return the configure component name
-         */
-        public ComponentName getConfigure() {
-            return configure;
-        }
-
-        /**
-         * Set the new configure component name.
-         * @param configure the configure component name
-         */
-        public void setConfigure(final ComponentName configure) {
-            this.configure = configure;
-        }
+        ComponentName configure;
     }
 }

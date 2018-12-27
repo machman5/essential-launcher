@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2015  Clemens Bartz
+  ~ Copyright (C) 2018  Clemens Bartz
   ~
-  ~     This program is free software: you can redistribute it and/or modify
-  ~     it under the terms of the GNU General Public License as published by
-  ~     the Free Software Foundation, either version 3 of the License, or
-  ~     (at your option) any later version.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
   ~
-  ~     This program is distributed in the hope that it will be useful,
-  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~     GNU General Public License for more details.
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
   ~
-  ~     You should have received a copy of the GNU General Public License
-  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
 <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content" />
 
         <FrameLayout
-            android:id="@+id/frWidget"
+            android:id="@+id/flWidget"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -50,7 +50,7 @@
             android:id="@+id/tvDrawer"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:contentDescription="@string/open_drawer"
+            android:contentDescription="@string/openDrawer"
             android:text="@string/up"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -98,7 +98,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -113,7 +113,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -128,7 +128,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -143,7 +143,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"
@@ -158,7 +158,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:contentDescription="@string/unassigned_dock"
+                android:contentDescription="@string/unpinnedDockItem"
                 android:focusable="true"
                 android:padding="5dp"
                 android:paddingEnd="5dp"

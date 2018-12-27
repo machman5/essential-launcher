@@ -21,10 +21,10 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
-import de.clemensbartz.android.launcher.Launcher;
+import de.clemensbartz.android.launcher.controllers.WidgetController;
 
 /**
- * Asynch task to set the visibility of the menu items.
+ * Task to set the visibility of the menu items.
  * <br>
  * This is necessary as otherwise we are not getting back to the main thread.
  * @author Clemens Bartz
@@ -32,15 +32,15 @@ import de.clemensbartz.android.launcher.Launcher;
  */
 public final class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
-    /** Weak reference to the launcher. */
-    private final WeakReference<Launcher> launcherWeakReference;
+    /** Weak reference to the widget controller. */
+    private final WeakReference<WidgetController> widgetControllerWeakReference;
 
     /**
      * Create a new async task.
-     * @param launcher the launcher to run the tasks in
+     * @param widgetController the widget controller
      */
-    public CreateWidgetAsyncTask(final Launcher launcher) {
-        launcherWeakReference = new WeakReference<>(launcher);
+    public CreateWidgetAsyncTask(final WidgetController widgetController) {
+        widgetControllerWeakReference = new WeakReference<>(widgetController);
     }
 
     @Override
@@ -50,10 +50,10 @@ public final class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Int
 
     @Override
     protected void onPostExecute(final Integer widgetId) {
-        if (launcherWeakReference.get() != null) {
-            final Launcher launcher = launcherWeakReference.get();
+        final WidgetController widgetController = widgetControllerWeakReference.get();
 
-            launcher.createWidget(widgetId);
+        if (widgetController != null) {
+            widgetController.createWidget(widgetId);
         }
     }
 }

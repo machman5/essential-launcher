@@ -15,26 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.clemensbartz.android.launcher.models;
-
 /**
- * Model for applications. For performance reasons, this class will be excluded from
- * CheckStyle checks.
- *
+ * Contains controllers for essential launcher's different parts.
  * @author Clemens Bartz
- * @since 1.0
+ * @since 2.0
  */
-public final class ApplicationModel {
-    /** The localized label. */
-    @SuppressWarnings("CheckStyle")
-    public String label;
-    /** The package name. */
-    @SuppressWarnings("CheckStyle")
-    public String packageName;
-    /** The full class name. */
-    @SuppressWarnings("CheckStyle")
-    public String className;
-    /** The hidden flag. */
-    @SuppressWarnings("CheckStyle")
-    public boolean hidden;
-}
+package de.clemensbartz.android.launcher.controllers;
