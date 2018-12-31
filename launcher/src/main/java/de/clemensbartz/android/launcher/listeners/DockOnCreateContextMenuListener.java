@@ -21,14 +21,12 @@ import android.annotation.TargetApi;
 import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
-import android.os.Process;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import de.clemensbartz.android.launcher.models.ApplicationModel;
 import de.clemensbartz.android.launcher.util.LauncherAppsUtil;

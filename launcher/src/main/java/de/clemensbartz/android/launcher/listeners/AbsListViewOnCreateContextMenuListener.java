@@ -22,7 +22,6 @@ import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
-import android.os.Process;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -30,7 +29,6 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import de.clemensbartz.android.launcher.R;
 import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
