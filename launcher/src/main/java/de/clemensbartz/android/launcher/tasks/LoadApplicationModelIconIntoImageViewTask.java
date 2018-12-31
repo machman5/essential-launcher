@@ -71,14 +71,7 @@ public final class LoadApplicationModelIconIntoImageViewTask extends AsyncTask<I
         final ComponentName componentName = new ComponentName(applicationModel.packageName, applicationModel.className);
 
         try {
-            final ActivityInfo info = packageManager.getActivityInfo(componentName, 0);
-
-            // Check if app is enabled
-            if (!info.enabled) {
-                return null;
-            }
-
-            return info.loadIcon(packageManager);
+            return packageManager.getActivityIcon(componentName);
         } catch (final PackageManager.NameNotFoundException e) {
             return null;
         }
