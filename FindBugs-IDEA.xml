@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<findbugs />
+<findbugs>
+  <plugins>
+    <plugin id="com.h3xstream.findsecbugs" enabled="true" bundled="true" />
+    <plugin id="jp.f.dev.findbugs.detect.android" enabled="true" bundled="true" />
+  </plugins>
+  <excludeFilterFiles>
+    <filter file="/Users/bartzc/Documents/workspace/essential-launcher/findbugs-android-exclude.xml" enabled="true" />
+  </excludeFilterFiles>
+</findbugs>
 
