@@ -93,4 +93,36 @@ public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
             new LoadDrawerListAdapterTask(context, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
     }
+
+    /**
+     * Set the new dock controller.
+     * @param dockController the dock controller or <code>null</code>, to erase it
+     */
+    public void setDockController(final DockController dockController) {
+        dockControllerWeakReference = new WeakReference<>(dockController);
+    }
+
+    /**
+     * Set the new drawer controller.
+     * @param drawerController the drawer controller or <code>null</code>, to erase it
+     */
+    public void setDrawerController(final DrawerController drawerController) {
+        drawerControllerWeakReference = new WeakReference<>(drawerController);
+    }
+
+    /**
+     * Set the new shared preference dao.
+     * @param sharedPreferencesDAO the shared preference dao or <code>null</code>, to erase it
+     */
+    public void setSharedPreferencesDAO(final SharedPreferencesDAO sharedPreferencesDAO) {
+        sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
+    }
+
+    /**
+     * Set the new drawer list adapter.
+     * @param drawerListAdapter the drawer list adapter or <code>null</code>, to erase it
+     */
+    public void setDrawerListAdapter(final DrawerListAdapter drawerListAdapter) {
+        drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
+    }
 }

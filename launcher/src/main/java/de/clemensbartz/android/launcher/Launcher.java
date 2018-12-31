@@ -49,6 +49,7 @@ import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 import de.clemensbartz.android.launcher.listeners.AbsListViewOnCreateContextMenuListener;
 import de.clemensbartz.android.launcher.listeners.AdapterViewOnItemClickListener;
 import de.clemensbartz.android.launcher.listeners.SearchViewOnActionExpandListener;
+import de.clemensbartz.android.launcher.receivers.PackageChangedBroadcastReceiver;
 import de.clemensbartz.android.launcher.tasks.FilterDrawerListAdapterTask;
 import de.clemensbartz.android.launcher.tasks.LoadDockTask;
 import de.clemensbartz.android.launcher.tasks.LoadDrawerListAdapterTask;
@@ -170,7 +171,17 @@ public final class Launcher extends Activity {
 
         // Initialize DAOs
         new LoadSharedPreferencesDAOTask(this, sharedPreferencesDAO, viewController, widgetController).execute();
-        // register for receivers
+
+        // Register receivers
+        final PackageChangedBroadcastReceiver receiver = PackageChangedBroadcastReceiver.getInstance();
+        receiver.setDockController(dockController);
+        receiver.setDrawerController(drawerController);
+        receiver.setDrawerListAdapter(drawerListAdapter);
+        receiver.setSharedPreferencesDAO(sharedPreferencesDAO);
+
+        registerReceiver(receiver, IntentUtil.createdChangeBroadReceiverFilter());
+
+        // Update data
         new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
@@ -195,7 +206,13 @@ public final class Launcher extends Activity {
         if (widgetController != null) {
             widgetController.stopListening();
         }
-        //TODO: try to unregister the broadcast receiver
+
+        // Prevent leakage
+        try {
+            unregisterReceiver(PackageChangedBroadcastReceiver.getInstance());
+        } catch (final Exception e) {
+            // do nothing here
+        }
 
         super.onDestroy();
     }
