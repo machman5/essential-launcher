@@ -30,7 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupMenu;
-import android.widget.ViewSwitcher;
+import android.widget.ViewFlipper;
 
 import de.clemensbartz.android.launcher.Launcher;
 import de.clemensbartz.android.launcher.R;
@@ -205,7 +205,7 @@ public final class WidgetController {
     public void adjustWidget(final int appWidgetLayout) {
         final View vBottomFiller = launcher.findViewById(R.id.bottomFiller);
         final View vTopFiller = getTopFiller();
-        final ViewSwitcher vsLauncher = launcher.findViewById(R.id.vsLauncher);
+        final ViewFlipper vsLauncher = launcher.findViewById(R.id.vsLauncher);
         final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
 
         final ViewGroup.LayoutParams bottomLayout = vBottomFiller.getLayoutParams();
