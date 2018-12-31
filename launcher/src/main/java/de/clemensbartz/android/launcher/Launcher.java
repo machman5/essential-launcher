@@ -337,7 +337,7 @@ public final class Launcher extends Activity {
                 final boolean isShowingHiddenApps = drawerListAdapter.isShowingHiddenApps();
 
                 drawerListAdapter.setShowHiddenApps(!isShowingHiddenApps);
-                item.setChecked(isShowingHiddenApps);
+                item.setChecked(!isShowingHiddenApps);
 
                 new FilterDrawerListAdapterTask(drawerListAdapter).execute();
 
