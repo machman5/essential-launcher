@@ -30,7 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupMenu;
-import android.widget.ViewFlipper;
+import android.widget.ViewSwitcher;
 
 import de.clemensbartz.android.launcher.Launcher;
 import de.clemensbartz.android.launcher.R;
@@ -99,14 +99,6 @@ public final class WidgetController {
     private final SharedPreferencesDAO sharedPreferencesDAO;
     /** The launcher. */
     private final Launcher launcher;
-    /** The top filler. */
-    private final View vTopFiller;
-    /** The bottom filler. */
-    private final View vBottomFiller;
-    /** The frame layout containing the widget. */
-    private final FrameLayout flWidget;
-    /** The view flipper. */
-    private final ViewFlipper vsLauncher;
     /** The app widget manager. */
     private final AppWidgetManager appWidgetManager;
     /** The app widget host. */
@@ -124,12 +116,8 @@ public final class WidgetController {
     public WidgetController(final Launcher launcher, final SharedPreferencesDAO sharedPreferencesDAO) {
         this.sharedPreferencesDAO = sharedPreferencesDAO;
         this.launcher = launcher;
-        this.vTopFiller = launcher.findViewById(R.id.topFiller);
-        this.vBottomFiller = launcher.findViewById(R.id.bottomFiller);
-        this.flWidget = launcher.findViewById(R.id.flWidget);
         this.appWidgetManager = AppWidgetManager.getInstance(launcher);
         this.appWidgetHost = new AppWidgetHost(launcher, R.id.flWidget);
-        this.vsLauncher = launcher.findViewById(R.id.vsLauncher);
     }
 
     /**
@@ -188,6 +176,8 @@ public final class WidgetController {
      * @param appWidgetId the widget id
      */
     public void addHostView(final int appWidgetId) {
+        final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
+
         flWidget.removeAllViews();
 
         final AppWidgetProviderInfo appWidgetInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
@@ -213,6 +203,11 @@ public final class WidgetController {
      * @param appWidgetLayout the layout id.
      */
     public void adjustWidget(final int appWidgetLayout) {
+        final View vBottomFiller = launcher.findViewById(R.id.bottomFiller);
+        final View vTopFiller = getTopFiller();
+        final ViewSwitcher vsLauncher = launcher.findViewById(R.id.vsLauncher);
+        final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
+
         final ViewGroup.LayoutParams bottomLayout = vBottomFiller.getLayoutParams();
         final ViewGroup.LayoutParams topLayout = vTopFiller.getLayoutParams();
 
@@ -291,6 +286,8 @@ public final class WidgetController {
      * @param configure the configure component
      */
     public void bindWidget(final ComponentName provider, final ComponentName configure) {
+        final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
+
         final int appWidgetId = appWidgetHost.allocateAppWidgetId();
 
         if (appWidgetManager.bindAppWidgetIdIfAllowed(appWidgetId, provider)) {
@@ -349,6 +346,8 @@ public final class WidgetController {
      * @param appWidgetId the appWidgetId
      */
     public void createWidget(final Integer appWidgetId) {
+        final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
+
         final int currentAppWidgetId = sharedPreferencesDAO.getInt(KEY_APPWIDGET_ID, DEFAULT_APPWIDGET_ID);
 
         if (currentAppWidgetId > -1) {
@@ -378,7 +377,7 @@ public final class WidgetController {
      * @return the top filler view
      */
     public View getTopFiller() {
-        return vTopFiller;
+        return launcher.findViewById(R.id.topFiller);
     }
 
     /**
@@ -392,7 +391,7 @@ public final class WidgetController {
      * Request to layout the widget.
      */
     public void requestWidgetLayoutChange() {
-        final PopupMenu popupMenu = new PopupMenu(launcher, vTopFiller);
+        final PopupMenu popupMenu = new PopupMenu(launcher, getTopFiller());
 
         final int currentLayout = sharedPreferencesDAO.getInt(KEY_APPWIDGET_LAYOUT, DEFAULT_APPWIDGET_LAYOUT);
 
