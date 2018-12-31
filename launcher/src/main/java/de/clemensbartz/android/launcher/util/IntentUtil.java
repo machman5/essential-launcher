@@ -143,12 +143,10 @@ public final class IntentUtil {
                 continue;
             }
 
-            if (resolveInfo.activityInfo.permission != null
-                    && !(pm.checkPermission(resolveInfo.activityInfo.permission, BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED)) {
-                continue;
+            if (resolveInfo.activityInfo.permission == null
+                    || pm.checkPermission(resolveInfo.activityInfo.permission, BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED) {
+                return true;
             }
-
-            return true;
         }
 
         return false;
