@@ -82,7 +82,7 @@ public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
         if (dockController != null && sharedPreferencesDAO != null) {
-            new LoadDockTask(sharedPreferencesDAO, dockController).execute();
+            new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
 
         // Update drawer

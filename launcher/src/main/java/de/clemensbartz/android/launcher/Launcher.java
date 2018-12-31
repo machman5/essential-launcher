@@ -182,7 +182,7 @@ public final class Launcher extends Activity {
         registerReceiver(receiver, IntentUtil.createdChangeBroadReceiverFilter());
 
         // Update data
-        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
@@ -198,7 +198,7 @@ public final class Launcher extends Activity {
         viewController.setActionBar(getActionBar());
         viewController.showHome();
 
-        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
     @Override
