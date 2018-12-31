@@ -17,6 +17,7 @@
 
 package de.clemensbartz.android.launcher.listeners;
 
+import android.annotation.TargetApi;
 import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
  * @author Clemens Bartz
  * @since 2.0
  */
+@TargetApi(Build.VERSION_CODES.N_MR1)
 public final class ShortcutInfoOnMenuItemClickListener implements MenuItem.OnMenuItemClickListener {
 
     /** The shortcut info. */
@@ -46,11 +48,12 @@ public final class ShortcutInfoOnMenuItemClickListener implements MenuItem.OnMen
 
     @Override
     public boolean onMenuItemClick(final MenuItem item) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            if (launcherApps.hasShortcutHostPermission()) {
-                launcherApps.startShortcut(shortcutInfo, null, null);
-            }
+        if (launcherApps.hasShortcutHostPermission()) {
+            launcherApps.startShortcut(shortcutInfo, null, null);
+
+            return true;
         }
-        return true;
+
+        return false;
     }
 }
