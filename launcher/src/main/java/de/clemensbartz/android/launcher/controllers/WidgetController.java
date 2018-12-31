@@ -229,35 +229,8 @@ public final class WidgetController {
             return;
         }
 
-        double preciseBottomHeight = 0;
-        double preciseTopHeight = 0;
-
-        switch (appWidgetLayout) {
-            case WIDGET_LAYOUT_TOP_QUARTER: // widget in top 1/4
-                preciseBottomHeight = height * THREE_QUARTER;
-                break;
-            case WIDGET_LAYOUT_TOP_THIRD: // widget in top 1/3
-                preciseBottomHeight = height * TWO_THIRD;
-                break;
-            case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
-                preciseBottomHeight = height * HALF;
-                break;
-            case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
-                preciseBottomHeight = height * QUARTER;
-                preciseTopHeight = preciseBottomHeight;
-                break;
-            case WIDGET_LAYOUT_BOTTOM_HALF: // widget in bottom 1/2
-                preciseTopHeight = height * HALF;
-                break;
-            case WIDGET_LAYOUT_BOTTOM_THIRD: // widget in bottom 1/3
-                preciseTopHeight = height * TWO_THIRD;
-                break;
-            case WIDGET_LAYOUT_BOTTOM_QUARTER: // widget in bottom 1/4
-                preciseTopHeight = height * THREE_QUARTER;
-                break;
-            default: // default: -1
-                break;
-        }
+        double preciseBottomHeight = getPreciseBottomHeight(appWidgetLayout, height);
+        double preciseTopHeight = getPreciseTopHeight(appWidgetLayout, height);
 
         bottomLayout.height = (int) Math.round(preciseBottomHeight);
         vBottomFiller.requestLayout();
@@ -433,5 +406,47 @@ public final class WidgetController {
         final MenuItem menuItem = popupMenu.getMenu().add(0, widgetLayout, 0, resourceId);
         menuItem.setCheckable(true);
         menuItem.setChecked(currentLayout == widgetLayout);
+    }
+
+    /**
+     * Return the precise top height of for a specified height and a factor (layout id).
+     * @param appWidgetLayout the layout id
+     * @param height the height
+     * @return the height
+     */
+    private double getPreciseTopHeight(final int appWidgetLayout, final double height) {
+        switch (appWidgetLayout) {
+            case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
+                return height * QUARTER;
+            case WIDGET_LAYOUT_BOTTOM_HALF: // widget in bottom 1/2
+                return height * HALF;
+            case WIDGET_LAYOUT_BOTTOM_THIRD: // widget in bottom 1/3
+                return height * TWO_THIRD;
+            case WIDGET_LAYOUT_BOTTOM_QUARTER: // widget in bottom 1/4
+                return height * THREE_QUARTER;
+            default: // default: -1
+                return 0;
+        }
+    }
+
+    /**
+     * Return the precise bottom height of for a specified height and a factor (layout id).
+     * @param appWidgetLayout the layout id
+     * @param height the height
+     * @return the height
+     */
+    private double getPreciseBottomHeight(final int appWidgetLayout, final double height) {
+        switch (appWidgetLayout) {
+            case WIDGET_LAYOUT_TOP_QUARTER: // widget in top 1/4
+                return height * THREE_QUARTER;
+            case WIDGET_LAYOUT_TOP_THIRD: // widget in top 1/3
+                return height * TWO_THIRD;
+            case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
+                return height * HALF;
+            case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
+                return height * QUARTER;
+            default: // default: -1
+                return 0;
+        }
     }
 }
