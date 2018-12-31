@@ -317,11 +317,11 @@ public final class Launcher extends Activity {
 
                 return true;
             case R.id.abm_grid_toggle:
-                final boolean isGrid = !(viewController.getCurrentDetailIndex() == ViewController.GRID_ID);
-                item.setChecked(isGrid);
+                final boolean isCurrentDetailGrid = viewController.getCurrentDetailIndex() == ViewController.GRID_ID;
+                item.setChecked(!isCurrentDetailGrid);
 
                 final int newLayout;
-                if (isGrid) {
+                if (!isCurrentDetailGrid) {
                     newLayout = ViewController.GRID_ID;
                 } else {
                     newLayout = ViewController.LIST_ID;
