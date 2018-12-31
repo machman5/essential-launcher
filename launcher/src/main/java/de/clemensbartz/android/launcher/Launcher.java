@@ -172,7 +172,7 @@ public final class Launcher extends Activity {
         new LoadSharedPreferencesDAOTask(this, sharedPreferencesDAO, viewController, widgetController).execute();
         // register for receivers
         new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter).execute();
+        new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
     @Override

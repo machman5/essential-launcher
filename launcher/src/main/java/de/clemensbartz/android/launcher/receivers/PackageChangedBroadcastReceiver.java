@@ -20,6 +20,7 @@ package de.clemensbartz.android.launcher.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
@@ -89,7 +90,7 @@ public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
 
         if (drawerController != null && drawerListAdapter != null && context != null) {
-            new LoadDrawerListAdapterTask(context, drawerController, drawerListAdapter).execute();
+            new LoadDrawerListAdapterTask(context, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
     }
 }
