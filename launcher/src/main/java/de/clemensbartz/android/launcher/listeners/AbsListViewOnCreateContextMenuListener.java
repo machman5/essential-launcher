@@ -38,6 +38,7 @@ import de.clemensbartz.android.launcher.controllers.DockController;
 import de.clemensbartz.android.launcher.controllers.DrawerController;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
 import de.clemensbartz.android.launcher.util.IntentUtil;
+import de.clemensbartz.android.launcher.util.LauncherAppsUtil;
 
 /**
  * Context Menu Listener for all list views.
@@ -115,19 +116,11 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
         // Optionally add Shortcuts
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             final LauncherApps launcherApps = launcherAppsWeakReference.get();
-            if (launcherApps != null && launcherApps.hasShortcutHostPermission()) {
-                final LauncherApps.ShortcutQuery shortcutQuery = new LauncherApps.ShortcutQuery();
-                shortcutQuery.setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC | LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST | LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED);
-                shortcutQuery.setPackage(applicationModel.packageName);
 
-                final List<ShortcutInfo> shortcutInfos = launcherApps.getShortcuts(shortcutQuery, Process.myUserHandle());
+            for (final ShortcutInfo shortcutInfo : LauncherAppsUtil.getShortcutInfos(launcherApps, applicationModel)) {
 
-                if (shortcutInfos != null) {
-                    for (final ShortcutInfo shortcutInfo : shortcutInfos) {
-                        final MenuItem shortInfoMenuItem = contextMenu.add(0, 0, 0, shortcutInfo.getShortLabel());
-                        shortInfoMenuItem.setOnMenuItemClickListener(new ShortcutInfoOnMenuItemClickListener(shortcutInfo, launcherApps));
-                    }
-                }
+                final MenuItem shortInfoMenuItem = contextMenu.add(0, 0, 0, shortcutInfo.getShortLabel());
+                shortInfoMenuItem.setOnMenuItemClickListener(new ShortcutInfoOnMenuItemClickListener(shortcutInfo, launcherApps));
             }
         }
 

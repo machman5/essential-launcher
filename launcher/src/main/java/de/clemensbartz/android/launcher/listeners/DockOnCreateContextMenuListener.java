@@ -31,6 +31,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import de.clemensbartz.android.launcher.models.ApplicationModel;
+import de.clemensbartz.android.launcher.util.LauncherAppsUtil;
 
 /**
  * Listener for creating the context menu for dock items.
@@ -54,31 +55,18 @@ public final class DockOnCreateContextMenuListener implements View.OnCreateConte
 
     @Override
     public void onCreateContextMenu(final ContextMenu contextMenu, final View view, final ContextMenu.ContextMenuInfo contextMenuInfo) {
-        if (view instanceof ImageView) {
-            final ImageView contextImageView = (ImageView) view;
+        if (view instanceof ImageView && view.getTag() instanceof ApplicationModel) {
+            final ApplicationModel applicationModel = (ApplicationModel) view.getTag();
 
-            if (contextImageView.getTag() instanceof ApplicationModel) {
-                final ApplicationModel applicationModel = (ApplicationModel) contextImageView.getTag();
+            contextMenu.setHeaderTitle(applicationModel.label);
 
-                contextMenu.setHeaderTitle(applicationModel.label);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                final LauncherApps launcherApps = launcherAppsWeakReference.get();
 
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                    final LauncherApps launcherApps = launcherAppsWeakReference.get();
+                for (final ShortcutInfo shortcutInfo : LauncherAppsUtil.getShortcutInfos(launcherApps, applicationModel)) {
 
-                    if (launcherApps != null && launcherApps.hasShortcutHostPermission()) {
-                        final LauncherApps.ShortcutQuery shortcutQuery = new LauncherApps.ShortcutQuery();
-                        shortcutQuery.setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC | LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST | LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED);
-                        shortcutQuery.setPackage(applicationModel.packageName);
-
-                        final List<ShortcutInfo> shortcutInfos = launcherApps.getShortcuts(shortcutQuery, Process.myUserHandle());
-
-                        if (shortcutInfos != null) {
-                            for (final ShortcutInfo shortcutInfo : shortcutInfos) {
-                                final MenuItem shortInfoMenuItem = contextMenu.add(0, 0, 0, shortcutInfo.getShortLabel());
-                                shortInfoMenuItem.setOnMenuItemClickListener(new ShortcutInfoOnMenuItemClickListener(shortcutInfo, launcherApps));
-                            }
-                        }
-                    }
+                    final MenuItem shortInfoMenuItem = contextMenu.add(0, 0, 0, shortcutInfo.getShortLabel());
+                    shortInfoMenuItem.setOnMenuItemClickListener(new ShortcutInfoOnMenuItemClickListener(shortcutInfo, launcherApps));
                 }
             }
         }
