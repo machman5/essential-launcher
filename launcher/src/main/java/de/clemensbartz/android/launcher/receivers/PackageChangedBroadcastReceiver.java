@@ -82,7 +82,13 @@ public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
         if (dockController != null && sharedPreferencesDAO != null) {
-            new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+            if (LoadDockTask.getRunningTask() != null) {
+                LoadDockTask.getRunningTask().cancel(true);
+            }
+
+            final LoadDockTask loadDockTask = new LoadDockTask(sharedPreferencesDAO, dockController);
+            LoadDockTask.setRunningTask(loadDockTask);
+            loadDockTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
 
         // Update drawer
@@ -90,7 +96,13 @@ public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
 
         if (drawerController != null && drawerListAdapter != null && context != null) {
-            new LoadDrawerListAdapterTask(context, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+            if (LoadDrawerListAdapterTask.getRunningTask() != null) {
+                LoadDrawerListAdapterTask.getRunningTask().cancel(true);
+            }
+
+            final LoadDrawerListAdapterTask loadDrawerListAdapterTask = new LoadDrawerListAdapterTask(context, drawerController, drawerListAdapter);
+            LoadDrawerListAdapterTask.setRunningTask(loadDrawerListAdapterTask);
+            loadDrawerListAdapterTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
     }
 

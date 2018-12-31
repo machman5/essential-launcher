@@ -33,6 +33,9 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
  */
 public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDockTaskProgress, Integer> {
 
+    /** The currently running task. */
+    private static LoadDockTask runningTask = null;
+
     /** Weak reference for the shared preference dao. */
     private final WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
     /** Weak reference for the dock controller. */
@@ -46,6 +49,22 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
     public LoadDockTask(final SharedPreferencesDAO sharedPreferencesDAO, final DockController dockController) {
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
         dockControllerWeakReference = new WeakReference<>(dockController);
+    }
+
+    /**
+     *
+     * @return the current running task
+     */
+    public static LoadDockTask getRunningTask() {
+        return runningTask;
+    }
+
+    /**
+     * Set the new task.
+     * @param runningTask the new running task
+     */
+    public static void setRunningTask(final LoadDockTask runningTask) {
+        LoadDockTask.runningTask = runningTask;
     }
 
     @Override
@@ -108,6 +127,11 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
                 dockController.updateDock(progress.index, progress.applicationModel);
             }
         }
+    }
+
+    @Override
+    protected void onPostExecute(final Integer integer) {
+        LoadDockTask.setRunningTask(null);
     }
 
     /**

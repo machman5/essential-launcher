@@ -181,9 +181,14 @@ public final class Launcher extends Activity {
 
         registerReceiver(receiver, IntentUtil.createdChangeBroadReceiverFilter());
 
-        // Update data
-        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-        new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+        // Update drawer
+        if (LoadDrawerListAdapterTask.getRunningTask() != null) {
+            LoadDrawerListAdapterTask.getRunningTask().cancel(true);
+        }
+
+        final LoadDrawerListAdapterTask loadDrawerListAdapterTask = new LoadDrawerListAdapterTask(this, drawerController, drawerListAdapter);
+        LoadDrawerListAdapterTask.setRunningTask(loadDrawerListAdapterTask);
+        loadDrawerListAdapterTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
     @Override
@@ -198,7 +203,13 @@ public final class Launcher extends Activity {
         viewController.setActionBar(getActionBar());
         viewController.showHome();
 
-        new LoadDockTask(sharedPreferencesDAO, dockController).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+        if (LoadDockTask.getRunningTask() != null) {
+            LoadDockTask.getRunningTask().cancel(true);
+        }
+
+        final LoadDockTask loadDockTask = new LoadDockTask(sharedPreferencesDAO, dockController);
+        LoadDockTask.setRunningTask(loadDockTask);
+        loadDockTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
     @Override

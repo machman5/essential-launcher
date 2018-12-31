@@ -46,6 +46,9 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
  */
 public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer, Integer> {
 
+    /** The currently running task. */
+    private static LoadDrawerListAdapterTask runningTask = null;
+
     /** Weak reference to the context. */
     private final WeakReference<Context> contextWeakReference;
     /** Weak reference to the drawer controller. */
@@ -63,6 +66,22 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
         contextWeakReference = new WeakReference<>(context);
         drawerControllerWeakReference = new WeakReference<>(drawerController);
         drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
+    }
+
+    /**
+     *
+     * @return the currently running task
+     */
+    public static LoadDrawerListAdapterTask getRunningTask() {
+        return runningTask;
+    }
+
+    /**
+     * Set the new running task.
+     * @param runningTask the new running task
+     */
+    public static void setRunningTask(final LoadDrawerListAdapterTask runningTask) {
+        LoadDrawerListAdapterTask.runningTask = runningTask;
     }
 
     @Override
