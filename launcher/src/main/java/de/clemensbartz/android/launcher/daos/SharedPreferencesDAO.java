@@ -35,6 +35,9 @@ public final class SharedPreferencesDAO {
     /** The instance of this class. */
     private static SharedPreferencesDAO instance;
 
+    /** Preferences value. */
+    private final SharedPreferences preferences;
+
     /**
      * Get the DAO for the shared preferences.
      * @param preferences the shared preferences
@@ -48,9 +51,6 @@ public final class SharedPreferencesDAO {
         instance = new SharedPreferencesDAO(preferences);
         return instance;
     }
-
-    /** Preferences value. */
-    private final SharedPreferences preferences;
 
     /**
      * Create a new DAO.
