@@ -18,7 +18,6 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.content.ComponentName;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
