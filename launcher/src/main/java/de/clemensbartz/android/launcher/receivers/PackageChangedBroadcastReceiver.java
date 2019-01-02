@@ -39,7 +39,7 @@ import de.clemensbartz.android.launcher.tasks.LoadDrawerListAdapterTask;
  * @author Clemens Bartz
  * @since 2.0
  */
-public class PackageChangedBroadcastReceiver extends BroadcastReceiver {
+public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
 
     /** The instance of the receiver. */
     private static PackageChangedBroadcastReceiver instance;
