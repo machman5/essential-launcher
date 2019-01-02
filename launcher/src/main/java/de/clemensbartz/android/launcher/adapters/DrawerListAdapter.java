@@ -34,10 +34,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import de.clemensbartz.android.launcher.R;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
 import de.clemensbartz.android.launcher.tasks.LoadApplicationModelIconIntoImageViewTask;
+import de.clemensbartz.android.launcher.util.LocaleUtil;
 
 /**
  * Array adapter for the drawer. Takes an @{ApplicationModel}.
@@ -63,6 +65,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
     /** The default drawable. */
     private final Drawable defaultDrawable;
+    /** The locale of the context. */
+    private final Locale locale;
 
     /** The lower-cased lowerCaseFilter string. */
     private String lowerCaseFilter = "";
@@ -80,6 +84,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         super(context, R.layout.grid_drawer_item);
         this.defaultDrawable = defaultDrawable;
+        this.locale = LocaleUtil.getLocale(context);
     }
 
     @Override
@@ -169,7 +174,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
         if (query == null) {
             lowerCaseFilter = "";
         } else {
-            lowerCaseFilter = query.toLowerCase();
+            lowerCaseFilter = query.toLowerCase(locale);
         }
 
         filter();
@@ -231,9 +236,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
                     continue;
                 }
 
-                if (applicationModel.label.toLowerCase().contains(lowerCaseWord)
-                        || applicationModel.className.toLowerCase().contains(lowerCaseWord)
-                        || applicationModel.packageName.toLowerCase().contains(lowerCaseWord)) {
+                if (applicationModel.label.toLowerCase(locale).contains(lowerCaseWord)
+                        || applicationModel.className.toLowerCase(locale).contains(lowerCaseWord)
+                        || applicationModel.packageName.toLowerCase(locale).contains(lowerCaseWord)) {
 
                     filteredList.add(applicationModel);
 
