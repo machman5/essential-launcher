@@ -26,15 +26,11 @@ package de.clemensbartz.android.launcher.models;
  */
 public final class ApplicationModel {
     /** The localized label. */
-    @SuppressWarnings("CheckStyle")
     public String label;
     /** The package name. */
-    @SuppressWarnings("CheckStyle")
     public String packageName;
     /** The full class name. */
-    @SuppressWarnings("CheckStyle")
     public String className;
     /** The hidden flag. */
-    @SuppressWarnings("CheckStyle")
     public boolean hidden;
 }
