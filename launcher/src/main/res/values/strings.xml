@@ -24,14 +24,14 @@
     <string name="chooseWidget">Choose widget…</string>
     <string name="layoutWidget">Layout widget…</string>
     <string name="removeWidget">Remove widget</string>
-    <string name="widgetLayoutTopQuarter"><![CDATA[Top &#188;]]></string>
-    <string name="widgetLayoutTopThird"><![CDATA[Top &#8531;]]></string>
-    <string name="widgetLayoutTopHalf"><![CDATA[Top &#189;]]></string>
+    <string name="widgetLayoutTopQuarter">Top 1/4</string>
+    <string name="widgetLayoutTopThird">Top 1/3</string>
+    <string name="widgetLayoutTopHalf">Top 1/2</string>
     <string name="widgetLayoutFull">Full Screen</string>
-    <string name="widgetLayoutCenter"><![CDATA[Center &#189;]]></string>
-    <string name="widgetLayoutBottomHalf"><![CDATA[Bottom &#189;]]></string>
-    <string name="widgetLayoutBottomThird"><![CDATA[Bottom &#8531;]]></string>
-    <string name="widgetLayoutBottomQuarter"><![CDATA[Bottom &#188;]]></string>
+    <string name="widgetLayoutCenter">Center 1/2></string>
+    <string name="widgetLayoutBottomHalf">Bottom 1/2</string>
+    <string name="widgetLayoutBottomThird">Bottom 1/3></string>
+    <string name="widgetLayoutBottomQuarter">Bottom 1/4</string>
     <string name="up" translatable="false">^</string>
     <string name="showAsGrid">Show as grid</string>
     <string name="hidden">Hidden</string>
