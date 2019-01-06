@@ -140,8 +140,12 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public int getPosition(@NonNull final ApplicationModel item) {
-        return filteredList.indexOf(item);
+    public int getPosition(@Nullable final ApplicationModel item) {
+        if (item != null) {
+            return filteredList.indexOf(item);
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -150,8 +154,10 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public void add(@NonNull final ApplicationModel object) {
-        unfilteredList.add(object);
+    public void add(@Nullable final ApplicationModel object) {
+        if (object != null) {
+            unfilteredList.add(object);
+        }
     }
 
     @Override
@@ -165,8 +171,10 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public void remove(@NonNull final ApplicationModel object) {
-        unfilteredList.remove(object);
+    public void remove(@Nullable final ApplicationModel object) {
+        if (object != null) {
+            unfilteredList.remove(object);
+        }
     }
 
     @Override
