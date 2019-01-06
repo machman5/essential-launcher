@@ -279,7 +279,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /**
      * View holder class.
      */
-    static class ViewHolder {
+    static final class ViewHolder {
         /** The view for the icon. */
         @Nullable ImageView icon;
         /** The view for the label. */
