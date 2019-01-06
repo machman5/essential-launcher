@@ -123,6 +123,10 @@ public final class Launcher extends Activity {
             icLauncher = getResources().getDrawable(R.drawable.ic_launcher);
         }
 
+        if (icLauncher == null) {
+            throw new NullPointerException("Could not load ic_launcher drawable.");
+        }
+
         // Set up dock handling
         final ArrayList<ImageView> dockImageViews = new ArrayList<>(DockController.NUMBER_OF_ITEMS);
         dockImageViews.add((ImageView) findViewById(R.id.ivDock1));
@@ -201,15 +205,19 @@ public final class Launcher extends Activity {
 
     @Override
     public void onBackPressed() {
-        viewController.showHome();
+        if (viewController != null) {
+            viewController.showHome();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        viewController.setActionBar(getActionBar());
-        viewController.showHome();
+        if (viewController != null) {
+            viewController.setActionBar(getActionBar());
+            viewController.showHome();
+        }
 
         if (LoadDockTask.getRunningTask() != null) {
             LoadDockTask.getRunningTask().cancel(true);
@@ -240,7 +248,9 @@ public final class Launcher extends Activity {
     public boolean onTouchEvent(@NonNull final MotionEvent event) {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
-                viewController.showDetail();
+                if (viewController != null) {
+                    viewController.showDetail();
+                }
                 return true;
             default:
                 return super.onTouchEvent(event);
@@ -279,7 +289,9 @@ public final class Launcher extends Activity {
 
         actionBarMenu = menu;
 
-        viewController.setActionBarMenu(actionBarMenu);
+        if (viewController != null) {
+            viewController.setActionBarMenu(actionBarMenu);
+        }
 
         // Inflate menu
         final MenuInflater menuInflater = getMenuInflater();
@@ -308,9 +320,13 @@ public final class Launcher extends Activity {
         }
 
         // Check for hiding apps
-        menu.findItem(R.id.abm_show_hidden).setChecked(drawerListAdapter.isShowingHiddenApps());
+        if (drawerListAdapter != null) {
+            menu.findItem(R.id.abm_show_hidden).setChecked(drawerListAdapter.isShowingHiddenApps());
+        }
         // Check for grid
-        menu.findItem(R.id.abm_grid_toggle).setChecked(viewController.getCurrentDetailIndex() == ViewController.GRID_ID);
+        if (viewController != null) {
+            menu.findItem(R.id.abm_grid_toggle).setChecked(viewController.getCurrentDetailIndex() == ViewController.GRID_ID);
+        }
 
         return true;
     }
@@ -333,6 +349,10 @@ public final class Launcher extends Activity {
 
                 widgetController.requestWidgetChoosing();
 
+                if (viewController == null) {
+                    return super.onOptionsItemSelected(item);
+                }
+
                 viewController.showHome();
 
                 return true;
@@ -346,6 +366,10 @@ public final class Launcher extends Activity {
 
                 widgetController.requestWidgetLayoutChange();
 
+                if (viewController == null) {
+                    return super.onOptionsItemSelected(item);
+                }
+
                 viewController.showHome();
 
                 return true;
@@ -354,15 +378,23 @@ public final class Launcher extends Activity {
                     // something wrong here, item should not be visible... hiding
                     item.setVisible(false);
 
-                    return true;
+                    return super.onOptionsItemSelected(item);
                 }
 
                 widgetController.requestWidgetRemoval();
+
+                if (viewController == null) {
+                    return super.onOptionsItemSelected(item);
+                }
 
                 viewController.showHome();
 
                 return true;
             case R.id.abm_grid_toggle:
+                if (viewController == null || sharedPreferencesDAO == null) {
+                    return super.onOptionsItemSelected(item);
+                }
+
                 final boolean isCurrentDetailGrid = viewController.getCurrentDetailIndex() == ViewController.GRID_ID;
                 item.setChecked(!isCurrentDetailGrid);
 
@@ -380,6 +412,10 @@ public final class Launcher extends Activity {
 
                 return true;
             case R.id.abm_show_hidden:
+                if (drawerListAdapter == null) {
+                    return super.onOptionsItemSelected(item);
+                }
+
                 final boolean isShowingHiddenApps = drawerListAdapter.isShowingHiddenApps();
 
                 drawerListAdapter.setShowHiddenApps(!isShowingHiddenApps);

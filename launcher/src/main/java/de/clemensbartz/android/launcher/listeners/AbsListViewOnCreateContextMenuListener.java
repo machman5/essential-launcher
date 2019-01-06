@@ -128,8 +128,10 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
             }
         }
 
-        final MenuItem itemAppInfo = contextMenu.add(0, ITEM_APP_INFO, 0, R.string.showAppInfo);
-        itemAppInfo.setIntent(IntentUtil.newAppDetailsIntent(applicationModel.packageName));
+        if (applicationModel.packageName != null) {
+            final MenuItem itemAppInfo = contextMenu.add(0, ITEM_APP_INFO, 0, R.string.showAppInfo);
+            itemAppInfo.setIntent(IntentUtil.newAppDetailsIntent(applicationModel.packageName));
+        }
 
         final SubMenu pinAppSubMenu = contextMenu.addSubMenu(R.string.pinApp);
         for (int i = 0; i < DockController.NUMBER_OF_ITEMS; i++) {

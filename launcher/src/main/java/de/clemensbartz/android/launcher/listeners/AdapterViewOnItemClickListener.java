@@ -21,6 +21,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -46,11 +47,19 @@ public final class AdapterViewOnItemClickListener implements AdapterView.OnItemC
     }
 
     @Override
-    public void onItemClick(@NonNull final AdapterView<?> parent, @NonNull final View view, final int position, final long id) {
+    public void onItemClick(@Nullable final AdapterView<?> parent, @Nullable final View view, final int position, final long id) {
+        if (parent == null) {
+            return;
+        }
+
         final Object object = parent.getAdapter().getItem(position);
 
         if (object instanceof ApplicationModel) {
             final ApplicationModel applicationModel = (ApplicationModel) object;
+
+            if (applicationModel.packageName == null || applicationModel.className == null) {
+                return;
+            }
 
             final ComponentName component = new ComponentName(applicationModel.packageName, applicationModel.className);
             final Intent intent = new Intent(Intent.ACTION_MAIN);

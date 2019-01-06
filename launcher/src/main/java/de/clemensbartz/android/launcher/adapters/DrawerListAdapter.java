@@ -254,6 +254,10 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
                     continue;
                 }
 
+                if (applicationModel.label == null || applicationModel.className == null || applicationModel.packageName == null) {
+                    continue;
+                }
+
                 if (applicationModel.label.toLowerCase(locale).contains(lowerCaseWord)
                         || applicationModel.className.toLowerCase(locale).contains(lowerCaseWord)
                         || applicationModel.packageName.toLowerCase(locale).contains(lowerCaseWord)) {

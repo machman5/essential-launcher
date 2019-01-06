@@ -81,6 +81,11 @@ public final class DockController {
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
         packageManagerWeakReference = new WeakReference<>(packageManager);
 
+        // Check for existing context
+        if (context == null) {
+            return;
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             final LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
 
@@ -89,11 +94,6 @@ public final class DockController {
                     imageView.setOnCreateContextMenuListener(new DockOnCreateContextMenuListener(launcherApps));
                 }
             }
-        }
-
-        // Check for existing context
-        if (context == null) {
-            return;
         }
 
         // Otherwise set up dock items
