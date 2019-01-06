@@ -29,6 +29,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Process;
 import android.os.UserHandle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -47,13 +50,17 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
 public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer, Integer> {
 
     /** The currently running task. */
+    @Nullable
     private static LoadDrawerListAdapterTask runningTask = null;
 
     /** Weak reference to the context. */
+    @NonNull
     private final WeakReference<Context> contextWeakReference;
     /** Weak reference to the drawer controller. */
+    @NonNull
     private final WeakReference<DrawerController> drawerControllerWeakReference;
     /** Weak reference to the list adapter. */
+    @NonNull
     private final WeakReference<DrawerListAdapter> drawerListAdapterWeakReference;
 
     /**
@@ -62,7 +69,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @param drawerListAdapter the drawer list adapter
      * @param drawerController the drawer controller
      */
-    public LoadDrawerListAdapterTask(final Context context, final DrawerController drawerController, final DrawerListAdapter drawerListAdapter) {
+    public LoadDrawerListAdapterTask(@Nullable final Context context, @Nullable final DrawerController drawerController, @Nullable final DrawerListAdapter drawerListAdapter) {
         contextWeakReference = new WeakReference<>(context);
         drawerControllerWeakReference = new WeakReference<>(drawerController);
         drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
@@ -72,6 +79,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      *
      * @return the currently running task
      */
+    @Nullable
     public static LoadDrawerListAdapterTask getRunningTask() {
         return runningTask;
     }
@@ -80,7 +88,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * Set the new running task.
      * @param runningTask the new running task
      */
-    public static void setRunningTask(final LoadDrawerListAdapterTask runningTask) {
+    public static void setRunningTask(@Nullable final LoadDrawerListAdapterTask runningTask) {
         LoadDrawerListAdapterTask.runningTask = runningTask;
     }
 
@@ -95,7 +103,8 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
     }
 
     @Override
-    protected Integer doInBackground(final Integer... integers) {
+    @Nullable
+    protected Integer doInBackground(@Nullable final Integer... integers) {
         // Check for existing weak references
         final Context context = contextWeakReference.get();
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
@@ -132,7 +141,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
     }
 
     @Override
-    protected void onPostExecute(final Integer integer) {
+    protected void onPostExecute(@Nullable final Integer integer) {
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
 
         if (integer != null && integer > -1 && drawerListAdapter != null) {
@@ -147,7 +156,9 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @return a list of application models
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private List<ApplicationModel> getApplicationModelsByLauncherApps(final LauncherApps launcherApps, final DrawerController drawerController) {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @NonNull
+    private List<ApplicationModel> getApplicationModelsByLauncherApps(@NonNull final LauncherApps launcherApps, @NonNull final DrawerController drawerController) {
         final UserHandle userHandle = Process.myUserHandle();
 
         if (userHandle == null) {
@@ -196,6 +207,8 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @return a list of application models
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @NonNull
     private List<ApplicationModel> getApplicationModelByResolveInfos(final PackageManager packageManager, final DrawerController drawerController) {
         final List<ApplicationModel> applicationModels = new ArrayList<>();
 
@@ -232,7 +245,9 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @return a list of apps that are launchable
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private List<ResolveInfo> getLaunchableResolveInfos(final PackageManager packageManager) {
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @NonNull
+    private List<ResolveInfo> getLaunchableResolveInfos(@NonNull final PackageManager packageManager) {
         final Intent intent = new Intent();
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -246,7 +261,8 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @param name the name of the app
      * @return the label, the name or empty string, if one of the previous values are <code>null</code>
      */
-    private String getLabel(final CharSequence label, final String name) {
+    @NonNull
+    private String getLabel(@Nullable final CharSequence label, @Nullable final String name) {
         if (label != null) {
             return label.toString();
         }

@@ -22,6 +22,9 @@ import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
 import android.os.Process;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
  * @since 2.0
  */
 @TargetApi(Build.VERSION_CODES.N_MR1)
+@RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class LauncherAppsUtil {
 
     /**
@@ -50,7 +54,8 @@ public final class LauncherAppsUtil {
      * @return a list of shortcuts or an empty list, if shortcuts are not permitted or
      * none were found
      */
-    public static List<ShortcutInfo> getShortcutInfos(final LauncherApps launcherApps, final ApplicationModel applicationModel) {
+    @NonNull
+    public static List<ShortcutInfo> getShortcutInfos(@Nullable final LauncherApps launcherApps, @Nullable final ApplicationModel applicationModel) {
 
         // Create an empty list to return in case something went wrong
         final List<ShortcutInfo> emptyShortcutInfos = new ArrayList<>(0);

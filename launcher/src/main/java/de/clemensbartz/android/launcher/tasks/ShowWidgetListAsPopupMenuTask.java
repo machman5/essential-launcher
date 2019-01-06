@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 
@@ -44,10 +46,13 @@ import de.clemensbartz.android.launcher.util.IntentUtil;
 public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Integer, List<ShowWidgetListAsPopupMenuTask.FilledAppWidgetProviderInfo>> {
 
     /** The weak reference to our widget controller. */
+    @NonNull
     private final WeakReference<WidgetController> widgetControllerWeakReference;
     /** The weak reference to the package manager. */
+    @NonNull
     private final WeakReference<Context> contextWeakReference;
     /** The weak reference to the app widget manager. */
+    @NonNull
     private final WeakReference<AppWidgetManager> appWidgetManagerWeakReference;
 
     /**
@@ -57,7 +62,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
      * @param context the context to run in
      * @param appWidgetManager the app widget manager
      */
-    public ShowWidgetListAsPopupMenuTask(final WidgetController widgetController, final Context context, final AppWidgetManager appWidgetManager) {
+    public ShowWidgetListAsPopupMenuTask(@Nullable final WidgetController widgetController, @Nullable final Context context, @Nullable final AppWidgetManager appWidgetManager) {
 
         this.widgetControllerWeakReference = new WeakReference<>(widgetController);
         this.contextWeakReference = new WeakReference<>(context);
@@ -65,7 +70,8 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
     }
 
     @Override
-    protected List<FilledAppWidgetProviderInfo> doInBackground(final Integer... integers) {
+    @Nullable
+    protected List<FilledAppWidgetProviderInfo> doInBackground(@Nullable final Integer... integers) {
 
         final AppWidgetManager appWidgetManager = appWidgetManagerWeakReference.get();
         final WidgetController widgetController = widgetControllerWeakReference.get();
@@ -113,7 +119,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
     }
 
     @Override
-    protected void onPostExecute(final List<FilledAppWidgetProviderInfo> appWidgetProviderInfos) {
+    protected void onPostExecute(@Nullable final List<FilledAppWidgetProviderInfo> appWidgetProviderInfos) {
 
         final Context context = contextWeakReference.get();
         final WidgetController widgetController = widgetControllerWeakReference.get();
@@ -153,10 +159,10 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
      */
     static final class FilledAppWidgetProviderInfo {
         /** The label for the provider. */
-        String label;
+        @Nullable String label;
         /** The provider component. */
-        ComponentName provider;
+        @Nullable ComponentName provider;
         /** The configure component. */
-        ComponentName configure;
+        @Nullable ComponentName configure;
     }
 }

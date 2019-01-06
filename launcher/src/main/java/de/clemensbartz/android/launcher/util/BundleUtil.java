@@ -19,6 +19,7 @@ package de.clemensbartz.android.launcher.util;
 
 import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 /**
  * Factory to create option bundles.
@@ -42,7 +43,7 @@ public final class BundleUtil {
      * @param maximumHeight the maximum height
      * @return an options bundle
      */
-    public static Bundle getWidgetOptionsBundle(final int minimumWidth, final int minimumHeight, final int maximumWidth, final int maximumHeight) {
+    public @NonNull static Bundle getWidgetOptionsBundle(final int minimumWidth, final int minimumHeight, final int maximumWidth, final int maximumHeight) {
         final Bundle bundle = new Bundle(4);
 
         bundle.putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, minimumWidth);

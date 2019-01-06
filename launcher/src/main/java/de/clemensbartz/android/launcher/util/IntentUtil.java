@@ -26,6 +26,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -49,7 +51,8 @@ public final class IntentUtil {
      * @param packageName   The package name of the application
      * @return the intent to open the application info screen.
      */
-    public static Intent newAppDetailsIntent(final String packageName) {
+    @NonNull
+    public static Intent newAppDetailsIntent(@NonNull final String packageName) {
         final Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setData(Uri.parse("package:" + packageName));
@@ -62,7 +65,8 @@ public final class IntentUtil {
      * @param className the class name of the app
      * @return the intent top open the main app
      */
-    public static Intent newAppMainIntent(final String packageName, final String className) {
+    @NonNull
+    public static Intent newAppMainIntent(@NonNull final String packageName, @NonNull final String className) {
         final ComponentName component = new ComponentName(packageName, className);
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -76,7 +80,8 @@ public final class IntentUtil {
      * @param componentName the component
      * @return the intent
      */
-    public static Intent createWidgetConfigureIntent(final ComponentName componentName) {
+    @NonNull
+    public static Intent createWidgetConfigureIntent(@NonNull final ComponentName componentName) {
         final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
 
         intent.setComponent(componentName);
@@ -90,7 +95,8 @@ public final class IntentUtil {
      * @param appWidgetId the app widget id
      * @return the intent
      */
-    public static Intent createWidgetBindIntent(final ComponentName provider, final Integer appWidgetId) {
+    @NonNull
+    public static Intent createWidgetBindIntent(@NonNull final ComponentName provider, final int appWidgetId) {
         final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_BIND);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, provider);
@@ -107,6 +113,7 @@ public final class IntentUtil {
      *
      * @return the filter for the changed broadcast receiver
      */
+    @NonNull
     public static IntentFilter createdChangeBroadReceiverFilter() {
         final IntentFilter filter = new IntentFilter();
 
@@ -128,7 +135,7 @@ public final class IntentUtil {
      * @param pm the package manager to check against
      * @return if it is callable.
      */
-    public static boolean isCallable(final PackageManager pm, final Intent intent) {
+    public static boolean isCallable(@Nullable final PackageManager pm, @Nullable final Intent intent) {
         // Check for possible null values
         if (pm == null || intent == null) {
             return false;

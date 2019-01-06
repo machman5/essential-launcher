@@ -21,6 +21,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
@@ -42,15 +44,20 @@ import de.clemensbartz.android.launcher.tasks.LoadDrawerListAdapterTask;
 public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
 
     /** The instance of the receiver. */
+    @Nullable
     private static PackageChangedBroadcastReceiver instance;
 
     /** Weak reference to the dock controller. */
+    @NonNull
     private WeakReference<DockController> dockControllerWeakReference;
     /** Weak reference to the drawer controller. */
+    @NonNull
     private WeakReference<DrawerController> drawerControllerWeakReference;
     /** Weak reference to the shared preferences dao. */
+    @NonNull
     private WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
     /** Weak reference to the drawer list adapter. */
+    @NonNull
     private WeakReference<DrawerListAdapter> drawerListAdapterWeakReference;
 
     /**
@@ -67,6 +74,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
      *
      * @return the instance of the receiver
      */
+    @NonNull
     public static PackageChangedBroadcastReceiver getInstance() {
         if (instance == null) {
             instance = new PackageChangedBroadcastReceiver();
@@ -76,7 +84,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
         // Update dock
         final DockController dockController = dockControllerWeakReference.get();
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
@@ -110,7 +118,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
      * Set the new dock controller.
      * @param dockController the dock controller or <code>null</code>, to erase it
      */
-    public void setDockController(final DockController dockController) {
+    public void setDockController(@Nullable final DockController dockController) {
         dockControllerWeakReference = new WeakReference<>(dockController);
     }
 
@@ -118,7 +126,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
      * Set the new drawer controller.
      * @param drawerController the drawer controller or <code>null</code>, to erase it
      */
-    public void setDrawerController(final DrawerController drawerController) {
+    public void setDrawerController(@Nullable final DrawerController drawerController) {
         drawerControllerWeakReference = new WeakReference<>(drawerController);
     }
 
@@ -126,7 +134,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
      * Set the new shared preference dao.
      * @param sharedPreferencesDAO the shared preference dao or <code>null</code>, to erase it
      */
-    public void setSharedPreferencesDAO(final SharedPreferencesDAO sharedPreferencesDAO) {
+    public void setSharedPreferencesDAO(@Nullable final SharedPreferencesDAO sharedPreferencesDAO) {
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
     }
 
@@ -134,7 +142,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
      * Set the new drawer list adapter.
      * @param drawerListAdapter the drawer list adapter or <code>null</code>, to erase it
      */
-    public void setDrawerListAdapter(final DrawerListAdapter drawerListAdapter) {
+    public void setDrawerListAdapter(@Nullable final DrawerListAdapter drawerListAdapter) {
         drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
     }
 }

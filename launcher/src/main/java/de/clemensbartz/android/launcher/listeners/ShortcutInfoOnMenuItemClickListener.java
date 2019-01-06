@@ -21,6 +21,9 @@ import android.annotation.TargetApi;
 import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.MenuItem;
 
 /**
@@ -29,11 +32,14 @@ import android.view.MenuItem;
  * @since 2.0
  */
 @TargetApi(Build.VERSION_CODES.N_MR1)
+@RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class ShortcutInfoOnMenuItemClickListener implements MenuItem.OnMenuItemClickListener {
 
     /** The shortcut info. */
+    @NonNull
     private final ShortcutInfo shortcutInfo;
     /** The launcher apps. */
+    @NonNull
     private final LauncherApps launcherApps;
 
     /**
@@ -41,13 +47,13 @@ public final class ShortcutInfoOnMenuItemClickListener implements MenuItem.OnMen
      * @param shortcutInfo the shortcut info
      * @param launcherApps the launcher apps
      */
-    public ShortcutInfoOnMenuItemClickListener(final ShortcutInfo shortcutInfo, final LauncherApps launcherApps) {
+    public ShortcutInfoOnMenuItemClickListener(@NonNull final ShortcutInfo shortcutInfo, @NonNull final LauncherApps launcherApps) {
         this.shortcutInfo = shortcutInfo;
         this.launcherApps = launcherApps;
     }
 
     @Override
-    public boolean onMenuItemClick(final MenuItem item) {
+    public boolean onMenuItemClick(@Nullable final MenuItem item) {
         if (launcherApps.hasShortcutHostPermission()) {
             launcherApps.startShortcut(shortcutInfo, null, null);
 

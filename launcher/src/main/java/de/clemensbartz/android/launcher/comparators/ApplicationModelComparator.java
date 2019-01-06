@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.comparators;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.text.Collator;
 import java.util.Comparator;
@@ -34,20 +36,19 @@ import de.clemensbartz.android.launcher.util.LocaleUtil;
 public final class ApplicationModelComparator implements Comparator<ApplicationModel> {
 
     /** The context to do the comparison in. */
-    private final Context context;
+    @Nullable
+    private final Locale locale;
 
     /**
      * Create a new comparator in a certain context.
      * @param context the context
      */
-    public ApplicationModelComparator(final Context context) {
-        this.context = context;
+    public ApplicationModelComparator(@NonNull final Context context) {
+        this.locale = LocaleUtil.getLocale(context);
     }
 
     @Override
-    public int compare(final ApplicationModel o1, final ApplicationModel o2) {
-        final Locale locale = LocaleUtil.getLocale(context);
-
+    public int compare(@NonNull final ApplicationModel o1, @NonNull final ApplicationModel o2) {
         if (locale != null) {
             return Collator.getInstance(locale).compare(o1.label, o2.label);
         }

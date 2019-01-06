@@ -20,6 +20,7 @@ package de.clemensbartz.android.launcher.util;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import de.clemensbartz.android.launcher.R;
 
@@ -44,7 +45,7 @@ public final class ThemeUtil {
      * devices as well).
      * @param activity the activity to configure.
      */
-    public static void setTheme(final Activity activity) {
+    public static void setTheme(@NonNull final Activity activity) {
         switch (Build.VERSION.SDK_INT) {
             case Build.VERSION_CODES.JELLY_BEAN_MR1:
             case Build.VERSION_CODES.JELLY_BEAN_MR2:
@@ -72,7 +73,7 @@ public final class ThemeUtil {
      * @see <a href="https://gist.github.com/hamakn/8939eb68a920a6d7a498">hamakn's Github gist</a>
      * @return the height of the action bar of that activity
      */
-    public static int getActionBarHeight(final Activity activity) {
+    public static int getActionBarHeight(@NonNull final Activity activity) {
         // action bar height
         final TypedArray styledAttributes = activity.getTheme().obtainStyledAttributes(
                 new int[] {

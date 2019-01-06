@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.util.StringTokenizer;
@@ -34,11 +36,14 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
 public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDockTaskProgress, Integer> {
 
     /** The currently running task. */
+    @Nullable
     private static LoadDockTask runningTask = null;
 
     /** Weak reference for the shared preference dao. */
+    @NonNull
     private final WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
     /** Weak reference for the dock controller. */
+    @NonNull
     private final WeakReference<DockController> dockControllerWeakReference;
 
     /**
@@ -46,7 +51,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
      * @param sharedPreferencesDAO the shared preference dao
      * @param dockController the dock controller
      */
-    public LoadDockTask(final SharedPreferencesDAO sharedPreferencesDAO, final DockController dockController) {
+    public LoadDockTask(@Nullable final SharedPreferencesDAO sharedPreferencesDAO, @Nullable final DockController dockController) {
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
         dockControllerWeakReference = new WeakReference<>(dockController);
     }
@@ -55,6 +60,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
      *
      * @return the current running task
      */
+    @Nullable
     public static LoadDockTask getRunningTask() {
         return runningTask;
     }
@@ -63,7 +69,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
      * Set the new task.
      * @param runningTask the new running task
      */
-    public static void setRunningTask(final LoadDockTask runningTask) {
+    public static void setRunningTask(@Nullable final LoadDockTask runningTask) {
         LoadDockTask.runningTask = runningTask;
     }
 
@@ -79,7 +85,8 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
     }
 
     @Override
-    protected Integer doInBackground(final Integer... integers) {
+    @Nullable
+    protected Integer doInBackground(@Nullable final Integer... integers) {
 
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
@@ -119,7 +126,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
     }
 
     @Override
-    protected void onProgressUpdate(final LoadDockTaskProgress... values) {
+    protected void onProgressUpdate(@NonNull final LoadDockTaskProgress... values) {
         final DockController dockController = dockControllerWeakReference.get();
 
         if (dockController != null) {
@@ -130,7 +137,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
     }
 
     @Override
-    protected void onPostExecute(final Integer integer) {
+    protected void onPostExecute(@Nullable final Integer integer) {
         LoadDockTask.setRunningTask(null);
     }
 
@@ -141,8 +148,8 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
      */
     static final class LoadDockTaskProgress {
         /** Name of the component to update. */
-        ApplicationModel applicationModel;
+        @Nullable ApplicationModel applicationModel;
         /** Index to update. */
-        int index;
+        @Nullable int index;
     }
 }

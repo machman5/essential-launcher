@@ -22,6 +22,7 @@ import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -53,14 +54,19 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
     private static final int ITEM_TOGGLE_HIDDEN = 3;
 
     /** Weak reference to the dock controller. */
+    @NonNull
     private final WeakReference<DockController> dockControllerWeakReference;
     /** Weak reference to the drawer controller. */
+    @NonNull
     private final WeakReference<DrawerController> drawerControllerWeakReference;
     /** Weak reference to the drawer list adapter. */
+    @NonNull
     private final WeakReference<DrawerListAdapter> drawerListAdapterWeakReference;
     /** Weak reference for the package manager. */
+    @NonNull
     private final WeakReference<PackageManager> packageManagerWeakReference;
     /** Weak reference for the launcher apps. */
+    @NonNull
     private final WeakReference<LauncherApps> launcherAppsWeakReference;
 
     /**
@@ -72,11 +78,11 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
      * @param context the context to get system services
      */
     public AbsListViewOnCreateContextMenuListener(
-            final PackageManager packageManager,
-            final DrawerController drawerController,
-            final DrawerListAdapter drawerListAdapter,
-            final DockController dockController,
-            final Context context) {
+            @NonNull final PackageManager packageManager,
+            @NonNull final DrawerController drawerController,
+            @NonNull final DrawerListAdapter drawerListAdapter,
+            @NonNull final DockController dockController,
+            @NonNull final Context context) {
 
         packageManagerWeakReference = new WeakReference<>(packageManager);
         drawerControllerWeakReference = new WeakReference<>(drawerController);
@@ -92,7 +98,7 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
     }
 
     @Override
-    public void onCreateContextMenu(final ContextMenu contextMenu, final View view, final ContextMenu.ContextMenuInfo contextMenuInfo) {
+    public void onCreateContextMenu(@NonNull final ContextMenu contextMenu, @NonNull final View view, @NonNull final ContextMenu.ContextMenuInfo contextMenuInfo) {
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
         final PackageManager packageManager = packageManagerWeakReference.get();
         final DockController dockController = dockControllerWeakReference.get();

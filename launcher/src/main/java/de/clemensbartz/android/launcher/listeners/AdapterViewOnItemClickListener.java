@@ -20,6 +20,7 @@ package de.clemensbartz.android.launcher.listeners;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -40,12 +41,12 @@ public final class AdapterViewOnItemClickListener implements AdapterView.OnItemC
      * Create a new click listener in a context.
      * @param context the context
      */
-    public AdapterViewOnItemClickListener(final Context context) {
+    public AdapterViewOnItemClickListener(@NonNull final Context context) {
         this.context = context;
     }
 
     @Override
-    public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+    public void onItemClick(@NonNull final AdapterView<?> parent, @NonNull final View view, final int position, final long id) {
         final Object object = parent.getAdapter().getItem(position);
 
         if (object instanceof ApplicationModel) {

@@ -17,6 +17,8 @@
 
 package de.clemensbartz.android.launcher.models;
 
+import android.support.annotation.Nullable;
+
 /**
  * Model for applications. For performance reasons, this class will be excluded from
  * CheckStyle checks.
@@ -26,11 +28,11 @@ package de.clemensbartz.android.launcher.models;
  */
 public final class ApplicationModel {
     /** The localized label. */
-    public String label;
+    public @Nullable String label;
     /** The package name. */
-    public String packageName;
+    public @Nullable String packageName;
     /** The full class name. */
-    public String className;
+    public @Nullable String className;
     /** The hidden flag. */
     public boolean hidden;
 }

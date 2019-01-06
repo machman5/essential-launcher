@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
@@ -33,23 +35,33 @@ import de.clemensbartz.android.launcher.controllers.WidgetController;
 public final class CreateWidgetAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
     /** Weak reference to the widget controller. */
+    @NonNull
     private final WeakReference<WidgetController> widgetControllerWeakReference;
 
     /**
      * Create a new async task.
      * @param widgetController the widget controller
      */
-    public CreateWidgetAsyncTask(final WidgetController widgetController) {
+    public CreateWidgetAsyncTask(@Nullable final WidgetController widgetController) {
         widgetControllerWeakReference = new WeakReference<>(widgetController);
     }
 
     @Override
-    protected Integer doInBackground(final Integer... widgetIds) {
+    @Nullable
+    protected Integer doInBackground(@Nullable final Integer... widgetIds) {
+        if (widgetIds == null || widgetIds.length < 1) {
+            return null;
+        }
+
         return widgetIds[0];
     }
 
     @Override
-    protected void onPostExecute(final Integer widgetId) {
+    protected void onPostExecute(@Nullable final Integer widgetId) {
+        if (widgetId == null) {
+            return;
+        }
+
         final WidgetController widgetController = widgetControllerWeakReference.get();
 
         if (widgetController != null) {

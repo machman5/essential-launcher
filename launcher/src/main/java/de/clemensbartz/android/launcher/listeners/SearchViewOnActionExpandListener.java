@@ -17,6 +17,7 @@
 
 package de.clemensbartz.android.launcher.listeners;
 
+import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
@@ -29,12 +30,12 @@ import android.widget.SearchView;
 public final class SearchViewOnActionExpandListener implements MenuItem.OnActionExpandListener {
 
     @Override
-    public boolean onMenuItemActionExpand(final MenuItem item) {
+    public boolean onMenuItemActionExpand(@NonNull final MenuItem item) {
         return true;
     }
 
     @Override
-    public boolean onMenuItemActionCollapse(final MenuItem item) {
+    public boolean onMenuItemActionCollapse(@NonNull final MenuItem item) {
         final View view = item.getActionView();
 
         if (view instanceof SearchView) {

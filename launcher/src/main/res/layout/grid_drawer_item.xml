@@ -38,5 +38,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
-        android:minLines="2" />
+        android:minLines="2"
+        android:textIsSelectable="false" />
 </LinearLayout>

@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
@@ -31,23 +33,25 @@ import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
 public final class FilterDrawerListAdapterTask extends AsyncTask<Integer, Integer, Integer> {
 
     /** Weak reference to the list adapter. */
+    @NonNull
     private final WeakReference<DrawerListAdapter> drawerListAdapterWeakReference;
 
     /**
      * Create a new task to filter the drawer list adapter.
      * @param drawerListAdapter the drawer to filter
      */
-    public FilterDrawerListAdapterTask(final DrawerListAdapter drawerListAdapter) {
+    public FilterDrawerListAdapterTask(@Nullable final DrawerListAdapter drawerListAdapter) {
         this.drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
     }
 
     @Override
-    protected Integer doInBackground(final Integer... integers) {
+    @Nullable
+    protected Integer doInBackground(@Nullable final Integer... integers) {
         return null;
     }
 
     @Override
-    protected void onPostExecute(final Integer integer) {
+    protected void onPostExecute(@Nullable final Integer integer) {
         final DrawerListAdapter drawerListAdapter = drawerListAdapterWeakReference.get();
 
         if (drawerListAdapter != null) {

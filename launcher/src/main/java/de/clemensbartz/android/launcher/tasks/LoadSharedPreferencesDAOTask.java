@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.tasks;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
 import java.lang.ref.WeakReference;
@@ -36,12 +38,16 @@ import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 public final class LoadSharedPreferencesDAOTask extends AsyncTask<Integer, Integer, LoadSharedPreferencesDAOTask.LoadModelAsyncTaskResult> {
 
     /** The weak reference to the shared preferences dao. */
+    @NonNull
     private final WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
     /** The weak reference to the view controller. */
+    @NonNull
     private final WeakReference<ViewController> viewControllerWeakReference;
     /** The weak reference to the launcher. */
+    @NonNull
     private final WeakReference<Launcher> launcherWeakReference;
     /** The weak reference to the widget controller or <code>null</code>, if none exists. */
+    @NonNull
     private final WeakReference<WidgetController> widgetControllerWeakReference;
 
     /**
@@ -52,10 +58,10 @@ public final class LoadSharedPreferencesDAOTask extends AsyncTask<Integer, Integ
      * @param widgetController the widget controller or <code>null</code>, if none exists
      */
     public LoadSharedPreferencesDAOTask(
-            final Launcher launcher,
-            final SharedPreferencesDAO sharedPreferencesDAO,
-            final ViewController viewController,
-            final WidgetController widgetController) {
+            @Nullable final Launcher launcher,
+            @Nullable final SharedPreferencesDAO sharedPreferencesDAO,
+            @Nullable final ViewController viewController,
+            @Nullable final WidgetController widgetController) {
 
         viewControllerWeakReference = new WeakReference<>(viewController);
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
@@ -64,7 +70,8 @@ public final class LoadSharedPreferencesDAOTask extends AsyncTask<Integer, Integ
     }
 
     @Override
-    protected LoadModelAsyncTaskResult doInBackground(final Integer... integers) {
+    @Nullable
+    protected LoadModelAsyncTaskResult doInBackground(@Nullable final Integer... integers) {
         // Check if shared preferences can be loaded
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
         if (isCancelled() || sharedPreferencesDAO == null) {
@@ -82,7 +89,11 @@ public final class LoadSharedPreferencesDAOTask extends AsyncTask<Integer, Integ
     }
 
     @Override
-    protected void onPostExecute(final LoadModelAsyncTaskResult loadModelAsyncTaskResult) {
+    protected void onPostExecute(@Nullable final LoadModelAsyncTaskResult loadModelAsyncTaskResult) {
+        if (loadModelAsyncTaskResult == null) {
+            return;
+        }
+
         // Update view controller
         final ViewController viewController = viewControllerWeakReference.get();
         if (viewController != null) {

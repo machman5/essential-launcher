@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Locale;
 
@@ -40,7 +42,8 @@ public final class LocaleUtil {
      * @param context the context
      * @return a locale
      */
-    public static Locale getLocale(final Context context) {
+    @Nullable
+    public static Locale getLocale(@NonNull final Context context) {
         final Locale locale;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             locale = context.getResources().getConfiguration().getLocales().get(0);

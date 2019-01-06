@@ -21,6 +21,9 @@ import android.annotation.TargetApi;
 import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,22 +40,24 @@ import de.clemensbartz.android.launcher.util.LauncherAppsUtil;
  * @since 2.0
  */
 @TargetApi(Build.VERSION_CODES.N_MR1)
+@RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class DockOnCreateContextMenuListener implements View.OnCreateContextMenuListener {
 
     /** Weak reference for the launcher apps. */
+    @NonNull
     private final WeakReference<LauncherApps> launcherAppsWeakReference;
 
     /**
      * Create a new listener.
      * @param launcherApps the launcher apps service
      */
-    public DockOnCreateContextMenuListener(final LauncherApps launcherApps) {
+    public DockOnCreateContextMenuListener(@Nullable final LauncherApps launcherApps) {
 
         launcherAppsWeakReference = new WeakReference<>(launcherApps);
     }
 
     @Override
-    public void onCreateContextMenu(final ContextMenu contextMenu, final View view, final ContextMenu.ContextMenuInfo contextMenuInfo) {
+    public void onCreateContextMenu(@NonNull final ContextMenu contextMenu, @Nullable final View view, @Nullable final ContextMenu.ContextMenuInfo contextMenuInfo) {
         if (view instanceof ImageView && view.getTag() instanceof ApplicationModel) {
             final ApplicationModel applicationModel = (ApplicationModel) view.getTag();
 

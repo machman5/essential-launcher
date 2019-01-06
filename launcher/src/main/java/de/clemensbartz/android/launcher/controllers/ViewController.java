@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.controllers;
 
 import android.app.ActionBar;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.widget.ViewFlipper;
 
@@ -36,6 +38,7 @@ import de.clemensbartz.android.launcher.R;
 public final class ViewController {
 
     /** Key for choosing which layout to display. */
+    @NonNull
     public static final String KEY_DRAWER_LAYOUT = "drawerLayout";
 
     /** Id to identify the home layout. */
@@ -46,13 +49,16 @@ public final class ViewController {
     public static final int LIST_ID = 2;
 
     /** The view switcher. */
+    @NonNull
     private final ViewFlipper viewFlipper;
 
     /** The current index for the view, only values greater than 0 are supported. */
     private int currentDetailIndex = 0;
     /** The action bar. */
+    @Nullable
     private ActionBar actionBar;
     /** The menu of the action bar. */
+    @Nullable
     private Menu actionBarMenu;
 
 
@@ -60,7 +66,7 @@ public final class ViewController {
      * Create a new controller around a view flipper.
      * @param viewFlipper the view flipper
      */
-    public ViewController(final ViewFlipper viewFlipper) {
+    public ViewController(@NonNull final ViewFlipper viewFlipper) {
         this.viewFlipper = viewFlipper;
     }
 
@@ -144,7 +150,7 @@ public final class ViewController {
      * Set the new action bar.
      * @param actionBar the new action bar, or <code>null</code>, if none should be regarded
      */
-    public void setActionBar(final ActionBar actionBar) {
+    public void setActionBar(@Nullable final ActionBar actionBar) {
         this.actionBar = actionBar;
     }
 
@@ -152,7 +158,7 @@ public final class ViewController {
      * Set the new action bar menu.
      * @param actionBarMenu the action bar menu
      */
-    public void setActionBarMenu(final Menu actionBarMenu) {
+    public void setActionBarMenu(@Nullable final Menu actionBarMenu) {
         this.actionBarMenu = actionBarMenu;
     }
 }

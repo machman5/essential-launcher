@@ -25,6 +25,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,24 +69,30 @@ import de.clemensbartz.android.launcher.util.ThemeUtil;
 public final class Launcher extends Activity {
 
     /** The shared preferences dao. */
-    private SharedPreferencesDAO sharedPreferencesDAO = null;
+    @NonNull
+    private SharedPreferencesDAO sharedPreferencesDAO;
 
     /** The controller for handling dock items. */
-    private DockController dockController = null;
+    @NonNull
+    private DockController dockController;
     /** The controller for the drawer. */
-    private DrawerController drawerController = null;
+    @NonNull
+    private DrawerController drawerController;
     /** The controller for switching between views. */
-    private ViewController viewController = null;
+    @NonNull
+    private ViewController viewController;
     /** The controller for widget handling. */
+    @Nullable
     private WidgetController widgetController = null;
     /** The adapter for applications. */
+    @NonNull
     private DrawerListAdapter drawerListAdapter;
 
     /** The action bar menu. */
     private Menu actionBarMenu = null;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         // Set theme
         ThemeUtil.setTheme(this);
         // Create activity
@@ -229,7 +237,7 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onTouchEvent(final MotionEvent event) {
+    public boolean onTouchEvent(@NonNull final MotionEvent event) {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 viewController.showDetail();
@@ -243,7 +251,7 @@ public final class Launcher extends Activity {
     protected void onActivityResult(
             final int requestCode,
             final int resultCode,
-            final Intent data) {
+            @NonNull final Intent data) {
 
         // Only widget controller can handle these requests.
         if (widgetController != null) {
@@ -252,7 +260,7 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(@NonNull final MenuItem item) {
         if (item.getIntent() != null && IntentUtil.isCallable(getPackageManager(), item.getIntent())) {
             startActivity(item.getIntent());
 
@@ -263,7 +271,7 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull final Menu menu) {
         actionBarMenu = menu;
 
         viewController.setActionBarMenu(actionBarMenu);
@@ -303,7 +311,7 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.abm_choose_widget:
                 if (widgetController == null) {
@@ -380,6 +388,7 @@ public final class Launcher extends Activity {
      * @param itemID the item id for the action bar
      * @return the specified menu item or <code>null</code>, if none are found
      */
+    @Nullable
     public MenuItem getActionBarMenuItem(final int itemID) {
         if (actionBarMenu == null) {
             return null;

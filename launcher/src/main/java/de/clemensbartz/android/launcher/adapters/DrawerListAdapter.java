@@ -20,6 +20,8 @@ package de.clemensbartz.android.launcher.adapters;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,19 +58,25 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     };
 
     /** The separator for search terms. */
+    @NonNull
     private static final String FILTER_SEPARATOR = " ";
 
     /** The list of all application models. */
+    @NonNull
     private final List<ApplicationModel> unfilteredList = new ArrayList<>();
     /** The list of filtered application models. */
+    @NonNull
     private final List<ApplicationModel> filteredList = new ArrayList<>();
 
     /** The default drawable. */
+    @NonNull
     private final Drawable defaultDrawable;
     /** The locale of the context. */
+    @NonNull
     private final Locale locale;
 
     /** The lower-cased lowerCaseFilter string. */
+    @NonNull
     private String lowerCaseFilter = "";
     /** Should hidden apps be shown. */
     private boolean showHiddenApps = false;
@@ -79,18 +87,19 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
      * @param defaultDrawable the default drawable
      */
     public DrawerListAdapter(
-            final Context context,
-            final Drawable defaultDrawable) {
+            @NonNull final Context context,
+            @NonNull final Drawable defaultDrawable) {
 
         super(context, R.layout.grid_drawer_item);
         this.defaultDrawable = defaultDrawable;
         this.locale = LocaleUtil.getLocale(context);
     }
 
+    @NonNull
     @Override
     public View getView(final int position,
-                        final View convertView,
-                        final ViewGroup parent) {
+                        @Nullable final View convertView,
+                        @NonNull final ViewGroup parent) {
 
         ViewHolder viewHolder;
         View v = convertView;
@@ -120,6 +129,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
+    @NonNull
     public ApplicationModel getItem(final int position) {
         return filteredList.get(position);
     }
@@ -130,7 +140,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public int getPosition(final ApplicationModel item) {
+    public int getPosition(@NonNull final ApplicationModel item) {
         return filteredList.indexOf(item);
     }
 
@@ -140,22 +150,22 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public void add(final ApplicationModel object) {
+    public void add(@NonNull final ApplicationModel object) {
         unfilteredList.add(object);
     }
 
     @Override
-    public void addAll(final Collection<? extends ApplicationModel> collection) {
+    public void addAll(@NonNull final Collection<? extends ApplicationModel> collection) {
         unfilteredList.addAll(collection);
     }
 
     @Override
-    public void addAll(final ApplicationModel... items) {
+    public void addAll(@NonNull final ApplicationModel... items) {
         unfilteredList.addAll(Arrays.asList(items));
     }
 
     @Override
-    public void remove(final ApplicationModel object) {
+    public void remove(@NonNull final ApplicationModel object) {
         unfilteredList.remove(object);
     }
 
@@ -165,12 +175,12 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public void sort(final Comparator<? super ApplicationModel> comparator) {
+    public void sort(@NonNull final Comparator<? super ApplicationModel> comparator) {
         Collections.sort(unfilteredList, comparator);
     }
 
     @Override
-    public boolean onQueryTextSubmit(final String query) {
+    public boolean onQueryTextSubmit(@Nullable final String query) {
         if (query == null) {
             lowerCaseFilter = "";
         } else {
@@ -183,7 +193,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     }
 
     @Override
-    public boolean onQueryTextChange(final String newText) {
+    public boolean onQueryTextChange(@Nullable final String newText) {
         return onQueryTextSubmit(newText);
     }
 
@@ -255,7 +265,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
      * @param view the view
      * @return the resource id or <code>-1</code>, if none was found
      */
-    private int getResource(final View view) {
+    private int getResource(@NonNull final View view) {
         switch (view.getId()) {
             case R.id.gvApplications:
                 return ITEM_RESOURCE_IDS[0];
@@ -269,10 +279,10 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /**
      * View holder class.
      */
-    private static class ViewHolder {
+    static class ViewHolder {
         /** The view for the icon. */
-        private ImageView icon;
+        @Nullable ImageView icon;
         /** The view for the label. */
-        private TextView name;
+        @Nullable TextView name;
     }
 }

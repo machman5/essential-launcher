@@ -17,6 +17,9 @@
 
 package de.clemensbartz.android.launcher.controllers;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.lang.ref.WeakReference;
 
 import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
@@ -37,8 +40,10 @@ public final class DrawerController {
     private static final String SEPARATOR = "|";
 
     /** Weak reference to the drawer list adapter. */
+    @NonNull
     private final WeakReference<DrawerListAdapter> drawerListAdapterWeakReference;
     /** Weak reference to the shared preference dao. */
+    @NonNull
     private final WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
 
     /**
@@ -46,7 +51,7 @@ public final class DrawerController {
      * @param drawerListAdapter the drawer list adapter
      * @param sharedPreferencesDAO the shared preference dao
      */
-    public DrawerController(final DrawerListAdapter drawerListAdapter, final SharedPreferencesDAO sharedPreferencesDAO) {
+    public DrawerController(@Nullable final DrawerListAdapter drawerListAdapter, @Nullable final SharedPreferencesDAO sharedPreferencesDAO) {
         drawerListAdapterWeakReference = new WeakReference<>(drawerListAdapter);
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
     }
@@ -55,7 +60,7 @@ public final class DrawerController {
      * Toggle hiding of an app.
      * @param applicationModel the application model
      */
-    public void toggleHide(final ApplicationModel applicationModel) {
+    public void toggleHide(@NonNull final ApplicationModel applicationModel) {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
         if (sharedPreferencesDAO != null) {
@@ -82,7 +87,7 @@ public final class DrawerController {
      * @param applicationModel the application model to check
      * @return if it should be hidden
      */
-    public boolean isHiding(final ApplicationModel applicationModel) {
+    public boolean isHiding(@NonNull final ApplicationModel applicationModel) {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
         if (sharedPreferencesDAO == null) {
@@ -99,7 +104,8 @@ public final class DrawerController {
      * @param applicationModel the application model
      * @return the key
      */
-    private String getKey(final ApplicationModel applicationModel) {
+    @NonNull
+    private String getKey(@NonNull final ApplicationModel applicationModel) {
         return HIDE_PREFIX + applicationModel.packageName + SEPARATOR + applicationModel.className;
     }
 }

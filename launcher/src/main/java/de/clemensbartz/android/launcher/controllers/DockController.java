@@ -24,6 +24,8 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -46,17 +48,23 @@ public final class DockController {
     /** The number of items in the dock. */
     public static final int NUMBER_OF_ITEMS = 7;
     /** The prefix for the pinned dock. */
+    @NonNull
     public static final String PIN_PREFIX = "pin_";
     /** The separator between package and class name. */
+    @NonNull
     public static final String SEPARATOR = "|";
 
     /** The list of sorted dock items. */
+    @NonNull
     private final ArrayList<ImageView> dockItems;
     /** The weak reference for shared preference dao. */
+    @NonNull
     private final WeakReference<SharedPreferencesDAO> sharedPreferencesDAOWeakReference;
     /** The weak reference for the package manager. */
+    @NonNull
     private final WeakReference<PackageManager> packageManagerWeakReference;
     /** The default drawable. */
+    @NonNull
     private final Drawable defaultDrawable;
 
     /**
@@ -67,7 +75,7 @@ public final class DockController {
      * @param packageManager the package manager
      * @param defaultDrawable the default drawable
      */
-    public DockController(final Context context, final PackageManager packageManager, final SharedPreferencesDAO sharedPreferencesDAO, final Drawable defaultDrawable, final ArrayList<ImageView> dockItems) {
+    public DockController(@NonNull final Context context, @Nullable final PackageManager packageManager, @Nullable final SharedPreferencesDAO sharedPreferencesDAO, @NonNull final Drawable defaultDrawable, @NonNull final ArrayList<ImageView> dockItems) {
         this.dockItems = dockItems;
         this.defaultDrawable = defaultDrawable;
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
@@ -105,7 +113,7 @@ public final class DockController {
      * @param index the index to update
      * @param applicationModel the application model to show or <code>null</code>, if none should be displayed
      */
-    public void updateDock(final int index, final ApplicationModel applicationModel) {
+    public void updateDock(final int index, @Nullable final ApplicationModel applicationModel) {
         if (index < 0 || index >= NUMBER_OF_ITEMS) {
             return;
         }
@@ -153,7 +161,7 @@ public final class DockController {
      * @param index the index
      * @param applicationModel the non-null application model to insert
      */
-    private void insertNewItem(final int index, final ApplicationModel applicationModel) {
+    private void insertNewItem(final int index, @NonNull final ApplicationModel applicationModel) {
         // Update database
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
@@ -208,6 +216,7 @@ public final class DockController {
      * @param index the index
      * @return the key for given index
      */
+    @NonNull
     private String getKey(final int index) {
         return PIN_PREFIX + Integer.toString(index);
     }

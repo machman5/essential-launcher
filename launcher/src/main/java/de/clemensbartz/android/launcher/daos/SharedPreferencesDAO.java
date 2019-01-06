@@ -18,6 +18,8 @@
 package de.clemensbartz.android.launcher.daos;
 
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * DAO for accessing shared preferences. This class is designed as a SharedPreference-aware
@@ -30,12 +32,15 @@ public final class SharedPreferencesDAO {
     /** The version code for shared preferences. Only positive numbers are allowed. */
     private static final int VERSION = 1;
     /** Key for the version. */
+    @NonNull
     private static final String KEY_VERSION = "version";
 
     /** The instance of this class. */
+    @Nullable
     private static SharedPreferencesDAO instance;
 
     /** Preferences value. */
+    @NonNull
     private final SharedPreferences preferences;
 
     /**
@@ -43,7 +48,8 @@ public final class SharedPreferencesDAO {
      * @param preferences the shared preferences
      * @return the DAO
      */
-    public static SharedPreferencesDAO getInstance(final SharedPreferences preferences) {
+    @NonNull
+    public static SharedPreferencesDAO getInstance(@NonNull final SharedPreferences preferences) {
         if (instance != null && instance.getPreferences() == preferences) {
             return instance;
         }
@@ -56,7 +62,7 @@ public final class SharedPreferencesDAO {
      * Create a new DAO.
      * @param preferences the preferences to encapsulate
      */
-    private SharedPreferencesDAO(final SharedPreferences preferences) {
+    private SharedPreferencesDAO(@NonNull final SharedPreferences preferences) {
         this.preferences = preferences;
     }
 
@@ -64,6 +70,7 @@ public final class SharedPreferencesDAO {
      *
      * @return the current shared preferences object
      */
+    @NonNull
     private SharedPreferences getPreferences() {
         return preferences;
     }
@@ -86,7 +93,7 @@ public final class SharedPreferencesDAO {
      * @param defaultValue the default value
      * @return the value for key, or <code>defaultValue</code>, if no value exists
      */
-    public int getInt(final String key, final int defaultValue) {
+    public int getInt(@NonNull final String key, final int defaultValue) {
         return preferences.getInt(key, defaultValue);
     }
 
@@ -95,7 +102,7 @@ public final class SharedPreferencesDAO {
      * @param key the key
      * @param value the new value
      */
-    public void putInt(final String key, final int value) {
+    public void putInt(@NonNull final String key, final int value) {
         preferences.edit().putInt(key, value).apply();
     }
 
@@ -105,7 +112,7 @@ public final class SharedPreferencesDAO {
      * @param defaultValue the default value
      * @return the value for key, or <code>defaultValue</code>, if no value exists
      */
-    public String getString(final String key, final String defaultValue) {
+    public @NonNull String getString(@NonNull final String key, @NonNull final String defaultValue) {
         return preferences.getString(key, defaultValue);
     }
 
@@ -114,7 +121,7 @@ public final class SharedPreferencesDAO {
      * @param key the key
      * @param value the new value
      */
-    public void putString(final String key, final String value) {
+    public void putString(@NonNull final String key, @NonNull final String value) {
         preferences.edit().putString(key, value).apply();
     }
 
@@ -123,7 +130,7 @@ public final class SharedPreferencesDAO {
      * @param key the key
      * @return <code>true</code>, if it exists, otherwise <code>false</code>
      */
-    public boolean contains(final String key) {
+    public boolean contains(@NonNull final String key) {
         return preferences.contains(key);
     }
 
@@ -131,7 +138,7 @@ public final class SharedPreferencesDAO {
      * Remove target key from the preferences.
      * @param key the key
      */
-    public void remove(final String key) {
+    public void remove(@NonNull final String key) {
         preferences.edit().remove(key).apply();
     }
 

@@ -24,6 +24,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
@@ -38,12 +40,16 @@ import de.clemensbartz.android.launcher.models.ApplicationModel;
 public final class LoadApplicationModelIconIntoImageViewTask extends AsyncTask<Integer, Integer, Drawable> {
 
     /** The image view where to load the icons into. */
+    @NonNull
     private final WeakReference<ImageView> imageViewWeakReference;
     /** The application model where to get icons from. */
+    @NonNull
     private final ApplicationModel applicationModel;
     /** The package manager handling all operations. */
+    @NonNull
     private final PackageManager packageManager;
     /** A default drawable to show if no icon could be loaded. */
+    @NonNull
     private final Drawable defaultDrawable;
 
     /**
@@ -54,10 +60,10 @@ public final class LoadApplicationModelIconIntoImageViewTask extends AsyncTask<I
      * @param defaultDrawable the default drawable if no image could be found
      */
     public LoadApplicationModelIconIntoImageViewTask(
-            final ImageView imageView,
-            final ApplicationModel applicationModel,
-            final PackageManager packageManager,
-            final Drawable defaultDrawable) {
+            @Nullable final ImageView imageView,
+            @NonNull final ApplicationModel applicationModel,
+            @NonNull final PackageManager packageManager,
+            @NonNull final Drawable defaultDrawable) {
 
         this.imageViewWeakReference = new WeakReference<>(imageView);
         this.applicationModel = applicationModel;
@@ -66,7 +72,12 @@ public final class LoadApplicationModelIconIntoImageViewTask extends AsyncTask<I
     }
 
     @Override
-    protected Drawable doInBackground(final Integer... integers) {
+    @Nullable
+    protected Drawable doInBackground(@Nullable final Integer... integers) {
+        if (applicationModel.packageName == null || applicationModel.className == null) {
+            return null;
+        }
+
         final ComponentName componentName = new ComponentName(applicationModel.packageName, applicationModel.className);
 
         try {
@@ -77,7 +88,7 @@ public final class LoadApplicationModelIconIntoImageViewTask extends AsyncTask<I
     }
 
     @Override
-    protected void onPostExecute(final Drawable drawable) {
+    protected void onPostExecute(@Nullable final Drawable drawable) {
         final ImageView imageView = imageViewWeakReference.get();
 
         if (imageView != null) {

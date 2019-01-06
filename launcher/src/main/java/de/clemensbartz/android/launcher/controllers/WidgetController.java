@@ -25,6 +25,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +54,14 @@ import static android.app.Activity.RESULT_OK;
 public final class WidgetController {
 
     /** Key for the appWidgetId property. */
+    @NonNull
     public static final String KEY_APPWIDGET_ID = "appWidgetId";
     /** Key for the appWidgetLayout property. */
+    @NonNull
     public static final String KEY_APPWIDGET_LAYOUT = "appWidgetLayout";
 
     /** Extra code for APP_WIDGET_CONFIGURE. */
+    @NonNull
     private static final String EXTRA_APP_WIDGET_CONFIGURE = "EL_APP_WIDGET_CONFIGURE";
     /** Request code for binding widget. */
     private static final int REQUEST_BIND_APPWIDGET = 0;
@@ -96,16 +101,21 @@ public final class WidgetController {
     public static final int DEFAULT_APPWIDGET_LAYOUT = WIDGET_LAYOUT_FULL_SCREEN;
 
     /** The shared preference dao. */
+    @NonNull
     private final SharedPreferencesDAO sharedPreferencesDAO;
     /** The launcher. */
+    @NonNull
     private final Launcher launcher;
     /** The app widget manager. */
+    @NonNull
     private final AppWidgetManager appWidgetManager;
     /** The app widget host. */
+    @NonNull
     private final AppWidgetHost appWidgetHost;
 
 
     /** The temporary configure component for widgets. */
+    @Nullable
     private ComponentName widgetConfigure = null;
 
     /**
@@ -113,7 +123,7 @@ public final class WidgetController {
      * @param launcher the launcher to be created in
      * @param sharedPreferencesDAO the shared preference dao
      */
-    public WidgetController(final Launcher launcher, final SharedPreferencesDAO sharedPreferencesDAO) {
+    public WidgetController(@NonNull final Launcher launcher, @NonNull final SharedPreferencesDAO sharedPreferencesDAO) {
         this.sharedPreferencesDAO = sharedPreferencesDAO;
         this.launcher = launcher;
         this.appWidgetManager = AppWidgetManager.getInstance(launcher);
@@ -151,7 +161,7 @@ public final class WidgetController {
     public void onActivityResult(
             final int requestCode,
             final int resultCode,
-            final Intent data) {
+            @NonNull final Intent data) {
 
         if (resultCode == RESULT_OK) {
             final Integer appWidgetId = data.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
@@ -258,7 +268,7 @@ public final class WidgetController {
      * @param provider the provider component
      * @param configure the configure component
      */
-    public void bindWidget(final ComponentName provider, final ComponentName configure) {
+    public void bindWidget(@NonNull final ComponentName provider, @NonNull final ComponentName configure) {
         final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
 
         final int appWidgetId = appWidgetHost.allocateAppWidgetId();
@@ -290,7 +300,7 @@ public final class WidgetController {
      * @param appWidgetId the appWidgetId
      * @param configure the configure component
      */
-    private void configureWidget(final Integer appWidgetId, final ComponentName configure) {
+    private void configureWidget(final int appWidgetId, @Nullable final ComponentName configure) {
         // Abort on invalid input
         if (appWidgetId == -1) {
             return;
@@ -318,7 +328,7 @@ public final class WidgetController {
      * Create a widget from an intent.
      * @param appWidgetId the appWidgetId
      */
-    public void createWidget(final Integer appWidgetId) {
+    public void createWidget(final int appWidgetId) {
         final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
 
         final int currentAppWidgetId = sharedPreferencesDAO.getInt(KEY_APPWIDGET_ID, DEFAULT_APPWIDGET_ID);
@@ -349,6 +359,7 @@ public final class WidgetController {
      *
      * @return the top filler view
      */
+    @NonNull
     public View getTopFiller() {
         return launcher.findViewById(R.id.topFiller);
     }
@@ -402,7 +413,7 @@ public final class WidgetController {
      * @param currentLayout the currently active item
      * @param resourceId the resource for the string
      */
-    private void addLayoutPopupMenuItem(final PopupMenu popupMenu, final int widgetLayout, final int currentLayout, final int resourceId) {
+    private void addLayoutPopupMenuItem(@NonNull final PopupMenu popupMenu, final int widgetLayout, final int currentLayout, final int resourceId) {
         final MenuItem menuItem = popupMenu.getMenu().add(0, widgetLayout, 0, resourceId);
         menuItem.setCheckable(true);
         menuItem.setChecked(currentLayout == widgetLayout);
