@@ -150,6 +150,10 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(final MenuItem item) {
+                    if (item == null || item.getIntent() == null || item.getIntent().getComponent() == null) {
+                        return false;
+                    }
+
                     final ComponentName provider = item.getIntent().getParcelableExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER);
 
                     if (provider != null) {
