@@ -78,7 +78,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
         final List<AppWidgetProviderInfo> appWidgetProviderInfos = appWidgetManager.getInstalledProviders();
         final List<FilledAppWidgetProviderInfo> infoList = new ArrayList<>(appWidgetProviderInfos.size());
 
-        for (AppWidgetProviderInfo appWidgetProviderInfo : appWidgetProviderInfos) {
+        for (final AppWidgetProviderInfo appWidgetProviderInfo : appWidgetProviderInfos) {
 
             // Check if configure activity is exported, i. e. callable
             if (appWidgetProviderInfo.configure != null) {
@@ -121,7 +121,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
         if (appWidgetProviderInfos != null && context != null && widgetController != null && appWidgetProviderInfos.size() > 0) {
             final PopupMenu popupMenu = new PopupMenu(context, widgetController.getTopFiller());
 
-            for (ShowWidgetListAsPopupMenuTask.FilledAppWidgetProviderInfo info : appWidgetProviderInfos) {
+            for (final ShowWidgetListAsPopupMenuTask.FilledAppWidgetProviderInfo info : appWidgetProviderInfos) {
                 final MenuItem menuItem = popupMenu.getMenu().add(info.label);
 
                 final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);

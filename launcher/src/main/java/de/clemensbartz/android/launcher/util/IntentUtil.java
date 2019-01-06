@@ -137,7 +137,7 @@ public final class IntentUtil {
         // Thank you to Google Keep for ruining the show: java.lang.SecurityException: Permission Denial: starting Intent [...] not exported from uid
         final List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
-        for (ResolveInfo resolveInfo : resolveInfos) {
+        for (final ResolveInfo resolveInfo : resolveInfos) {
             // Check if exported
             if (!resolveInfo.activityInfo.exported) {
                 continue;

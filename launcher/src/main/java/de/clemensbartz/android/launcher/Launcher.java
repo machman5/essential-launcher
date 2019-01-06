@@ -137,7 +137,7 @@ public final class Launcher extends Activity {
                 (AbsListView) findViewById(R.id.lvApplications)
         );
         // Assign adapter
-        for (AbsListView listView : listViews) {
+        for (final AbsListView listView : listViews) {
             final int topPx = ThemeUtil.getActionBarHeight(this);
 
             final ViewGroup.LayoutParams layoutParams = listView.getLayoutParams();
