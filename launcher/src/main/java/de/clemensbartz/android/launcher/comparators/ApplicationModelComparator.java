@@ -21,6 +21,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
@@ -33,7 +34,7 @@ import de.clemensbartz.android.launcher.util.LocaleUtil;
  * @author Clemens Bartz
  * @since 2.0
  */
-public final class ApplicationModelComparator implements Comparator<ApplicationModel> {
+public final class ApplicationModelComparator implements Comparator<ApplicationModel>, Serializable {
 
     /** The context to do the comparison in. */
     @Nullable
@@ -48,15 +49,21 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
     }
 
     @Override
-    public int compare(@NonNull final ApplicationModel o1, @NonNull final ApplicationModel o2) {
-        if (locale != null) {
-            return Collator.getInstance(locale).compare(o1.label, o2.label);
+    public int compare(@Nullable final ApplicationModel o1, @Nullable final ApplicationModel o2) {
+        String label1 = "";
+        if (o1 != null && o1.label != null) {
+            label1 = o1.label;
         }
 
-        if (o1.label != null) {
-            return o1.label.compareTo(o2.label);
+        String label2 = "";
+        if (o2 != null && o2.label != null) {
+            label2 = o2.label;
+        }
+
+        if (locale != null) {
+            return Collator.getInstance(locale).compare(label1, label2);
         } else {
-            return "".compareTo(o2.label);
+            return label1.compareTo(label2);
         }
     }
 }

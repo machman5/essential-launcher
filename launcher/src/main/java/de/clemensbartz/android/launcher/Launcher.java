@@ -260,8 +260,8 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull final MenuItem item) {
-        if (item.getIntent() != null && IntentUtil.isCallable(getPackageManager(), item.getIntent())) {
+    public boolean onContextItemSelected(@Nullable final MenuItem item) {
+        if (item != null && item.getIntent() != null && IntentUtil.isCallable(getPackageManager(), item.getIntent())) {
             startActivity(item.getIntent());
 
             return true;
@@ -271,7 +271,12 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(@NonNull final Menu menu) {
+    public boolean onCreateOptionsMenu(@Nullable final Menu menu) {
+        // Check for valid menu
+        if (menu == null) {
+            return false;
+        }
+
         actionBarMenu = menu;
 
         viewController.setActionBarMenu(actionBarMenu);
@@ -311,7 +316,12 @@ public final class Launcher extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
+    public boolean onOptionsItemSelected(@Nullable final MenuItem item) {
+        // Check for non-existing item
+        if (item == null) {
+            return false;
+        }
+
         switch (item.getItemId()) {
             case R.id.abm_choose_widget:
                 if (widgetController == null) {

@@ -42,8 +42,12 @@ public final class LocaleUtil {
      * @param context the context
      * @return a locale
      */
-    @Nullable
-    public static Locale getLocale(@NonNull final Context context) {
+    @NonNull
+    public static Locale getLocale(@Nullable final Context context) {
+        if (context == null) {
+            throw new NullPointerException("No context given.");
+        }
+
         final Locale locale;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             locale = context.getResources().getConfiguration().getLocales().get(0);

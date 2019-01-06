@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import de.clemensbartz.android.launcher.R;
 
@@ -73,7 +74,11 @@ public final class ThemeUtil {
      * @see <a href="https://gist.github.com/hamakn/8939eb68a920a6d7a498">hamakn's Github gist</a>
      * @return the height of the action bar of that activity
      */
-    public static int getActionBarHeight(@NonNull final Activity activity) {
+    public static int getActionBarHeight(@Nullable final Activity activity) {
+        if (activity == null) {
+            throw new NullPointerException("Activity cannot be null.");
+        }
+
         // action bar height
         final TypedArray styledAttributes = activity.getTheme().obtainStyledAttributes(
                 new int[] {

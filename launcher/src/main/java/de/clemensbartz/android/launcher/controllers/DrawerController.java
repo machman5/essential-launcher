@@ -63,8 +63,8 @@ public final class DrawerController {
     public void toggleHide(@NonNull final ApplicationModel applicationModel) {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
-        if (sharedPreferencesDAO != null) {
-            final String key = getKey(applicationModel);
+        if (sharedPreferencesDAO != null && applicationModel.packageName != null && applicationModel.className != null) {
+            final String key = getKey(applicationModel.packageName, applicationModel.className);
 
             applicationModel.hidden = !isHiding(applicationModel);
 
@@ -90,22 +90,23 @@ public final class DrawerController {
     public boolean isHiding(@NonNull final ApplicationModel applicationModel) {
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
 
-        if (sharedPreferencesDAO == null) {
+        if (sharedPreferencesDAO == null || applicationModel.packageName == null || applicationModel.className == null) {
             return false;
         }
 
-        final String key = getKey(applicationModel);
+        final String key = getKey(applicationModel.packageName, applicationModel.className);
 
         return sharedPreferencesDAO.contains(key);
     }
 
     /**
      * Create the key for an app.
-     * @param applicationModel the application model
+     * @param packageName the package name
+     * @param className the class name
      * @return the key
      */
     @NonNull
-    private String getKey(@NonNull final ApplicationModel applicationModel) {
-        return HIDE_PREFIX + applicationModel.packageName + SEPARATOR + applicationModel.className;
+    private String getKey(@NonNull final String packageName, @NonNull final String className) {
+        return HIDE_PREFIX + packageName + SEPARATOR + className;
     }
 }

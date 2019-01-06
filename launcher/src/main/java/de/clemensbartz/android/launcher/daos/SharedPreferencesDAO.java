@@ -37,7 +37,7 @@ public final class SharedPreferencesDAO {
 
     /** The instance of this class. */
     @Nullable
-    private static SharedPreferencesDAO instance;
+    private static SharedPreferencesDAO instance = null;
 
     /** Preferences value. */
     @NonNull
@@ -49,7 +49,7 @@ public final class SharedPreferencesDAO {
      * @return the DAO
      */
     @NonNull
-    public static SharedPreferencesDAO getInstance(@NonNull final SharedPreferences preferences) {
+    public static synchronized SharedPreferencesDAO getInstance(@NonNull final SharedPreferences preferences) {
         if (instance != null && instance.getPreferences() == preferences) {
             return instance;
         }

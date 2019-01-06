@@ -75,7 +75,7 @@ public final class DockController {
      * @param packageManager the package manager
      * @param defaultDrawable the default drawable
      */
-    public DockController(@NonNull final Context context, @Nullable final PackageManager packageManager, @Nullable final SharedPreferencesDAO sharedPreferencesDAO, @NonNull final Drawable defaultDrawable, @NonNull final ArrayList<ImageView> dockItems) {
+    public DockController(@Nullable final Context context, @Nullable final PackageManager packageManager, @Nullable final SharedPreferencesDAO sharedPreferencesDAO, @NonNull final Drawable defaultDrawable, @NonNull final ArrayList<ImageView> dockItems) {
         this.dockItems = dockItems;
         this.defaultDrawable = defaultDrawable;
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
@@ -91,12 +91,22 @@ public final class DockController {
             }
         }
 
+        // Check for existing context
+        if (context == null) {
+            return;
+        }
+
+        // Otherwise set up dock items
         for (final ImageView imageView : dockItems) {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
                     if (view instanceof ImageView && view.getTag() instanceof ApplicationModel) {
                         final ApplicationModel applicationModel = (ApplicationModel) view.getTag();
+
+                        if (applicationModel.packageName == null || applicationModel.className == null) {
+                            return;
+                        }
 
                         final Intent intent = IntentUtil.newAppMainIntent(applicationModel.packageName, applicationModel.className);
                         if (IntentUtil.isCallable(context.getPackageManager(), intent)) {
@@ -216,7 +226,6 @@ public final class DockController {
      * @param index the index
      * @return the key for given index
      */
-    @NonNull
     private String getKey(final int index) {
         return PIN_PREFIX + Integer.toString(index);
     }

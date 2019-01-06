@@ -118,7 +118,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         final ApplicationModel resolveInfo = getItem(position);
 
-        if (resolveInfo != null && viewHolder != null) {
+        if (viewHolder != null && viewHolder.icon != null && viewHolder.name != null) {
             viewHolder.icon.setContentDescription(resolveInfo.label);
             viewHolder.name.setText(resolveInfo.label);
             // Load icon asynchronously
