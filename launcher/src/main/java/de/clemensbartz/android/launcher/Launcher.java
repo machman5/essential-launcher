@@ -69,24 +69,24 @@ import de.clemensbartz.android.launcher.util.ThemeUtil;
 public final class Launcher extends Activity {
 
     /** The shared preferences dao. */
-    @NonNull
-    private SharedPreferencesDAO sharedPreferencesDAO;
+    @Nullable
+    private SharedPreferencesDAO sharedPreferencesDAO = null;
 
     /** The controller for handling dock items. */
-    @NonNull
-    private DockController dockController;
+    @Nullable
+    private DockController dockController = null;
     /** The controller for the drawer. */
-    @NonNull
-    private DrawerController drawerController;
+    @Nullable
+    private DrawerController drawerController = null;
     /** The controller for switching between views. */
-    @NonNull
-    private ViewController viewController;
+    @Nullable
+    private ViewController viewController = null;
     /** The controller for widget handling. */
     @Nullable
     private WidgetController widgetController = null;
     /** The adapter for applications. */
-    @NonNull
-    private DrawerListAdapter drawerListAdapter;
+    @Nullable
+    private DrawerListAdapter drawerListAdapter = null;
 
     /** The action bar menu. */
     private Menu actionBarMenu = null;
