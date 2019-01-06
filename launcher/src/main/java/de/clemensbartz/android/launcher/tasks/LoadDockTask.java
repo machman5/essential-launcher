@@ -150,6 +150,6 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
         /** Name of the component to update. */
         @Nullable ApplicationModel applicationModel;
         /** Index to update. */
-        @Nullable int index;
+        int index;
     }
 }
