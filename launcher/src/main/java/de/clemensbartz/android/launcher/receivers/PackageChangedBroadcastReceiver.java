@@ -84,7 +84,7 @@ public final class PackageChangedBroadcastReceiver extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
+    public void onReceive(@Nullable final Context context, @Nullable final Intent intent) {
         // Update dock
         final DockController dockController = dockControllerWeakReference.get();
         final SharedPreferencesDAO sharedPreferencesDAO = sharedPreferencesDAOWeakReference.get();
