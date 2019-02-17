@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import de.clemensbartz.android.launcher.R;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
@@ -49,7 +52,7 @@ import de.clemensbartz.android.launcher.util.LocaleUtil;
  * @author Clemens Bartz
  * @since 1.0
  */
-public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> implements SearchView.OnQueryTextListener {
+public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> implements SearchView.OnQueryTextListener, SectionIndexer {
 
     /** The layouts per abs list view. */
     private static final int[] ITEM_RESOURCE_IDS = {
@@ -67,6 +70,13 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     /** The list of filtered application models. */
     @NonNull
     private final List<ApplicationModel> filteredList = new ArrayList<>();
+    /** The list of sections. */
+    @NonNull
+    private final List<String> sections = new ArrayList<>();
+    /** The list of indexes. */
+    @NonNull
+    private final Map<String, Integer> indexMap = new HashMap<>();
+
 
     /** The default drawable. */
     @NonNull
@@ -205,6 +215,33 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
         return onQueryTextSubmit(newText);
     }
 
+    @Override
+    public Object[] getSections() {
+        return sections.toArray();
+    }
+
+    @Override
+    public int getPositionForSection(final int sectionIndex) {
+        final String firstCharacter = sections.get(sectionIndex);
+
+        final Integer position = indexMap.get(firstCharacter);
+
+        return (position != null) ? position : 0;
+    }
+
+    @Override
+    public int getSectionForPosition(final int position) {
+        final ApplicationModel applicationModel = filteredList.get(position);
+
+        if (applicationModel.label != null) {
+            final String firstCharacter = applicationModel.label.substring(0, 1).toUpperCase(locale);
+
+            return sections.indexOf(firstCharacter);
+        }
+
+        return 0;
+    }
+
     /**
      *
      * @return if the drawer is hiding apps
@@ -226,15 +263,20 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
      */
     public void filter() {
         filteredList.clear();
+        indexMap.clear();
 
         // Check for an empty string or a string only consisting of spaces
         if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
-            for (final ApplicationModel applicationModel : unfilteredList) {
+            for (int i = 0; i<unfilteredList.size()-1; i++) {
+                final ApplicationModel applicationModel = unfilteredList.get(i);
+
                 if (!showHiddenApps && applicationModel.hidden) {
                     continue;
                 }
 
                 filteredList.add(applicationModel);
+
+                addSection(applicationModel.label, i);
             }
 
             notifyDataSetChanged();
@@ -244,7 +286,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         final String[] lowerCaseWords = lowerCaseFilter.split(FILTER_SEPARATOR);
 
-        for (final ApplicationModel applicationModel : unfilteredList) {
+        for (int i=0; i<unfilteredList.size()-1; i++) {
+            final ApplicationModel applicationModel = unfilteredList.get(i);
+
             for (final String lowerCaseWord : lowerCaseWords) {
                 if (lowerCaseWord.isEmpty() || lowerCaseWord.trim().isEmpty()) {
                     continue;
@@ -264,12 +308,31 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
                     filteredList.add(applicationModel);
 
+                    addSection(applicationModel.label, i);
+
                     break;
                 }
             }
         }
 
         notifyDataSetChanged();
+    }
+
+    /**
+     * Update the sections.
+     */
+    private void addSection(final String label, final Integer index) {
+        if (label != null) {
+            final String firstCharacter = label.substring(0, 1).toUpperCase(locale);
+
+            if (!sections.contains(firstCharacter)) {
+                sections.add(firstCharacter);
+
+                Collections.sort(sections);
+
+                indexMap.put(firstCharacter, index);
+            }
+        }
     }
 
     /**

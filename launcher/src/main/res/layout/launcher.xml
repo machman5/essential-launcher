@@ -188,6 +188,8 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
+            android:fastScrollAlwaysVisible="true"
+            android:fastScrollEnabled="true"
             android:scrollbarStyle="insideOverlay"
             android:smoothScrollbar="false"
             android:stretchMode="columnWidth"
@@ -207,6 +209,8 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
+            android:fastScrollEnabled="true"
+            android:fastScrollAlwaysVisible="true"
             android:scrollbarStyle="insideOverlay" />
     </LinearLayout>
 
