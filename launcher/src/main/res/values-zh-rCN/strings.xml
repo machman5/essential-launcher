@@ -21,8 +21,8 @@
     <string name="openDrawer">显示所有应用</string>
     <string name="showAppInfo">显示应用信息</string>
     <string name="unpinnedDockItem">未固定的码头项目</string>
-    <string name="chooseWidget">选择小部件</string>
-    <string name="layoutWidget">布局小部件</string>
+    <string name="chooseWidget">选择小部件…</string>
+    <string name="layoutWidget">布局小部件…</string>
     <string name="removeWidget">删除小部件</string>
     <string name="widgetLayoutTopThird">上1/3</string>
     <string name="widgetLayoutTopQuarter">上1/4</string>

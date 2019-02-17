@@ -18,11 +18,11 @@
 
 <resources>
     <string name="appName">基本發射器</string>
-    <string name="chooseWidget">選擇小部件</string>
+    <string name="chooseWidget">選擇小部件…</string>
     <string name="unpinnedDockItem">未固定的碼頭項目</string>
     <string name="showAppInfo">顯示應用信息</string>
     <string name="openDrawer">顯示所有應用</string>
-    <string name="layoutWidget">佈局小部件</string>
+    <string name="layoutWidget">佈局小部件…</string>
     <string name="removeWidget">刪除小部件</string>
     <string name="widgetLayoutTopThird">上1/3</string>
     <string name="widgetLayoutTopQuarter">上1/4</string>
