@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018  Clemens Bartz
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="appName">基本發射器</string>
+    <string name="chooseWidget">選擇小部件</string>
+    <string name="unpinnedDockItem">未固定的碼頭項目</string>
+    <string name="showAppInfo">顯示應用信息</string>
+    <string name="openDrawer">顯示所有應用</string>
+    <string name="layoutWidget">佈局小部件</string>
+    <string name="removeWidget">刪除小部件</string>
+    <string name="widgetLayoutTopThird">上1/3</string>
+    <string name="widgetLayoutTopQuarter">上1/4</string>
+    <string name="widgetLayoutTopHalf">上1/2</string>
+    <string name="widgetLayoutFull">全屏</string>
+    <string name="widgetLayoutCenter">中間1/2</string>
+    <string name="widgetLayoutBottomHalf">降低1/2</string>
+    <string name="widgetLayoutBottomThird">降低1/3</string>
+    <string name="widgetLayoutBottomQuarter">降低1/4</string>
+    <string name="showAsGrid">顯示為網格</string>
+    <string name="hidden">隱藏</string>
+    <string name="showHiddenApps">顯示隱藏</string>
+    <string name="pinApp">加入碼頭…</string>
+    <string name="search">搜索</string>
+</resources>
