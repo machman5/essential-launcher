@@ -145,24 +145,24 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, info.provider);
 
                 menuItem.setIntent(intent);
+
+                menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item == null || item.getIntent() == null || item.getIntent().getComponent() == null) {
+                            return false;
+                        }
+
+                        final ComponentName provider = item.getIntent().getParcelableExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER);
+
+                        if (provider != null) {
+                            widgetController.bindWidget(provider, item.getIntent().getComponent());
+                        }
+
+                        return true;
+                    }
+                });
             }
-
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(final MenuItem item) {
-                    if (item == null || item.getIntent() == null || item.getIntent().getComponent() == null) {
-                        return false;
-                    }
-
-                    final ComponentName provider = item.getIntent().getParcelableExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER);
-
-                    if (provider != null) {
-                        widgetController.bindWidget(provider, item.getIntent().getComponent());
-                    }
-
-                    return true;
-                }
-            });
 
             popupMenu.show();
         }
