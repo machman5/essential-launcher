@@ -149,7 +149,7 @@ public final class ShowWidgetListAsPopupMenuTask extends AsyncTask<Integer, Inte
                 menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item == null || item.getIntent() == null || item.getIntent().getComponent() == null) {
+                        if (item == null || item.getIntent() == null) {
                             return false;
                         }
 

@@ -268,7 +268,7 @@ public final class WidgetController {
      * @param provider the provider component
      * @param configure the configure component
      */
-    public void bindWidget(@NonNull final ComponentName provider, @NonNull final ComponentName configure) {
+    public void bindWidget(@NonNull final ComponentName provider, @Nullable final ComponentName configure) {
         final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
 
         final int appWidgetId = appWidgetHost.allocateAppWidgetId();
