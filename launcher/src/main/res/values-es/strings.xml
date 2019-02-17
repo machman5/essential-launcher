@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018  Clemens Bartz
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="appName">Lanzador Esencial</string>
+    <string name="openDrawer">Mostrar todas las aplicaciones</string>
+    <string name="showAppInfo">Mostrar información de la aplicación</string>
+    <string name="unpinnedDockItem">Elemento de muelle sin clavijas</string>
+    <string name="chooseWidget">Elegir widget…</string>
+    <string name="layoutWidget">Alinear widget…</string>
+    <string name="removeWidget">Quitar widget</string>
+    <string name="widgetLayoutTopQuarter">Superior 1/2</string>
+    <string name="widgetLayoutTopThird">Superior 1/3</string>
+    <string name="widgetLayoutTopHalf">Superior 1/4</string>
+    <string name="widgetLayoutFull">Pantalla completa</string>
+    <string name="widgetLayoutCenter">Medio 1/2</string>
+    <string name="widgetLayoutBottomHalf">Inferior 1/2</string>
+    <string name="widgetLayoutBottomThird">Inferior 1/3</string>
+    <string name="widgetLayoutBottomQuarter">Inferior 1/4</string>
+    <string name="hidden">Ocultar</string>
+    <string name="showAsGrid">Mostrar como cuadrícula</string>
+    <string name="showHiddenApps">Mostrar oculto</string>
+    <string name="pinApp">Añadir al muelle…</string>
+    <string name="search">Búsqueda</string>
+</resources>
