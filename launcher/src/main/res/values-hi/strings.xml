@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018  Clemens Bartz
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="appName">आवश्यक लांच</string>
+    <string name="openDrawer">सभी एप्लिकेशन दिखाएं</string>
+    <string name="showAppInfo">ऐप की जानकारी दिखाएं</string>
+    <string name="unpinnedDockItem">अनपिन डॉक आइटम</string>
+    <string name="chooseWidget">विजेट चुनें…</string>
+    <string name="layoutWidget">लेआउट विजेट…</string>
+    <string name="removeWidget">विजेट निकालें</string>
+    <string name="widgetLayoutTopQuarter">ऊपरी 1/4</string>
+    <string name="widgetLayoutTopThird">ऊपरी 1/3</string>
+    <string name="widgetLayoutTopHalf">ऊपरी 1/2</string>
+    <string name="widgetLayoutFull">पूर्ण स्क्रीन</string>
+    <string name="widgetLayoutCenter">मध्य 1/2</string>
+    <string name="widgetLayoutBottomHalf">कम 1/2</string>
+    <string name="widgetLayoutBottomThird">निचला 1/3</string>
+    <string name="widgetLayoutBottomQuarter">निचला 1/4</string>
+    <string name="showAsGrid">ग्रिड के रूप में दिखाएँ</string>
+    <string name="showHiddenApps">छिपाकर दिखाओ</string>
+    <string name="hidden">छिपाना</string>
+    <string name="pinApp">पिन ऐप…</string>
+    <string name="search">खोज</string>
+</resources>
