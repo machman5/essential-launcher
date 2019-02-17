@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018  Clemens Bartz
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="appName">لازمی لانچر</string>
+    <string name="search">کی تلاش</string>
+    <string name="pinApp">پن اپ…</string>
+    <string name="showHiddenApps">پوشیدہ دکھائیں</string>
+    <string name="hidden">چھپا</string>
+    <string name="showAsGrid">گرڈ کے طور پر دکھائیں</string>
+    <string name="widgetLayoutBottomQuarter">کم 1/4</string>
+    <string name="widgetLayoutBottomThird">کم 1/3</string>
+    <string name="widgetLayoutBottomHalf">کم 1/2</string>
+    <string name="widgetLayoutCenter">مشرق 1/2</string>
+    <string name="widgetLayoutFull">فل سکرین</string>
+    <string name="widgetLayoutTopThird">اپر 1/3</string>
+    <string name="widgetLayoutTopHalf">اپر 1/2</string>
+    <string name="widgetLayoutTopQuarter">اپر 1/4</string>
+    <string name="removeWidget">ویجیٹ کو حذف کریں</string>
+    <string name="layoutWidget">ویجیٹ سیدھ کریں…</string>
+    <string name="chooseWidget">ویجیٹ منتخب کریں…</string>
+    <string name="unpinnedDockItem">خالی گودی اندراج</string>
+    <string name="showAppInfo">اے پی پی کی معلومات دکھائیں</string>
+    <string name="openDrawer">تمام ایپس دکھائیں</string>
+</resources>
