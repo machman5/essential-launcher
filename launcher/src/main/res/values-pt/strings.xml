@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2018  Clemens Bartz
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="appName">Lançador Essencial</string>
+    <string name="openDrawer">Mostrar todos os aplicativos</string>
+    <string name="showAppInfo">Mostrar informações da aplicação</string>
+    <string name="unpinnedDockItem">Entrada de doca vazia</string>
+    <string name="chooseWidget">Selecione o widget…</string>
+    <string name="layoutWidget">Alinhar widget…</string>
+    <string name="removeWidget">Excluir widget</string>
+    <string name="widgetLayoutTopQuarter">Superior 1/4</string>
+    <string name="widgetLayoutTopThird">Superior 1/3</string>
+    <string name="widgetLayoutTopHalf">Superior 1/2</string>
+    <string name="widgetLayoutFull">Tela cheia</string>
+    <string name="widgetLayoutCenter">Meio 1/2</string>
+    <string name="widgetLayoutBottomHalf">Inferior 1/2</string>
+    <string name="widgetLayoutBottomThird">Inferior 1/3</string>
+    <string name="widgetLayoutBottomQuarter">Inferior 1/4</string>
+    <string name="showAsGrid">Como uma grade</string>
+    <string name="hidden">Ocultar</string>
+    <string name="showHiddenApps">Mostrar oculto</string>
+    <string name="pinApp">Adicionar ao cais…</string>
+    <string name="search">Pesquisa</string>
+</resources>
