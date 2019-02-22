@@ -193,6 +193,15 @@ public final class Launcher extends Activity {
 
         registerReceiver(receiver, IntentUtil.createdChangeBroadReceiverFilter());
 
+        // Update dock
+        if (LoadDockTask.getRunningTask() != null) {
+            LoadDockTask.getRunningTask().cancel(true);
+        }
+
+        final LoadDockTask loadDockTask = new LoadDockTask(sharedPreferencesDAO, dockController);
+        LoadDockTask.setRunningTask(loadDockTask);
+        loadDockTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+
         // Update drawer
         if (LoadDrawerListAdapterTask.getRunningTask() != null) {
             LoadDrawerListAdapterTask.getRunningTask().cancel(true);
@@ -218,14 +227,6 @@ public final class Launcher extends Activity {
             viewController.setActionBar(getActionBar());
             viewController.showHome();
         }
-
-        if (LoadDockTask.getRunningTask() != null) {
-            LoadDockTask.getRunningTask().cancel(true);
-        }
-
-        final LoadDockTask loadDockTask = new LoadDockTask(sharedPreferencesDAO, dockController);
-        LoadDockTask.setRunningTask(loadDockTask);
-        loadDockTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
     @Override
