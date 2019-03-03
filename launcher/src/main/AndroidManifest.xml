@@ -38,6 +38,7 @@
                   android:label="@string/appName"
                   android:launchMode="singleTask"
                   android:clearTaskOnLaunch="true"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
                   android:stateNotNeeded="true"
                   android:theme="@style/API28ActivityStyle"
                   android:visibleToInstantApps="false"

@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -216,6 +217,21 @@ public final class Launcher extends Activity {
     public void onBackPressed() {
         if (viewController != null) {
             viewController.showHome();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@Nullable final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig != null) {
+            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                findViewById(R.id.ivDock6).setVisibility(View.GONE);
+                findViewById(R.id.ivDock7).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.ivDock6).setVisibility(View.VISIBLE);
+                findViewById(R.id.ivDock7).setVisibility(View.VISIBLE);
+            }
         }
     }
 
