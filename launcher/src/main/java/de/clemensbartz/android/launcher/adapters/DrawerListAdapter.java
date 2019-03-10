@@ -234,8 +234,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     public int getSectionForPosition(final int position) {
         final ApplicationModel applicationModel = filteredList.get(position);
 
-        if (applicationModel.label != null) {
-            final String firstCharacter = applicationModel.label.substring(0, 1).toUpperCase(locale);
+        if (applicationModel.label != null && applicationModel.label.trim().length() > 0) {
+            final String firstCharacter = applicationModel.label.trim().substring(0, 1).toUpperCase(locale);
 
             return sections.indexOf(firstCharacter);
         }
