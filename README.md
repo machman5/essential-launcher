@@ -19,6 +19,8 @@ Essential Launcher is a small launcher for Android. It provides a minimum of fun
 <img src="https://aapks.com/get.png" alt="Get it on AAPKS.com" height="80"/></a>
 <a href="https://github.com/clemensbartz/essential-launcher/releases/latest">
 <img src="https://raw.githubusercontent.com/clemensbartz/essential-launcher/release/v2.0/promo/graphics/en/get-github.png" alt="Get it on Github.com" height="80"/></a>
+<a href="https://github.com/clemensbartz/essential-launcher/releases.atom">
+<img src="https://raw.githubusercontent.com/clemensbartz/essential-launcher/release/v2.0/promo/graphics/en/subscribe-atom.png" alt="Subscribe via Atom" height="80"/></a>
 
 ## Features
 
