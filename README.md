@@ -17,6 +17,8 @@ Essential Launcher is a small launcher for Android. It provides a minimum of fun
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
 <a href="https://aapks.com/apk/essential-launcher/" target="_blank">
 <img src="https://aapks.com/get.png" alt="Get it on AAPKS.com" height="80"/></a>
+<a href="https://github.com/clemensbartz/essential-launcher/releases/latest">
+<img src="https://raw.githubusercontent.com/clemensbartz/essential-launcher/release/v2.0/promo/graphics/en/get-github.png" alt="Get it on Github.com" height="80"/></a>
 
 ## Features
 
