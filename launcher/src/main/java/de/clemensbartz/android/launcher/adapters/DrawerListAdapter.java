@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.RejectedExecutionException;
 
 import de.clemensbartz.android.launcher.R;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
@@ -133,7 +134,15 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
             viewHolder.icon.setContentDescription(resolveInfo.label);
             viewHolder.name.setText(resolveInfo.label);
             // Load icon asynchronously
-            new LoadApplicationModelIconIntoImageViewTask(viewHolder.icon, resolveInfo, getContext().getPackageManager(), defaultDrawable).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            final LoadApplicationModelIconIntoImageViewTask task = new LoadApplicationModelIconIntoImageViewTask(viewHolder.icon, resolveInfo, getContext().getPackageManager(), defaultDrawable);
+            try {
+                // Try to load via parallel execution
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } catch (final RejectedExecutionException exception) {
+                // Otherwise (e. g. queue is full) load via serial execution
+                task.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+            }
+
         }
 
         return v;
