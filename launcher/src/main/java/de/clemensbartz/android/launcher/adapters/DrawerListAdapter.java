@@ -331,6 +331,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
     /**
      * Update the sections.
+     * @param label the label
+     * @param index the start index
      */
     private void addSection(final String label, final Integer index) {
         if (label != null) {
