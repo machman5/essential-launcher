@@ -137,6 +137,7 @@ public final class Launcher extends Activity {
         dockImageViews.add((ImageView) findViewById(R.id.ivDock6));
         dockImageViews.add((ImageView) findViewById(R.id.ivDock7));
         dockController = new DockController(this, getPackageManager(), sharedPreferencesDAO, icLauncher, dockImageViews);
+        dockController.updateVisibility(getResources().getConfiguration());
 
         // Create and assign adapter to views
         drawerListAdapter = new DrawerListAdapter(this, icLauncher);

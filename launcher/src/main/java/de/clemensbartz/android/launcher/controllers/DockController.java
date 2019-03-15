@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,6 +45,9 @@ import de.clemensbartz.android.launcher.util.IntentUtil;
  * @since 2.0
  */
 public final class DockController {
+
+    /** Density for really high density displays. */
+    private static final int DENSITY_XXXHIGH = 640;
 
     /** The number of items in the dock. */
     public static final int NUMBER_OF_ITEMS = 7;
@@ -228,6 +232,30 @@ public final class DockController {
      */
     private String getKey(final int index) {
         return PIN_PREFIX + Integer.toString(index);
+    }
+
+    /**
+     * Update the visibility of dock items.
+     * @param configuration the configuration of the app
+     */
+    public void updateVisibility(@Nullable final Configuration configuration) {
+        if (configuration == null) {
+            return;
+        }
+
+        final boolean isXxxHighDensity = configuration.densityDpi >= DENSITY_XXXHIGH;
+        final boolean isPotrait = configuration.orientation == Configuration.ORIENTATION_PORTRAIT;
+        final boolean isXLarge = (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) > Configuration.SCREENLAYOUT_SIZE_LARGE;
+
+        /* Set the last two items to visible when:
+         * - device is in xxx high density
+         * - device is extra large
+         * - device is not in portrait mode
+         */
+        if (isXxxHighDensity || isXLarge || !isPotrait) {
+            dockItems.get(NUMBER_OF_ITEMS-2).setVisibility(View.VISIBLE);
+            dockItems.get(NUMBER_OF_ITEMS-1).setVisibility(View.VISIBLE);
+        }
     }
 
 }
