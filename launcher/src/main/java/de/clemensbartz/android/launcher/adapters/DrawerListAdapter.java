@@ -335,8 +335,8 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
      * @param index the start index
      */
     private void addSection(final String label, final Integer index) {
-        if (label != null) {
-            final String firstCharacter = label.substring(0, 1).toUpperCase(locale);
+        if (label != null && label.trim().length() > 0) {
+            final String firstCharacter = label.trim().substring(0, 1).toUpperCase(locale);
 
             if (!sections.contains(firstCharacter)) {
                 sections.add(firstCharacter);
