@@ -253,8 +253,8 @@ public final class DockController {
          * - device is not in portrait mode
          */
         if (isXxxHighDensity || isXLarge || !isPotrait) {
-            dockItems.get(NUMBER_OF_ITEMS-2).setVisibility(View.VISIBLE);
-            dockItems.get(NUMBER_OF_ITEMS-1).setVisibility(View.VISIBLE);
+            dockItems.get(NUMBER_OF_ITEMS - 2).setVisibility(View.VISIBLE);
+            dockItems.get(NUMBER_OF_ITEMS - 1).setVisibility(View.VISIBLE);
         }
     }
 
