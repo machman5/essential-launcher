@@ -35,6 +35,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.ViewFlipper;
 
@@ -51,6 +53,7 @@ import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 import de.clemensbartz.android.launcher.listeners.AbsListViewOnCreateContextMenuListener;
 import de.clemensbartz.android.launcher.listeners.AdapterViewOnItemClickListener;
 import de.clemensbartz.android.launcher.listeners.SearchViewOnActionExpandListener;
+import de.clemensbartz.android.launcher.observers.LinearLayoutSectionsObserver;
 import de.clemensbartz.android.launcher.receivers.PackageChangedBroadcastReceiver;
 import de.clemensbartz.android.launcher.tasks.FilterDrawerListAdapterTask;
 import de.clemensbartz.android.launcher.tasks.LoadDockTask;
@@ -102,6 +105,9 @@ public final class Launcher extends Activity {
         // Adjust strict mode
         StrictModeUtil.adjustStrictMode();
 
+        // Get action bar height
+        final int topPx = ThemeUtil.getActionBarHeight(this);
+
         // Create shared preference DAO
         sharedPreferencesDAO = SharedPreferencesDAO.getInstance(getPreferences(Context.MODE_PRIVATE));
 
@@ -143,39 +149,25 @@ public final class Launcher extends Activity {
         drawerListAdapter = new DrawerListAdapter(this, icLauncher);
         // Create and assign the drawer controller
         drawerController = new DrawerController(drawerListAdapter, sharedPreferencesDAO);
+        // Update the sections indexer
+        new LinearLayoutSectionsObserver<>(this, topPx, (ListView) findViewById(R.id.lvApplications), (LinearLayout) findViewById(R.id.lvApplicationsSections), drawerListAdapter);
 
         // Get all detail content views
         final List<AbsListView> listViews = Arrays.asList(
                 (AbsListView) findViewById(R.id.gvApplications),
                 (AbsListView) findViewById(R.id.lvApplications)
         );
-        // Assign adapter
+        // Assign adapter and set offset for list views
         for (final AbsListView listView : listViews) {
-            final int topPx = ThemeUtil.getActionBarHeight(this);
-
-            final ViewGroup.LayoutParams layoutParams = listView.getLayoutParams();
-            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
-                final ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
-                marginLayoutParams.setMargins(
-                        marginLayoutParams.leftMargin,
-                        topPx + marginLayoutParams.topMargin,
-                        marginLayoutParams.rightMargin,
-                        marginLayoutParams.bottomMargin
-                );
-            } else {
-                listView.setPadding(
-                        listView.getPaddingLeft(),
-                        topPx + listView.getPaddingTop(),
-                        listView.getPaddingRight(),
-                        listView.getPaddingBottom()
-                );
-            }
+            adjustActionBarOffset(listView, topPx);
 
             registerForContextMenu(listView);
             listView.setAdapter(drawerListAdapter);
             listView.setOnItemClickListener(new AdapterViewOnItemClickListener(this));
             listView.setOnCreateContextMenuListener(new AbsListViewOnCreateContextMenuListener(getPackageManager(), drawerController, drawerListAdapter, dockController, this));
         }
+        // Adjust offset for sections
+        adjustActionBarOffset(findViewById(R.id.lvApplicationsSections), topPx);
     }
 
     @Override
@@ -443,5 +435,30 @@ public final class Launcher extends Activity {
         }
 
         return actionBarMenu.findItem(itemID);
+    }
+
+    /**
+     * Set action bar offset.
+     * @param view the view
+     * @param topPx the offset for top px
+     */
+    public void adjustActionBarOffset(final @NonNull View view, final int topPx) {
+        final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+            final ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+            marginLayoutParams.setMargins(
+                    marginLayoutParams.leftMargin,
+                    topPx + marginLayoutParams.topMargin,
+                    marginLayoutParams.rightMargin,
+                    marginLayoutParams.bottomMargin
+            );
+        } else {
+            view.setPadding(
+                    view.getPaddingLeft(),
+                    topPx + view.getPaddingTop(),
+                    view.getPaddingRight(),
+                    view.getPaddingBottom()
+            );
+        }
     }
 }

@@ -39,6 +39,9 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
     /** The context to do the comparison in. */
     @Nullable
     private final Locale locale;
+    /** The string comparator. */
+    @NonNull
+    private final LocaledStringComparator localedStringComparator;
 
     /**
      * Create a new comparator in a certain context.
@@ -46,6 +49,7 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
      */
     public ApplicationModelComparator(@NonNull final Context context) {
         this.locale = LocaleUtil.getLocale(context);
+        this.localedStringComparator = new LocaledStringComparator(locale);
     }
 
     @Override
@@ -60,10 +64,6 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
             label2 = o2.label;
         }
 
-        if (locale != null) {
-            return Collator.getInstance(locale).compare(label1, label2);
-        } else {
-            return label1.compareTo(label2);
-        }
+        return localedStringComparator.compare(label1, label2);
     }
 }

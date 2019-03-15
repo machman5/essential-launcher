@@ -31,6 +31,7 @@ import android.widget.SearchView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,6 +44,7 @@ import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 
 import de.clemensbartz.android.launcher.R;
+import de.clemensbartz.android.launcher.comparators.LocaledStringComparator;
 import de.clemensbartz.android.launcher.models.ApplicationModel;
 import de.clemensbartz.android.launcher.tasks.LoadApplicationModelIconIntoImageViewTask;
 import de.clemensbartz.android.launcher.util.LocaleUtil;
@@ -275,6 +277,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     public void filter() {
         filteredList.clear();
         indexMap.clear();
+        sections.clear();
 
         // Check for an empty string or a string only consisting of spaces
         if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
@@ -341,7 +344,9 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
             if (!sections.contains(firstCharacter)) {
                 sections.add(firstCharacter);
 
-                Collections.sort(sections);
+                final LocaledStringComparator comparator = new LocaledStringComparator(locale);
+
+                Collections.sort(sections, comparator);
 
                 indexMap.put(firstCharacter, index);
             }
