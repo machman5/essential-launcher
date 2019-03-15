@@ -27,7 +27,7 @@
 
     <!-- ActionBar styles -->
     <style name="EssentialLauncherActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
