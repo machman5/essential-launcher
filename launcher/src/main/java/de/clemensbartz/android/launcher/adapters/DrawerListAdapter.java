@@ -278,7 +278,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         // Check for an empty string or a string only consisting of spaces
         if (lowerCaseFilter.isEmpty() || lowerCaseFilter.trim().isEmpty()) {
-            for (int i = 0; i<unfilteredList.size(); i++) {
+            for (int i = 0; i < unfilteredList.size(); i++) {
                 final ApplicationModel applicationModel = unfilteredList.get(i);
 
                 if (!showHiddenApps && applicationModel.hidden) {
@@ -297,7 +297,7 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
 
         final String[] lowerCaseWords = lowerCaseFilter.split(FILTER_SEPARATOR);
 
-        for (int i=0; i<unfilteredList.size(); i++) {
+        for (int i = 0; i < unfilteredList.size(); i++) {
             final ApplicationModel applicationModel = unfilteredList.get(i);
 
             for (final String lowerCaseWord : lowerCaseWords) {
