@@ -229,7 +229,11 @@ public final class DrawerListAdapter extends ArrayAdapter<ApplicationModel> impl
     @Override
     @NonNull
     public Object[] getSections() {
-        return sections.toArray();
+        final Object[] array = sections.toArray();
+
+        final Object[] emptyArray = {};
+
+        return (array != null) ? array : emptyArray;
     }
 
     @Override
