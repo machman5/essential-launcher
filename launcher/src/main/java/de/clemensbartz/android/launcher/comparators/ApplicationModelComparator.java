@@ -35,9 +35,6 @@ import de.clemensbartz.android.launcher.util.LocaleUtil;
  */
 public final class ApplicationModelComparator implements Comparator<ApplicationModel>, Serializable {
 
-    /** The context to do the comparison in. */
-    @Nullable
-    private final Locale locale;
     /** The string comparator. */
     @NonNull
     private final LocaledStringComparator localedStringComparator;
@@ -47,7 +44,8 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
      * @param context the context
      */
     public ApplicationModelComparator(@NonNull final Context context) {
-        this.locale = LocaleUtil.getLocale(context);
+        /** The context to do the comparison in. */
+        Locale locale = LocaleUtil.getLocale(context);
         this.localedStringComparator = new LocaledStringComparator(locale);
     }
 
