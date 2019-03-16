@@ -111,10 +111,6 @@ public final class AbsListViewOnCreateContextMenuListener implements View.OnCrea
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) contextMenuInfo;
         final ApplicationModel applicationModel = drawerListAdapter.getItem(info.position);
 
-        if (applicationModel == null) {
-            return;
-        }
-
         contextMenu.setHeaderTitle(applicationModel.label);
 
         // Optionally add Shortcuts
