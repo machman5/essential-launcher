@@ -69,7 +69,7 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
      */
     public LinearLayoutSectionsObserver(
             @NonNull final Context context,
-            @NonNull final int actionBarHeight,
+            final int actionBarHeight,
             @NonNull final ListView listView,
             @NonNull final LinearLayout linearLayout,
             @NonNull final T sectionedArrayAdapter) {
