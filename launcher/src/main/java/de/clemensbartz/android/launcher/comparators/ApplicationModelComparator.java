@@ -41,10 +41,9 @@ public final class ApplicationModelComparator implements Comparator<ApplicationM
 
     /**
      * Create a new comparator in a certain context.
-     * @param context the context
+     * @param context the context to do comparison in
      */
     public ApplicationModelComparator(@NonNull final Context context) {
-        /** The context to do the comparison in. */
         Locale locale = LocaleUtil.getLocale(context);
         this.localedStringComparator = new LocaledStringComparator(locale);
     }
