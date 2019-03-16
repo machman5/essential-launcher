@@ -179,6 +179,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
                 continue;
             }
 
+            //noinspection ConstantConditions
             if (launcherActivityInfo.getComponentName() == null
                     || launcherActivityInfo.getComponentName().getClassName() == null
                     || launcherActivityInfo.getComponentName().getPackageName() == null) {
