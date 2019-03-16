@@ -244,7 +244,7 @@ public final class DockController {
         }
 
         final boolean isXxxHighDensity = configuration.densityDpi >= DENSITY_XXXHIGH;
-        final boolean isPotrait = configuration.orientation == Configuration.ORIENTATION_PORTRAIT;
+        final boolean isPortrait = configuration.orientation == Configuration.ORIENTATION_PORTRAIT;
         final boolean isXLarge = (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) > Configuration.SCREENLAYOUT_SIZE_LARGE;
 
         /* Set the last two items to visible when:
@@ -252,7 +252,7 @@ public final class DockController {
          * - device is extra large
          * - device is not in portrait mode
          */
-        if (isXxxHighDensity || isXLarge || !isPotrait) {
+        if (isXxxHighDensity || isXLarge || !isPortrait) {
             dockItems.get(NUMBER_OF_ITEMS - 2).setVisibility(View.VISIBLE);
             dockItems.get(NUMBER_OF_ITEMS - 1).setVisibility(View.VISIBLE);
         }

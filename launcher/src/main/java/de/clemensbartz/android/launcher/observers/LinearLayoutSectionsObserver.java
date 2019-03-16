@@ -41,7 +41,7 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
 
     /** The text size for the linear layout items. */
     private static final float TEXT_SIZE = 20.0f;
-    /** The padding of text views in realtive layout. */
+    /** The padding of text views in relative layout. */
     private static final int PADDING_BOTTOM = 10;
 
     /** The context. */
