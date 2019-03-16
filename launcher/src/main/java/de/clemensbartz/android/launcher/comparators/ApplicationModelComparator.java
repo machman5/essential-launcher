@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
-import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 

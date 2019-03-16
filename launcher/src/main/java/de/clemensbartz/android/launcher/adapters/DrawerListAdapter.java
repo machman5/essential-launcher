@@ -31,7 +31,6 @@ import android.widget.SearchView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
