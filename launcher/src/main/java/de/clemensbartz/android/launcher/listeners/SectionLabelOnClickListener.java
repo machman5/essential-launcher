@@ -29,7 +29,7 @@ import java.lang.ref.WeakReference;
  * @since 2.1
  * @author Clemens Bartz
  */
-public class SectionLabelOnClickListener implements View.OnClickListener {
+public final class SectionLabelOnClickListener implements View.OnClickListener {
 
     /** The weak reference to the list view. */
     @NonNull
