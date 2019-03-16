@@ -442,7 +442,7 @@ public final class Launcher extends Activity {
      * @param view the view
      * @param topPx the offset for top px
      */
-    public void adjustActionBarOffset(final @NonNull View view, final int topPx) {
+    private void adjustActionBarOffset(final @NonNull View view, final int topPx) {
         final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
             final ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
