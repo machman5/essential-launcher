@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ViewFlipper;
 
@@ -59,6 +60,14 @@ public final class WidgetController {
     /** Key for the appWidgetLayout property. */
     @NonNull
     public static final String KEY_APPWIDGET_LAYOUT = "appWidgetLayout";
+    /** The weight sum. */
+    private static final int WEIGHT_SUM = 120;
+    /** Half of the weight sum. */
+    private static final int WEIGHT_SUM_HALF = WEIGHT_SUM / 2;
+    /** A third of the weight sum. */
+    private static final int WEIGHT_SUM_THIRD = WEIGHT_SUM / 3;
+    /** A quarter of the weight sum. */
+    private static final int WEIGHT_SUM_QUARTER = WEIGHT_SUM / 4;
 
     /** Extra code for APP_WIDGET_CONFIGURE. */
     @NonNull
@@ -213,41 +222,38 @@ public final class WidgetController {
      * @param appWidgetLayout the layout id.
      */
     public void adjustWidget(final int appWidgetLayout) {
+        // Get views
         final View vBottomFiller = launcher.findViewById(R.id.bottomFiller);
         final View vTopFiller = getTopFiller();
-        final ViewFlipper vsLauncher = launcher.findViewById(R.id.vsLauncher);
         final FrameLayout flWidget = launcher.findViewById(R.id.flWidget);
 
+        // Get layouts
         final ViewGroup.LayoutParams bottomLayout = vBottomFiller.getLayoutParams();
         final ViewGroup.LayoutParams topLayout = vTopFiller.getLayoutParams();
+        final ViewGroup.LayoutParams flWidgetLayout = flWidget.getLayoutParams();
 
-        final int screenHeightDp = vsLauncher.getHeight();
-
-        // Check for consistent values
-        if (screenHeightDp == Configuration.SCREEN_HEIGHT_DP_UNDEFINED) {
-            bottomLayout.height = 0;
-            topLayout.height = 0;
-            return;
+        // Adjust weights individually
+        if (bottomLayout instanceof LinearLayout.LayoutParams) {
+            final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bottomLayout;
+            layoutParams.weight = getPreciseBottomWeight(appWidgetLayout);
         }
 
-        final double height = screenHeightDp - DOCK_HEIGHT;
-
-        // Check for enough space to accommodate another dock
-        if (height - DOCK_HEIGHT <= 0) {
-            bottomLayout.height = 0;
-            topLayout.height = 0;
-            return;
+        if (topLayout instanceof LinearLayout.LayoutParams) {
+            final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) topLayout;
+            layoutParams.weight = getPreciseTopWeight(appWidgetLayout);
         }
 
-        double preciseBottomHeight = getPreciseBottomHeight(appWidgetLayout, height);
-        double preciseTopHeight = getPreciseTopHeight(appWidgetLayout, height);
+        if (flWidgetLayout instanceof LinearLayout.LayoutParams) {
+            final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) flWidgetLayout;
+            layoutParams.weight = getPreciseWidgetWeight(appWidgetLayout);
+        }
 
-        bottomLayout.height = (int) Math.round(preciseBottomHeight);
+        // Request layout change
         vBottomFiller.requestLayout();
-
-        topLayout.height = (int) Math.round(preciseTopHeight);
         vTopFiller.requestLayout();
+        flWidget.requestLayout();
 
+        // Notify widget
         if (flWidget.getChildCount() == 1) {
             final View child = flWidget.getChildAt(0);
 
@@ -420,42 +426,62 @@ public final class WidgetController {
     }
 
     /**
-     * Return the precise top height of for a specified height and a factor (layout id).
-     * @param appWidgetLayout the layout id
-     * @param height the height
-     * @return the height
+     * Returns the precise top weight for a specified layout.
+     * @param appWidgetLayout the layout
+     * @return the weight to be specified
      */
-    private double getPreciseTopHeight(final int appWidgetLayout, final double height) {
+    private int getPreciseTopWeight(final int appWidgetLayout) {
         switch (appWidgetLayout) {
             case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
-                return height * QUARTER;
+                return WEIGHT_SUM_THIRD;
             case WIDGET_LAYOUT_BOTTOM_HALF: // widget in bottom 1/2
-                return height * HALF;
+                return WEIGHT_SUM_HALF;
             case WIDGET_LAYOUT_BOTTOM_THIRD: // widget in bottom 1/3
-                return height * TWO_THIRD;
+                return WEIGHT_SUM_THIRD * 2;
             case WIDGET_LAYOUT_BOTTOM_QUARTER: // widget in bottom 1/4
-                return height * THREE_QUARTER;
-            default: // default: -1
+                return WEIGHT_SUM_QUARTER * 3;
+            default: // default: 0
                 return 0;
         }
     }
 
     /**
-     * Return the precise bottom height of for a specified height and a factor (layout id).
-     * @param appWidgetLayout the layout id
-     * @param height the height
-     * @return the height
+     * Returns the precise widget weight for a specified layout.
+     * @param appWidgetLayout the layout
+     * @return the weight to be specified
      */
-    private double getPreciseBottomHeight(final int appWidgetLayout, final double height) {
+    private int getPreciseWidgetWeight(final int appWidgetLayout) {
         switch (appWidgetLayout) {
             case WIDGET_LAYOUT_TOP_QUARTER: // widget in top 1/4
-                return height * THREE_QUARTER;
+            case WIDGET_LAYOUT_BOTTOM_QUARTER: // widget in bottom 1/4
+                return WEIGHT_SUM_QUARTER;
             case WIDGET_LAYOUT_TOP_THIRD: // widget in top 1/3
-                return height * TWO_THIRD;
-            case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
-                return height * HALF;
+            case WIDGET_LAYOUT_BOTTOM_THIRD: // widget in bottom 1/3
             case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
-                return height * QUARTER;
+                return WEIGHT_SUM_THIRD;
+            case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
+            case WIDGET_LAYOUT_BOTTOM_HALF: // widget in bottom 1/2
+                return WEIGHT_SUM_HALF;
+            default: // default: full screen
+                return WEIGHT_SUM;
+        }
+    }
+
+    /**
+     * Returns the precise widget weight for a specified layout.
+     * @param appWidgetLayout the layout
+     * @return the weight to be specified
+     */
+    private int getPreciseBottomWeight(final int appWidgetLayout) {
+        switch (appWidgetLayout) {
+            case WIDGET_LAYOUT_TOP_QUARTER: // widget in top 1/4
+                return WEIGHT_SUM_QUARTER * 3;
+            case WIDGET_LAYOUT_TOP_THIRD: // widget in top 1/3
+                return WEIGHT_SUM_THIRD * 2;
+            case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
+                return WEIGHT_SUM_HALF;
+            case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
+                return WEIGHT_SUM_THIRD;
             default: // default: -1
                 return 0;
         }
