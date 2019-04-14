@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">Essentieller Launcher</string>
+    <string name="appName">Essential Launcher</string>
     <string name="openDrawer">Alle Apps anzeigen</string>
     <string name="showAppInfo">Appinformationen anzeigen</string>
     <string name="unpinnedDockItem">Leerer Dockeintrag</string>

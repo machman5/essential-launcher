@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">基本發射器</string>
+    <string name="appName">Essential Launcher</string>
     <string name="chooseWidget">選擇小部件…</string>
     <string name="unpinnedDockItem">未固定的碼頭項目</string>
     <string name="showAppInfo">顯示應用信息</string>

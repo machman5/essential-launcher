@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">आवश्यक लांच</string>
+    <string name="appName">Essential Launcher</string>
     <string name="openDrawer">सभी एप्लिकेशन दिखाएं</string>
     <string name="showAppInfo">ऐप की जानकारी दिखाएं</string>
     <string name="unpinnedDockItem">अनपिन डॉक आइटम</string>

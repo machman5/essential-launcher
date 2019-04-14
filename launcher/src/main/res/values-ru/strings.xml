@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">Лаунчера основной</string>
+    <string name="appName">Essential Launcher</string>
     <string name="search">Поиск</string>
     <string name="pinApp">Добавить в док…</string>
     <string name="showHiddenApps">Показать скрытые</string>

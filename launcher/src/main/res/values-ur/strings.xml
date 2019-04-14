@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">لازمی لانچر</string>
+    <string name="appName">Essential Launcher</string>
     <string name="search">کی تلاش</string>
     <string name="pinApp">پن اپ…</string>
     <string name="showHiddenApps">پوشیدہ دکھائیں</string>

@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="appName">Lançador Essencial</string>
+    <string name="appName">Essential Launcher</string>
     <string name="openDrawer">Mostrar todos os aplicativos</string>
     <string name="showAppInfo">Mostrar informações da aplicação</string>
     <string name="unpinnedDockItem">Entrada de doca vazia</string>
