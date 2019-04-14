@@ -36,6 +36,7 @@ import de.clemensbartz.android.launcher.listeners.SectionLabelOnClickListener;
  * Observer to update sections in a vertical linear layout.
  * @since 2.1
  * @author Clemens Bartz
+ * @param <T> an array adapter that also supports indexing
  */
 public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & SectionIndexer> extends DataSetObserver {
 
