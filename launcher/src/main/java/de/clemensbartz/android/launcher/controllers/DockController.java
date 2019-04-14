@@ -255,6 +255,9 @@ public final class DockController {
         if (isXxxHighDensity || isXLarge || !isPortrait) {
             dockItems.get(NUMBER_OF_ITEMS - 2).setVisibility(View.VISIBLE);
             dockItems.get(NUMBER_OF_ITEMS - 1).setVisibility(View.VISIBLE);
+        } else {
+            dockItems.get(NUMBER_OF_ITEMS - 2).setVisibility(View.GONE);
+            dockItems.get(NUMBER_OF_ITEMS - 1).setVisibility(View.GONE);
         }
     }
 
