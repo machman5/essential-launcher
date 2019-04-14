@@ -217,14 +217,8 @@ public final class Launcher extends Activity {
     public void onConfigurationChanged(@Nullable final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        if (newConfig != null) {
-            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                findViewById(R.id.ivDock6).setVisibility(View.GONE);
-                findViewById(R.id.ivDock7).setVisibility(View.GONE);
-            } else {
-                findViewById(R.id.ivDock6).setVisibility(View.VISIBLE);
-                findViewById(R.id.ivDock7).setVisibility(View.VISIBLE);
-            }
+        if (newConfig != null && dockController != null) {
+            dockController.updateVisibility(newConfig);
         }
     }
 
