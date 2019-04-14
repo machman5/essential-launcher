@@ -44,6 +44,8 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
     private static final float TEXT_SIZE = 20.0f;
     /** The padding of text views in relative layout. */
     private static final int PADDING_BOTTOM = 10;
+    /** Minimal item count. */
+    private static final int MINIMUM_ITEM_COUNT = 3;
 
     /** The context. */
     @NonNull
@@ -143,7 +145,7 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
      */
     private void hideOverlappingItems() {
 
-        if (linearLayout.getChildCount() <= 3) {
+        if (linearLayout.getChildCount() <= MINIMUM_ITEM_COUNT) {
             return;
         }
 
