@@ -27,8 +27,7 @@
         android:layout_height="match_parent"
         android:baselineAligned="false"
         android:orientation="vertical"
-        android:weightSum="120"
-        tools:context=".HomeActivity">
+        android:weightSum="120">
 
         <View
             android:id="@+id/topFiller"
@@ -176,8 +175,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".DrawerActivity">
+        android:orientation="vertical">
 
         <GridView
             android:id="@+id/gvApplications"
