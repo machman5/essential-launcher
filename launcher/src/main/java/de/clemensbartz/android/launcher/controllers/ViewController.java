@@ -84,19 +84,14 @@ public final class ViewController {
      * @param index a valid index
      */
     private void switchTo(final int index) {
-        switch (index) {
-            case HOME_ID:
-                if (actionBar != null && actionBar.isShowing()) {
-                    actionBar.hide();
-                }
-
-                break;
-            default:
-                if (actionBar != null && !actionBar.isShowing()) {
-                    actionBar.show();
-                }
-
-                break;
+        if (index == HOME_ID) {
+            if (actionBar != null && actionBar.isShowing()) {
+                actionBar.hide();
+            }
+        } else {
+            if (actionBar != null && !actionBar.isShowing()) {
+                actionBar.show();
+            }
         }
 
         viewFlipper.setDisplayedChild(index);

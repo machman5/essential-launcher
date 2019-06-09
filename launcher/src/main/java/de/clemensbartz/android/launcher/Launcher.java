@@ -250,15 +250,13 @@ public final class Launcher extends Activity {
 
     @Override
     public boolean onTouchEvent(@NonNull final MotionEvent event) {
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_UP:
-                if (viewController != null) {
-                    viewController.showDetail();
-                }
-                return true;
-            default:
-                return super.onTouchEvent(event);
+        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+            if (viewController != null) {
+                viewController.showDetail();
+            }
+            return true;
         }
+        return super.onTouchEvent(event);
     }
 
     @Override
