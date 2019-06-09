@@ -96,7 +96,7 @@ public final class LoadDockTask extends AsyncTask<Integer, LoadDockTask.LoadDock
                     break;
                 }
 
-                final String key = DockController.PIN_PREFIX + Integer.toString(i);
+                final String key = DockController.PIN_PREFIX + i;
 
                 final String value = sharedPreferencesDAO.getString(key, "");
 

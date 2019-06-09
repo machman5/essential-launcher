@@ -231,7 +231,7 @@ public final class DockController {
      * @return the key for given index
      */
     private String getKey(final int index) {
-        return PIN_PREFIX + Integer.toString(index);
+        return PIN_PREFIX + index;
     }
 
     /**
