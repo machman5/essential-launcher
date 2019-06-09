@@ -113,7 +113,13 @@ public final class LoadSharedPreferencesDAOTask extends AsyncTask<Integer, Integ
         // Update the widget handling, please note that no widgets could be available, e. g. widgetController is null
         final WidgetController widgetController = widgetControllerWeakReference.get();
         if (widgetController != null) {
-            widgetController.addHostView(loadModelAsyncTaskResult.selectedWidget);
+
+            // Only load widget if one was previously selected
+            if (loadModelAsyncTaskResult.selectedWidget > -1) {
+                widgetController.addHostView(loadModelAsyncTaskResult.selectedWidget);
+            }
+
+            // Layout widget
             widgetController.adjustWidget(loadModelAsyncTaskResult.widgetLayout);
         }
     }
