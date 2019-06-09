@@ -45,6 +45,7 @@
                   android:theme="@style/API28ActivityStyle"
                   android:visibleToInstantApps="false"
                   android:resizeableActivity="false"
+                  android:excludeFromRecents="true"
                   tools:targetApi="o">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
