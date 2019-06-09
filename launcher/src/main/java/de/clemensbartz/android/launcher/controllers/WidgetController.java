@@ -74,16 +74,6 @@ public final class WidgetController {
     private static final int REQUEST_BIND_APPWIDGET = 0;
     /** Request code for creating a widget. */
     private static final int REQUEST_CREATE_APPWIDGET = 1;
-    /** A quarter. */
-    private static final double QUARTER = 0.25;
-    /** A half. */
-    private static final double HALF = 0.5;
-    /** Three quarter. */
-    private static final double THREE_QUARTER = 0.75;
-    /** Two third. */
-    private static final double TWO_THIRD = 0.66;
-    /** Default height in dp of the dock. */
-    private static final int DOCK_HEIGHT = 82;
     // Layout constants for widget
     /** Layout constant for default full screen layout. */
     private static final int WIDGET_LAYOUT_FULL_SCREEN = -1;
