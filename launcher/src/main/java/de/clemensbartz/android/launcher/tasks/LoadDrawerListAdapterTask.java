@@ -157,7 +157,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @param drawerController the drawer list adapter
      * @return a list of application models
      */
-    @TargetApi(Build.VERSION_CODES.Q)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     private List<ApplicationModel> getApplicationModelsByLauncherApps(@NonNull final LauncherApps launcherApps, @NonNull final PackageManager packageManager, @NonNull final DrawerController drawerController) {
@@ -191,18 +191,6 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
              */
             if (BuildConfig.APPLICATION_ID.equals(launcherActivityInfo.getComponentName().getPackageName())) {
                 continue;
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // Check if activity is enabled for a user
-                if (!launcherApps.isActivityEnabled(launcherActivityInfo.getComponentName(), Process.myUserHandle())) {
-                    continue;
-                }
-
-                // Check if package is enabled for a user
-                if (!launcherApps.isPackageEnabled(launcherActivityInfo.getComponentName().getPackageName(), Process.myUserHandle())) {
-                    continue;
-                }
             }
 
             final ApplicationInfo applicationInfo = launcherActivityInfo.getApplicationInfo();
