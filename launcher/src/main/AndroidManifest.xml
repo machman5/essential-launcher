@@ -34,7 +34,8 @@
                  android:allowBackup="false"
                  android:supportsRtl="true"
                  android:appCategory="productivity"
-                 tools:ignore="GoogleAppIndexingWarning">
+                 tools:ignore="GoogleAppIndexingWarning"
+                 tools:targetApi="o">
         <activity android:name="de.clemensbartz.android.launcher.Launcher"
                   android:label="@string/appName"
                   android:launchMode="singleTask"
