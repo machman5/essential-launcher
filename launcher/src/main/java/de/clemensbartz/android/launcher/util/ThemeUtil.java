@@ -63,6 +63,9 @@ public final class ThemeUtil {
             case Build.VERSION_CODES.O_MR1:
                 activity.setTheme(R.style.API21ActivityStyle);
                 break;
+            case Build.VERSION_CODES.P:
+                activity.setTheme(R.style.API28ActivityStyle);
+                break;
             default:
                 // leave highest default
         }
