@@ -37,6 +37,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.clemensbartz.android.launcher.BuildConfig;
 import de.clemensbartz.android.launcher.adapters.DrawerListAdapter;
 import de.clemensbartz.android.launcher.comparators.ApplicationModelComparator;
 import de.clemensbartz.android.launcher.controllers.DrawerController;
@@ -123,7 +124,7 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
                 return null;
             }
 
-            drawerListAdapter.addAll(getApplicationModelsByLauncherApps(launcherApps, drawerController));
+            drawerListAdapter.addAll(getApplicationModelsByLauncherApps(launcherApps, context.getPackageManager(), drawerController));
         } else {
             // For older Android versions, use Package Manager
             drawerListAdapter.addAll(getApplicationModelByResolveInfos(context.getPackageManager(), drawerController));
@@ -152,13 +153,14 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
     /**
      * Return all launchable application models.
      * @param launcherApps the launcher apps instance to query on
+     * @param packageManager the package manager
      * @param drawerController the drawer list adapter
      * @return a list of application models
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(Build.VERSION_CODES.Q)
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @NonNull
-    private List<ApplicationModel> getApplicationModelsByLauncherApps(@NonNull final LauncherApps launcherApps, @NonNull final DrawerController drawerController) {
+    private List<ApplicationModel> getApplicationModelsByLauncherApps(@NonNull final LauncherApps launcherApps, @NonNull final PackageManager packageManager, @NonNull final DrawerController drawerController) {
         final UserHandle userHandle = Process.myUserHandle();
 
         if (userHandle == null) {
@@ -173,16 +175,39 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
                 return new ArrayList<>();
             }
 
-            final ApplicationInfo applicationInfo = launcherActivityInfo.getApplicationInfo();
-
-            if (applicationInfo == null || !applicationInfo.enabled) {
-                continue;
-            }
-
             //noinspection ConstantConditions
             if (launcherActivityInfo.getComponentName() == null
                     || launcherActivityInfo.getComponentName().getClassName() == null
                     || launcherActivityInfo.getComponentName().getPackageName() == null) {
+                continue;
+            }
+
+            /*
+             * Now, for some reason, Google employees are unable to read their own docs. getActivityList states:
+             *   > Retrieves a list of launchable activities that match Intent#ACTION_MAIN and Intent#CATEGORY_LAUNCHER, for a specified user.
+             * This app does not include CATEGORY_LAUNCHER, but Google decided to include it at least in Android emulator 29.0.5.
+             * We will therefore "do the needful" and check for Google. Thank you in advance.
+             * This does, of course, not exclude other launchers, so those need to be uninstalled separately.
+             */
+            if (BuildConfig.APPLICATION_ID.equals(launcherActivityInfo.getComponentName().getPackageName())) {
+                continue;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Check if activity is enabled for a user
+                if (!launcherApps.isActivityEnabled(launcherActivityInfo.getComponentName(), Process.myUserHandle())) {
+                    continue;
+                }
+
+                // Check if package is enabled for a user
+                if (!launcherApps.isPackageEnabled(launcherActivityInfo.getComponentName().getPackageName(), Process.myUserHandle())) {
+                    continue;
+                }
+            }
+
+            final ApplicationInfo applicationInfo = launcherActivityInfo.getApplicationInfo();
+
+            if (applicationInfo == null || !applicationInfo.enabled) {
                 continue;
             }
 
