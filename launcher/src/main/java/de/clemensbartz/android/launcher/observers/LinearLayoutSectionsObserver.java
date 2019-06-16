@@ -158,7 +158,7 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
             return;
         }
 
-        final int measuredHeight = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TEXT_SIZE, context.getResources().getDisplayMetrics())) + PADDING_BOTTOM;
+        final int measuredHeight = (int) Math.ceil(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, getTextSize(), context.getResources().getDisplayMetrics())) + PADDING_BOTTOM;
 
         final int difference = (measuredHeight * linearLayout.getChildCount()) - linearLayoutHeight;
 
@@ -175,5 +175,13 @@ public final class LinearLayoutSectionsObserver<T extends ArrayAdapter & Section
         for (int i = hideEveryItem; i < linearLayout.getChildCount() - 1; i = i + hideEveryItem) {
             linearLayout.getChildAt(i).setVisibility(View.GONE);
         }
+    }
+
+    /**
+     *
+     * @return the text size the user wants
+     */
+    private float getTextSize() {
+        return context.getResources().getConfiguration().fontScale * TEXT_SIZE;
     }
 }
