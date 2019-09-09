@@ -38,7 +38,7 @@ If you want to support development, please make sure:
 
 - You use [Android Studio](https://developer.android.com/studio/) >= 3.5
 - You must not enable [minify or shrinkResources](https://developer.android.com/studio/build/shrink-code)
-- You use SDK Version >= [28](https://developer.android.com/about/versions/pie/).
+- You use SDK Version >= [29](https://developer.android.com/about/versions/10/).
 - You specify minimum SDK Version as 17 ([Android 4.2](https://developer.android.com/about/versions/android-4.2)).
 - You use Java >= [8](https://docs.oracle.com/javase/8/docs/api/).
 - The APK in Android Studio _APK Analyzer_ must be smaller than 50 KB
