@@ -7,7 +7,7 @@ android:
 
       - android-29
       
-      - build-tools-29.0.0
+      - build-tools-29.0.2
 before_install:
   # The following line can be removed when https://github.com/travis-ci/travis-ci/issues/8874 is resolved
   - yes | sdkmanager "platforms;android-29"
