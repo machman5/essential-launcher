@@ -21,6 +21,4 @@
     <issue id="TypographyFractions" severity="informational" />
     <!-- Disable check for Chrome OS as this app is not targeted at Chrome OS. -->
     <issue id="UnsupportedChromeOsHardware" severity="informational" />
-    <!-- Disable check for not running in the lastest Android API due to incompataility (issue #72). -->
-    <issue id="OldTargetApi" severity="informational" />
 </lint>
