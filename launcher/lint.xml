@@ -21,4 +21,6 @@
     <issue id="TypographyFractions" severity="informational" />
     <!-- Disable check for Chrome OS as this app is not targeted at Chrome OS. -->
     <issue id="UnsupportedChromeOsHardware" severity="informational" />
+    <!-- Disable gradle depdency check as of issue #76 for erroneous espresso accessbility version. -->
+    <issue id="GradleDependency" severity="informational" />
 </lint>
