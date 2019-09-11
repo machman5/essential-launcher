@@ -17,10 +17,11 @@
 
 package de.clemensbartz.android.launcher.listeners;
 
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+
+import androidx.annotation.NonNull;
 
 /**
  * Expand listener for the SearchView.

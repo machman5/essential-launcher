@@ -18,8 +18,9 @@
 package de.clemensbartz.android.launcher.daos;
 
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * DAO for accessing shared preferences. This class is designed as a SharedPreference-aware

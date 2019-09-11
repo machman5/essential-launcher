@@ -20,8 +20,9 @@ package de.clemensbartz.android.launcher.util;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import de.clemensbartz.android.launcher.R;
 

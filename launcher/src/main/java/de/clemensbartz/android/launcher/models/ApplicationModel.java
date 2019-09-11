@@ -17,7 +17,7 @@
 
 package de.clemensbartz.android.launcher.models;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Model for applications. For performance reasons, this class will be excluded from

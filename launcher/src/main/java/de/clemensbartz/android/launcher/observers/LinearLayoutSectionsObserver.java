@@ -20,7 +20,6 @@ package de.clemensbartz.android.launcher.observers;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -29,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import de.clemensbartz.android.launcher.listeners.SectionLabelOnClickListener;
 

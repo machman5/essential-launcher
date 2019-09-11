@@ -74,12 +74,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly 'com.android.support:support-annotations:28.0.0'
+    compileOnly 'androidx.annotation:annotation:1.1.0'
     testImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
-    androidTestImplementation 'com.android.support:support-compat:28.0.0'
-    androidTestImplementation 'com.android.support:viewpager:28.0.0'
+    androidTestImplementation 'androidx.core:core:1.1.0'
+    androidTestImplementation 'androidx.viewpager:viewpager:1.0.0'
 }

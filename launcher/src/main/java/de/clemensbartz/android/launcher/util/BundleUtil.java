@@ -19,7 +19,8 @@ package de.clemensbartz.android.launcher.util;
 
 import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Factory to create option bundles.
