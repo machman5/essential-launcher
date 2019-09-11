@@ -45,6 +45,7 @@ android {
         versionCode 19
         versionName "2.1"
     }
+
     buildTypes {
         release {
             minifyEnabled false
