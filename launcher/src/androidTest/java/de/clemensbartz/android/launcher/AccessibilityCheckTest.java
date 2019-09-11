@@ -20,15 +20,18 @@ package de.clemensbartz.android.launcher;
 import androidx.test.espresso.accessibility.AccessibilityChecks;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
 
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.assertion.ViewAssertions.*;
+import static org.hamcrest.Matchers.*;
 
 /**
  * Test case to check for accessibility errors.
@@ -39,18 +42,27 @@ import static androidx.test.espresso.action.ViewActions.*;
 @LargeTest
 public class AccessibilityCheckTest {
 
-
+    /**
+     * Enable accessibility checks.
+     */
     @BeforeClass
     public static void enableAccessibilityChecks() {
         AccessibilityChecks.enable();
     }
 
     /**
-     * Open the drawer.
+     * Add test rule.
+     */
+    @Rule
+    public ActivityTestRule<Launcher> launcherActivityTestRule = new ActivityTestRule<>(Launcher.class);
+
+    /**
+     * Open the drawer and check that the up icon disappeared.
      */
     @Test
     public void test1() {
         onView(withText(R.string.up)).perform(click());
+        onView(withText(R.string.up)).check(matches(not(isDisplayed())));
     }
 
 }
