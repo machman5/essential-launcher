@@ -21,7 +21,6 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.test.espresso.accessibility.AccessibilityChecks;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult;
@@ -32,10 +31,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-
-import java.lang.reflect.Field;
-
-import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
