@@ -45,13 +45,6 @@ import static org.junit.Assert.assertTrue;
 public class ActionBarTest extends AbstractTest {
 
     /**
-     * Add test rule.
-     */
-    @Rule
-    public ActivityTestRule<Launcher> launcherActivityTestRule = new ActivityTestRule<>(Launcher.class);
-
-
-    /**
      * On start up, check that the action bar is hidden.
      */
     @Test

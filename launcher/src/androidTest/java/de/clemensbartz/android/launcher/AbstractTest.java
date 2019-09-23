@@ -17,17 +17,25 @@
 
 package de.clemensbartz.android.launcher;
 
+import android.content.Context;
 import android.view.View;
 
 import androidx.test.espresso.accessibility.AccessibilityChecks;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 
 import java.lang.reflect.Field;
+
+import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -44,6 +52,12 @@ import static org.hamcrest.Matchers.allOf;
 public abstract class AbstractTest {
 
     /**
+     * Add test rule.
+     */
+    @Rule
+    public ActivityTestRule<Launcher> launcherActivityTestRule = new ActivityTestRule<>(Launcher.class, false, false);
+
+    /**
      * Check accessibility along the way.
      */
     @BeforeClass
@@ -53,6 +67,19 @@ public abstract class AbstractTest {
         } catch (final IllegalStateException e) {
             // do nothing
         }
+    }
+
+    @Before
+    public final void before() {
+        launcherActivityTestRule.launchActivity(null);
+    }
+
+    @After
+    public final void after() {
+        // Reset settings
+        launcherActivityTestRule.getActivity().getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
+        // Clear activity
+        launcherActivityTestRule.finishActivity();
     }
 
     /**
