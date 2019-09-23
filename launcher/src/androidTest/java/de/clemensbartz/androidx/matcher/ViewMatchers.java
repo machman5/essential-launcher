@@ -74,4 +74,13 @@ public final class ViewMatchers {
     public static Matcher<View> hasText(final CharSequence text) {
         return new TextMatcher(text);
     }
+
+    /**
+     * Returns a matcher for checking the text of a content description of a view.
+     * @param contentDescription the content description
+     * @return a matcher
+     */
+    public static Matcher<View> hasContentDescription(final CharSequence contentDescription) {
+        return new ContentDescriptionMatcher(contentDescription);
+    }
 }
