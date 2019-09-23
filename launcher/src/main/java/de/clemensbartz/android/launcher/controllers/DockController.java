@@ -190,6 +190,7 @@ public final class DockController {
         // Update view
         final ImageView imageView = dockItems.get(index);
         imageView.setTag(applicationModel);
+        imageView.setContentDescription(applicationModel.label);
 
         // Load image
         final PackageManager packageManager = packageManagerWeakReference.get();
