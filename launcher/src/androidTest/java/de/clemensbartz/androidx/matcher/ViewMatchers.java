@@ -65,4 +65,13 @@ public final class ViewMatchers {
             }
         };
     }
+
+    /**
+     * Returns a matcher for checking the text of a view.
+     * @param text the text
+     * @return a matcher
+     */
+    public static Matcher<View> hasText(final CharSequence text) {
+        return new TextMatcher(text);
+    }
 }
