@@ -27,6 +27,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.BeforeClass;
 
+import java.lang.reflect.Field;
+
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews;
@@ -46,7 +48,11 @@ public abstract class AbstractTest {
      */
     @BeforeClass
     public static void enableAccessibilityChecks() {
-        AccessibilityChecks.enable().setRunChecksFromRootView(true).setSuppressingResultMatcher(getSuppressingResultMatcher());
+        try {
+            AccessibilityChecks.enable().setRunChecksFromRootView(true).setSuppressingResultMatcher(getSuppressingResultMatcher());
+        } catch (final IllegalStateException e) {
+            // do nothing
+        }
     }
 
     /**
