@@ -23,27 +23,12 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.lang.ref.WeakReference;
-
-import de.clemensbartz.android.launcher.controllers.ViewController;
-
 /**
  * Touch Listener for Up button.
  * @author Clemens Bartz
  * @since 2.2
  */
-public class UpOnTouchListener implements View.OnTouchListener {
-
-    /** Weak reference to the {@link ViewController}. */
-    @NonNull
-    private final WeakReference<ViewController> viewControllerWeakReference;
-
-    /**
-     * Create a new touch listener.
-     */
-    public UpOnTouchListener(@Nullable final ViewController viewController) {
-        viewControllerWeakReference = new WeakReference<>(viewController);
-    }
+public final class UpOnTouchListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(@Nullable final View view, @NonNull final MotionEvent event) {
@@ -51,14 +36,8 @@ public class UpOnTouchListener implements View.OnTouchListener {
             return false;
         }
 
-        final ViewController viewController = viewControllerWeakReference.get();
-
-        if (viewController != null) {
-            //viewController.showDetail();
-
-            if (view != null) {
-                view.performClick();
-            }
+        if (view != null) {
+            view.performClick();
 
             return true;
         }
