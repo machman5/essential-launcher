@@ -2,9 +2,9 @@
 
 [![Latest release](https://img.shields.io/github/release/clemensbartz/essential-launcher.svg)](https://github.com/clemensbartz/essential-launcher/releases/latest)
 [![F-Droid](https://img.shields.io/f-droid/v/de.clemensbartz.android.launcher.svg)](https://f-droid.org/de/packages/de.clemensbartz.android.launcher/)
-[![Build Status](https://travis-ci.org/clemensbartz/essential-launcher.svg?branch=release%2Fv2.0)](https://travis-ci.org/clemensbartz/essential-launcher)
-[![codebeat badge](https://codebeat.co/badges/c1c2ceb1-2d05-4209-adde-00ac387b3023)](https://codebeat.co/projects/github-com-clemensbartz-essential-launcher-release-v2-1)
-[![GitHub license](https://img.shields.io/github/license/clemensbartz/essential-launcher.svg)](https://github.com/clemensbartz/essential-launcher/blob/release/v2.0/LICENSE)
+[![Build Status](https://travis-ci.org/clemensbartz/essential-launcher.svg?branch=release%2Fv2.2)](https://travis-ci.org/clemensbartz/essential-launcher)
+[![codebeat badge](https://codebeat.co/badges/bbe69ee2-68c1-45f4-927f-c931cd194b8e)](https://codebeat.co/projects/github-com-clemensbartz-essential-launcher-release-v2-2)
+[![GitHub license](https://img.shields.io/github/license/clemensbartz/essential-launcher.svg)](https://github.com/clemensbartz/essential-launcher/blob/release/v2.2/LICENSE)
 
 ## Overview
 
