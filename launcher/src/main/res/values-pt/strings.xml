@@ -35,6 +35,7 @@
     <string name="showAsGrid">Como uma grade</string>
     <string name="hidden">Ocultar</string>
     <string name="showHiddenApps">Mostrar oculto</string>
-    <string name="pinApp">Adicionar ao cais…</string>
+    <string name="pinApp">Adicionar ao dock…</string>
     <string name="search">Pesquisa</string>
+    <string name="showAllDockIcons">Mostrar todos os ícones do dock</string>
 </resources>

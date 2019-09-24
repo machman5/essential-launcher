@@ -37,4 +37,5 @@
     <string name="showHiddenApps">Toon verborgen</string>
     <string name="pinApp">Voeg toe aan het dock…</string>
     <string name="search">Zoeken</string>
+    <string name="showAllDockIcons">Toon alle dock-pictogrammen</string>
 </resources>

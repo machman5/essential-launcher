@@ -58,6 +58,9 @@ public final class DockController {
     /** The separator between package and class name. */
     @NonNull
     public static final String SEPARATOR = "|";
+    /** The key for isShowingAllDockIcons. */
+    @NonNull
+    public static final String KEY_IS_SHOWING_ALL_DOCK_ICONS = "isShowingAllDockIcons";
 
     /** The list of sorted dock items. */
     @NonNull
@@ -72,6 +75,9 @@ public final class DockController {
     @NonNull
     private final Drawable defaultDrawable;
 
+    /** The state of showing all icons. */
+    private boolean isShowingAllDockIcons = false;
+
     /**
      * Create a new controller for handling dock items.
      * @param context the context to be created in
@@ -85,6 +91,11 @@ public final class DockController {
         this.defaultDrawable = defaultDrawable;
         sharedPreferencesDAOWeakReference = new WeakReference<>(sharedPreferencesDAO);
         packageManagerWeakReference = new WeakReference<>(packageManager);
+
+        // Check for isShowingAllDockIcons
+        if (sharedPreferencesDAO != null) {
+            this.isShowingAllDockIcons = sharedPreferencesDAO.getBoolean(KEY_IS_SHOWING_ALL_DOCK_ICONS, false);
+        }
 
         // Check for existing context
         if (context == null) {
@@ -121,6 +132,22 @@ public final class DockController {
                 }
             });
         }
+    }
+
+    /**
+     *
+     * @return whether all dock icons are to be shown
+     */
+    public boolean isShowingAllDockIcons() {
+        return isShowingAllDockIcons;
+    }
+
+    /**
+     * Set the new value for showing all dock icons
+     * @param showingAllDockIcons the new value
+     */
+    public void setShowingAllDockIcons(final boolean showingAllDockIcons) {
+        isShowingAllDockIcons = showingAllDockIcons;
     }
 
     /**
@@ -254,7 +281,7 @@ public final class DockController {
          * - device is extra large
          * - device is not in portrait mode
          */
-        if (isXxxHighDensity || isXLarge || !isPortrait) {
+        if (isXxxHighDensity || isXLarge || !isPortrait || isShowingAllDockIcons) {
             dockItems.get(NUMBER_OF_ITEMS - 2).setVisibility(View.VISIBLE);
             dockItems.get(NUMBER_OF_ITEMS - 1).setVisibility(View.VISIBLE);
         } else {

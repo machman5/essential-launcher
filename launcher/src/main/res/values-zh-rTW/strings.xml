@@ -37,4 +37,5 @@
     <string name="showHiddenApps">顯示隱藏</string>
     <string name="pinApp">加入碼頭…</string>
     <string name="search">搜索</string>
+    <string name="showAllDockIcons">顯示所有停靠圖標</string>
 </resources>

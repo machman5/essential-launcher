@@ -127,6 +127,25 @@ public final class SharedPreferencesDAO {
     }
 
     /**
+     *
+     * @param key the key
+     * @param value the default value
+     * @return the value for key, or <code>defaultValue</code>, if no value exists
+     */
+    public boolean getBoolean(@NonNull final String key, final boolean value) {
+        return preferences.getBoolean(key, value);
+    }
+
+    /**
+     * Set the new key value for key.
+     * @param key the key
+     * @param value the new value
+     */
+    public void putBoolean(@NonNull final String key, final boolean value) {
+        preferences.edit().putBoolean(key, value).apply();
+    }
+
+    /**
      * Check if a key exists.
      * @param key the key
      * @return <code>true</code>, if it exists, otherwise <code>false</code>

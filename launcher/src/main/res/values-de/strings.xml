@@ -37,4 +37,5 @@
     <string name="showHiddenApps">Ausgeblendete anzeigen</string>
     <string name="pinApp">Zum Dock hinzufügen…</string>
     <string name="search">Suche</string>
+    <string name="showAllDockIcons">Zeige alle Dock Icons</string>
 </resources>

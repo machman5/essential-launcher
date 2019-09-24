@@ -37,4 +37,5 @@
     <string name="unpinnedDockItem">Пустая запись дока</string>
     <string name="openDrawer">Показать все приложения</string>
     <string name="showAppInfo">Показать информацию о приложении</string>
+    <string name="showAllDockIcons">Показать все значки док-станции</string>
 </resources>

@@ -37,4 +37,5 @@
     <string name="hidden">छिपाना</string>
     <string name="pinApp">पिन ऐप…</string>
     <string name="search">खोज</string>
+    <string name="showAllDockIcons">सभी डॉक आइकन दिखाएं</string>
 </resources>

@@ -38,4 +38,5 @@
     <string name="showHiddenApps">Show hidden</string>
     <string name="pinApp">Pin app…</string>
     <string name="search">Search</string>
+    <string name="showAllDockIcons">Show all dock icons</string>
 </resources>

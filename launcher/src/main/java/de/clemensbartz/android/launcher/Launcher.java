@@ -330,6 +330,10 @@ public final class Launcher extends Activity {
         if (viewController != null) {
             menu.findItem(R.id.abm_grid_toggle).setChecked(viewController.getCurrentDetailIndex() == ViewController.GRID_ID);
         }
+        // Check for show all dock icons
+        if (dockController != null) {
+            menu.findItem(R.id.abm_show_all_dock_icons).setCheckable(dockController.isShowingAllDockIcons());
+        }
 
         return true;
     }
@@ -412,6 +416,21 @@ public final class Launcher extends Activity {
                 sharedPreferencesDAO.putInt(ViewController.KEY_DRAWER_LAYOUT, newLayout);
 
                 viewController.showDetail();
+
+                return true;
+            case R.id.abm_show_all_dock_icons:
+                if (dockController == null || sharedPreferencesDAO == null) {
+                    return super.onOptionsItemSelected(item);
+                }
+
+                final boolean isCurrentlyShowingAll = dockController.isShowingAllDockIcons();
+                item.setChecked(!isCurrentlyShowingAll);
+
+                // Update database
+                sharedPreferencesDAO.putBoolean(DockController.KEY_IS_SHOWING_ALL_DOCK_ICONS, !isCurrentlyShowingAll);
+
+                dockController.setShowingAllDockIcons(!isCurrentlyShowingAll);
+                dockController.updateVisibility(getResources().getConfiguration());
 
                 return true;
             case R.id.abm_show_hidden:

@@ -37,4 +37,5 @@
     <string name="showHiddenApps">Mostrar oculto</string>
     <string name="pinApp">Añadir al muelle…</string>
     <string name="search">Búsqueda</string>
+    <string name="showAllDockIcons">Mostrar todos los iconos del muelle</string>
 </resources>

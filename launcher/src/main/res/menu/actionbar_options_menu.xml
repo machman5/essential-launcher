@@ -38,6 +38,10 @@
         android:checkable="true"
         android:title="@string/showAsGrid" />
     <item
+        android:id="@+id/abm_show_all_dock_icons"
+        android:checkable="true"
+        android:title="@string/showAllDockIcons" />
+    <item
         android:id="@+id/abm_show_hidden"
         android:checkable="true"
         android:title="@string/showHiddenApps" />

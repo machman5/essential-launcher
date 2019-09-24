@@ -39,6 +39,7 @@ import de.clemensbartz.androidx.resources.AbsListViewHasChildrenIdlingResource;
 import de.clemensbartz.androidx.resources.WaitingIdlingResource;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -198,6 +199,30 @@ public class DockTest extends AbstractTest {
             // Check the actual text on the nth item
             onView(withId(id)).check(matches(hasContentDescription(text)));
             // Check drawables: still on the to do list...
+        }
+    }
+
+    /**
+     * Check to see if all dock items are shown when the option to do so is enabled.
+     */
+    @Test
+    public void test6() {
+        // Go to the drawer
+        onView(withText(R.string.up)).perform(click());
+        // Open the action bar menu
+        openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
+        // Click "showAllDockIcons"
+        onView(withText(R.string.showAllDockIcons)).perform(click());
+        // Go back
+        Espresso.pressBack(); // Drawer
+        Espresso.pressBack(); // Home
+        // Check that all regular items are visible
+        for (final int id : regularDockItems) {
+            onView(withId(id)).check(matches(isDisplayed()));
+        }
+        // Check that all extended items are visible
+        for (final int id : extendedDockItems) {
+            onView(withId(id)).check(matches(isDisplayed()));
         }
     }
 

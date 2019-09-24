@@ -37,4 +37,5 @@
     <string name="showHiddenApps">显示隐藏</string>
     <string name="pinApp">加入码头…</string>
     <string name="search">搜索</string>
+    <string name="showAllDockIcons">显示所有停靠图标</string>
 </resources>

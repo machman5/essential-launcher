@@ -19,7 +19,7 @@
 <resources>
     <string name="appName">Essential Launcher</string>
     <string name="search">Ricerca</string>
-    <string name="pinApp">Aggiungi al molo…</string>
+    <string name="pinApp">Aggiungi al dock…</string>
     <string name="showHiddenApps">Mostra nascosto</string>
     <string name="hidden">Nascondere</string>
     <string name="showAsGrid">Come una griglia</string>
@@ -37,4 +37,5 @@
     <string name="unpinnedDockItem">Ingresso vuoto del dock</string>
     <string name="showAppInfo">Mostra informazioni sull\'app</string>
     <string name="openDrawer">Mostra tutte le app</string>
+    <string name="showAllDockIcons">Mostra tutte le icone del dock</string>
 </resources>
