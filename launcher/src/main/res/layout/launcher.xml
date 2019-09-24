@@ -50,8 +50,9 @@
             android:layout_weight="0" />
 
         <TextView
+            android:id="@+id/up"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:contentDescription="@string/openDrawer"
             android:text="@string/up"
             android:textAlignment="center"

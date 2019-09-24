@@ -55,6 +55,7 @@ import de.clemensbartz.android.launcher.daos.SharedPreferencesDAO;
 import de.clemensbartz.android.launcher.listeners.AbsListViewOnCreateContextMenuListener;
 import de.clemensbartz.android.launcher.listeners.AdapterViewOnItemClickListener;
 import de.clemensbartz.android.launcher.listeners.SearchViewOnActionExpandListener;
+import de.clemensbartz.android.launcher.listeners.UpOnTouchListener;
 import de.clemensbartz.android.launcher.observers.LinearLayoutSectionsObserver;
 import de.clemensbartz.android.launcher.receivers.PackageChangedBroadcastReceiver;
 import de.clemensbartz.android.launcher.tasks.FilterDrawerListAdapterTask;
@@ -115,6 +116,7 @@ public final class Launcher extends Activity {
 
         // Set up view handling
         viewController = new ViewController((ViewFlipper) findViewById(R.id.vsLauncher));
+        findViewById(R.id.up).setOnTouchListener(new UpOnTouchListener(viewController));
 
         // Set up widget handling
         final boolean supportingWidgets = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2 || getPackageManager().hasSystemFeature(PackageManager.FEATURE_APP_WIDGETS);
