@@ -143,7 +143,7 @@ public final class DockController {
     }
 
     /**
-     * Set the new value for showing all dock icons
+     * Set the new value for showing all dock icons.
      * @param showingAllDockIcons the new value
      */
     public void setShowingAllDockIcons(final boolean showingAllDockIcons) {
