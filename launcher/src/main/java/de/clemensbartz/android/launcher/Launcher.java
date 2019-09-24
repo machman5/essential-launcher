@@ -334,7 +334,7 @@ public final class Launcher extends Activity {
         }
         // Check for show all dock icons
         if (dockController != null) {
-            menu.findItem(R.id.abm_show_all_dock_icons).setCheckable(dockController.isShowingAllDockIcons());
+            menu.findItem(R.id.abm_show_all_dock_icons).setChecked(dockController.isShowingAllDockIcons());
         }
 
         return true;
