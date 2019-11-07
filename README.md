@@ -26,7 +26,6 @@ Essential Launcher is a small launcher for Android. It provides a minimum of fun
 - Small: <50 KB APK size
 - App drawer to launch, and show information about that app.
 - Home screen with ability to add one widget or leave it blank.
-- Dock with five frequently used applications.
 - Pin applications to dock by name.
 - Transparent background.
 - LTR as well as RTL support.
