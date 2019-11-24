@@ -26,6 +26,8 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Method;
+
 import de.clemensbartz.android.launcher.R;
 
 /**
@@ -40,10 +42,12 @@ import de.clemensbartz.android.launcher.R;
  */
 public final class ViewController extends GestureDetector.SimpleOnGestureListener {
 
+    /** The system service name for the status bar. */
+    public static final String SYSTEM_SERVICE_NAME_STATUS_BAR = "statusbar";
     /** The minimum travel velocity for a motion event to occur. */
     private static final int MINIMUM_VELOCITY_Y = 50;
     /** The minimum trave distance for a motion event to occur. */
-    private static final int MINIMUM_DISTANCE_Y = 50;
+    private static final int MINIMUM_DISTANCE_Y = 20;
     /** Key for choosing which layout to display. */
     @NonNull
     public static final String KEY_DRAWER_LAYOUT = "drawerLayout";
@@ -67,6 +71,9 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     /** The menu of the action bar. */
     @Nullable
     private Menu actionBarMenu;
+    /** The status bar system service. */
+    @Nullable
+    private Object statusBarSystemService = null;
 
 
     /**
@@ -102,6 +109,25 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
         }
 
         viewFlipper.setDisplayedChild(index);
+    }
+
+    /**
+     * Expands the status bar.
+     */
+    private void expandStatusBar() {
+        if (statusBarSystemService == null) {
+            return;
+        }
+
+        try {
+            final Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
+            final Method expandNotificationsPanelMethod = statusbarManager.getMethod("expandNotificationsPanel");
+
+            expandNotificationsPanelMethod.invoke(statusBarSystemService);
+        } catch (final Exception e) {
+            // Do nothing here
+        }
+
     }
 
     /**
@@ -157,6 +183,14 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     }
 
     /**
+     * Set the new status bar system service.
+     * @param statusBarSystemService the status bar system service, or <code>null</code>, if none should be registered
+     */
+    public void setStatusBarSystemService(@Nullable final Object statusBarSystemService) {
+        this.statusBarSystemService = statusBarSystemService;
+    }
+
+    /**
      * Set the new action bar menu.
      * @param actionBarMenu the action bar menu
      */
@@ -177,8 +211,15 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
             showDetail();
 
             return true;
+        } else if (differenceY < -MINIMUM_DISTANCE_Y) {
+            // Do swipe down
+            expandStatusBar();
+
+            return true;
         } else {
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
+
+
 }

@@ -17,6 +17,7 @@
 
 package de.clemensbartz.android.launcher;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,7 @@ import de.clemensbartz.android.launcher.tasks.LoadDrawerListAdapterTask;
 import de.clemensbartz.android.launcher.tasks.LoadSharedPreferencesDAOTask;
 import de.clemensbartz.android.launcher.util.IntentUtil;
 import de.clemensbartz.android.launcher.util.StrictModeUtil;
+import de.clemensbartz.android.launcher.util.SystemServiceUtil;
 import de.clemensbartz.android.launcher.util.ThemeUtil;
 
 /**
@@ -120,6 +122,7 @@ public final class Launcher extends Activity {
 
         // Set up view handling
         viewController = new ViewController((ViewFlipper) findViewById(R.id.vsLauncher));
+        viewController.setStatusBarSystemService(SystemServiceUtil.getSystemServiceOrDefault(this, ViewController.SYSTEM_SERVICE_NAME_STATUS_BAR, null));
         findViewById(R.id.up).setOnTouchListener(new UpOnTouchListener());
         gestureDetector = new GestureDetector(this, viewController);
 
