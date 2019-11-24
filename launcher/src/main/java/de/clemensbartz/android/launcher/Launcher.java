@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -93,6 +94,9 @@ public final class Launcher extends Activity {
     /** The adapter for applications. */
     @Nullable
     private DrawerListAdapter drawerListAdapter = null;
+    /** The gesture detector. */
+    @Nullable
+    private GestureDetector gestureDetector = null;
 
     /** The action bar menu. */
     private Menu actionBarMenu = null;
@@ -117,6 +121,7 @@ public final class Launcher extends Activity {
         // Set up view handling
         viewController = new ViewController((ViewFlipper) findViewById(R.id.vsLauncher));
         findViewById(R.id.up).setOnTouchListener(new UpOnTouchListener());
+        gestureDetector = new GestureDetector(this, viewController);
 
         // Set up widget handling
         final boolean supportingWidgets = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2 || getPackageManager().hasSystemFeature(PackageManager.FEATURE_APP_WIDGETS);
@@ -253,12 +258,10 @@ public final class Launcher extends Activity {
 
     @Override
     public boolean onTouchEvent(@NonNull final MotionEvent event) {
-        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-            if (viewController != null) {
-                viewController.showDetail();
-            }
-            return true;
+        if (gestureDetector != null) {
+            return gestureDetector.onTouchEvent(event);
         }
+
         return super.onTouchEvent(event);
     }
 

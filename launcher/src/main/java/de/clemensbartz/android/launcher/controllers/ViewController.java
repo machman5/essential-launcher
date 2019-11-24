@@ -18,7 +18,9 @@
 package de.clemensbartz.android.launcher.controllers;
 
 import android.app.ActionBar;
+import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -36,8 +38,12 @@ import de.clemensbartz.android.launcher.R;
  * @author Clemens Bartz
  * @since 2.0
  */
-public final class ViewController {
+public final class ViewController extends GestureDetector.SimpleOnGestureListener {
 
+    /** The minimum travel velocity for a motion event to occur. */
+    private static final int MINIMUM_VELOCITY_Y = 50;
+    /** The minimum trave distance for a motion event to occur. */
+    private static final int MINIMUM_DISTANCE_Y = 50;
     /** Key for choosing which layout to display. */
     @NonNull
     public static final String KEY_DRAWER_LAYOUT = "drawerLayout";
@@ -156,5 +162,23 @@ public final class ViewController {
      */
     public void setActionBarMenu(@Nullable final Menu actionBarMenu) {
         this.actionBarMenu = actionBarMenu;
+    }
+
+    @Override
+    public boolean onFling(@NonNull final MotionEvent e1, @NonNull final MotionEvent e2, final float velocityX, final float velocityY) {
+        if (Math.abs(velocityY) < MINIMUM_VELOCITY_Y) {
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+
+        final float differenceY = e1.getY() - e2.getY();
+
+        if (differenceY > MINIMUM_DISTANCE_Y) {
+            // Do swipe up
+            showDetail();
+
+            return true;
+        } else {
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
     }
 }
