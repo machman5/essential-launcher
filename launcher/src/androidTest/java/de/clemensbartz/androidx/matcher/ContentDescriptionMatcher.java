@@ -51,7 +51,7 @@ final class ContentDescriptionMatcher extends TypeSafeMatcher<View> {
 
     @Override
     public void describeTo(final Description description) {
-        description.appendText("checks that content description is equal");
+        description.appendText("checks that content description is equal to " + contentDescription);
     }
 
     @Override
