@@ -53,10 +53,10 @@ jobs:
             profile: Nexus 6
             arch: x86_64
             target: default
-          - api-level: 29 # latest one always google_apis
+          - api-level: 29
             profile: Nexus 6
             arch: x86_64
-            target: google_apis
+            target: default
     steps:
       - name: checkout
         uses: actions/checkout@v2
