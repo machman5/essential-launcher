@@ -23,6 +23,41 @@ jobs:
           java-version: 1.8
       - name: Test with Gradle
         run: ./gradlew test
+  connectedCheck:
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        devices: # we are limited here to 5 jobs running in parallel under MacOS
+          - api-level: 21
+            profile: Nexus 4
+            arch: x86
+            target: default
+          - api-level: 22
+            profile: Nexus 7
+            arch: x86_64
+            target: default
+          - api-level: 25
+            profile: Nexus 6
+            arch: x86_64
+            target: default
+          - api-level: 29 # latest one always google_apis
+            profile: Nexus 6
+            arch: x86_64
+            target: google_apis
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: ${{ matrix.devices.profile }}
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.devices.api-level }}
+          target: ${{ matrix.devices.target }}
+          arch: ${{ matrix.devices.arch }}
+          profile: ${{ matrix.devices.profile }}
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          script: ./gradlew connectedCheck
   build:
     runs-on: ubuntu-latest
     steps:
