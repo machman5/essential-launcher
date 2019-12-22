@@ -14,6 +14,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew lintRelease -x lint --stacktrace
   test:
+    needs: lintRelease
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -23,7 +24,19 @@ jobs:
           java-version: 1.8
       - name: Test with Gradle
         run: ./gradlew test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Gradle
+        run: ./gradlew build
   connectedCheck:
+    needs: build
     runs-on: macOS-latest
     strategy:
       matrix:
@@ -58,13 +71,3 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           disable-animations: true
           script: ./gradlew connectedCheck
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Build with Gradle
-        run: ./gradlew build
