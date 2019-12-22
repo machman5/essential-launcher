@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -60,7 +61,7 @@ public class ActionBarTest extends AbstractTest {
     @Test
     public void test2() {
         // Open the drawer
-        onView(withText(R.string.up)).perform(click());
+        onView(withText(R.string.up)).perform(swipeUp());
 
         // Check that action bar is showing
         final ActionBar actionBar = launcherActivityTestRule.getActivity().getActionBar();
@@ -76,7 +77,7 @@ public class ActionBarTest extends AbstractTest {
     @Test
     public void test3() {
         // Open the drawer
-        onView(withText(R.string.up)).perform(click());
+        onView(withText(R.string.up)).perform(swipeUp());
         // Open the action bar menu
         openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
         // Toggle

@@ -42,6 +42,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.longClick;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
@@ -159,7 +160,7 @@ public class DockTest extends AbstractTest {
             final GridView gridView = launcher.findViewById(R.id.gvApplications);
 
             // Go to the drawer
-            onView(withText(R.string.up)).perform(click());
+            onView(withText(R.string.up)).perform(swipeUp());
 
             // Wait until the items have been populated
             final AbsListViewHasChildrenIdlingResource absListViewHasChildrenIdlingResource = new AbsListViewHasChildrenIdlingResource(gridView, regularDockItems.length);
@@ -208,7 +209,7 @@ public class DockTest extends AbstractTest {
     @Test
     public void test6() {
         // Go to the drawer
-        onView(withText(R.string.up)).perform(click());
+        onView(withText(R.string.up)).perform(swipeUp());
         // Open the action bar menu
         openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
         // Click "showAllDockIcons"
