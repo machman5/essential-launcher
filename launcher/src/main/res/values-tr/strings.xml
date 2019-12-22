@@ -24,12 +24,12 @@
     <string name="openDrawer">Tüm uygulamaları göster</string>
     <string name="pinApp">Uygulamayı sabitle…</string>
     <string name="removeWidget">Widgetı kaldır</string>
-    <string name="search">Ara</string>
-    <string name="showAllDockIcons">Tüm sabit dock ikonlarını göster</string>
+    <string name="search">Arama</string>
+    <string name="showAllDockIcons">Alt paneldeki tüm simgeleri göster</string>
     <string name="showAppInfo">Uygulama bilgisini göster</string>
     <string name="showAsGrid">Izgarada göster</string>
     <string name="showHiddenApps">Gizliyi göster</string>
-    <string name="unpinnedDockItem">Sabitlenmemiş dock öğesi</string>
+    <string name="unpinnedDockItem">Boş alt panel öğesi</string>
     <string name="widgetLayoutBottomHalf">Alt 1/2</string>
     <string name="widgetLayoutBottomQuarter">Alt 1/4</string>
     <string name="widgetLayoutBottomThird">Alt 1/3</string>
