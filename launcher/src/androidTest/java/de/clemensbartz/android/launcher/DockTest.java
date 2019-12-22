@@ -194,7 +194,7 @@ public class DockTest extends AbstractTest {
             assertNotNull("Launcher has been destroyed", launcher);
 
             // Wait for 500 second as icon loading is an asynchronous task
-            final WaitingIdlingResource waitingIdlingResource = new WaitingIdlingResource(1000);
+            final WaitingIdlingResource waitingIdlingResource = new WaitingIdlingResource(1500);
             IdlingRegistry.getInstance().register(waitingIdlingResource);
 
             // Check the actual text on the nth item

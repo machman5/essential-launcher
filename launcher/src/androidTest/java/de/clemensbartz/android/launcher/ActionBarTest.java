@@ -19,11 +19,14 @@ package de.clemensbartz.android.launcher;
 
 import android.app.ActionBar;
 
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import de.clemensbartz.androidx.resources.WaitingIdlingResource;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -51,6 +54,10 @@ public class ActionBarTest extends AbstractTest {
         // Check that action bar is hidden
         final ActionBar actionBar = launcherActivityTestRule.getActivity().getActionBar();
 
+        // Wait for 500 milliseconds to wait for the resolution of events
+        final WaitingIdlingResource waitingIdlingResource = new WaitingIdlingResource(500);
+        IdlingRegistry.getInstance().register(waitingIdlingResource);
+
         assertNotNull("No action bar has been found", actionBar);
         assertFalse("Action bar is shown", actionBar.isShowing());
     }
@@ -62,6 +69,10 @@ public class ActionBarTest extends AbstractTest {
     public void test2() {
         // Open the drawer
         onView(withText(R.string.up)).perform(swipeUp());
+
+        // Wait for 500 milliseconds to wait for the resolution of events
+        final WaitingIdlingResource waitingIdlingResource = new WaitingIdlingResource(500);
+        IdlingRegistry.getInstance().register(waitingIdlingResource);
 
         // Check that action bar is showing
         final ActionBar actionBar = launcherActivityTestRule.getActivity().getActionBar();
@@ -78,6 +89,11 @@ public class ActionBarTest extends AbstractTest {
     public void test3() {
         // Open the drawer
         onView(withText(R.string.up)).perform(swipeUp());
+
+        // Wait for 500 milliseconds to wait for the resolution of events
+        final WaitingIdlingResource waitingIdlingResource = new WaitingIdlingResource(500);
+        IdlingRegistry.getInstance().register(waitingIdlingResource);
+
         // Open the action bar menu
         openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
         // Toggle
