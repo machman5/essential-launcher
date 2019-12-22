@@ -58,9 +58,10 @@ jobs:
             arch: x86_64
             target: google_apis
     steps:
+      - name: clean
+        run: ./gradlew clean
       - name: checkout
         uses: actions/checkout@v2
-
       - name: ${{ matrix.devices.profile }}
         uses: reactivecircus/android-emulator-runner@v2
         with:
