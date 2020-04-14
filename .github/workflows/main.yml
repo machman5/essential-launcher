@@ -27,7 +27,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
   build:
-    needs: lintRelease
+    needs: codeQuality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -38,7 +38,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
   connectedCheck:
-    needs: lintRelease
+    needs: codeQuality
     runs-on: macOS-latest
     strategy:
       matrix:
