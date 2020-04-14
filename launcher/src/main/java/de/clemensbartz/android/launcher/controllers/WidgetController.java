@@ -68,6 +68,11 @@ public final class WidgetController {
     /** A quarter of the weight sum. */
     private static final int WEIGHT_SUM_QUARTER = WEIGHT_SUM / 4;
 
+    /** Multiplier for quarter. */
+    private static final int QUARTER_MULTIPLIER = 3;
+    /** Multiplier for third. */
+    private static final int THIRD_MULTIPLIER = 2;
+
     /** Extra code for APP_WIDGET_CONFIGURE. */
     @NonNull
     private static final String EXTRA_APP_WIDGET_CONFIGURE = "EL_APP_WIDGET_CONFIGURE";
@@ -426,9 +431,9 @@ public final class WidgetController {
             case WIDGET_LAYOUT_BOTTOM_HALF: // widget in bottom 1/2
                 return WEIGHT_SUM_HALF;
             case WIDGET_LAYOUT_BOTTOM_THIRD: // widget in bottom 1/3
-                return WEIGHT_SUM_THIRD * 2;
+                return WEIGHT_SUM_THIRD * THIRD_MULTIPLIER;
             case WIDGET_LAYOUT_BOTTOM_QUARTER: // widget in bottom 1/4
-                return WEIGHT_SUM_QUARTER * 3;
+                return WEIGHT_SUM_QUARTER * QUARTER_MULTIPLIER;
             default: // default: 0
                 return 0;
         }
@@ -464,9 +469,9 @@ public final class WidgetController {
     private int getPreciseBottomWeight(final int appWidgetLayout) {
         switch (appWidgetLayout) {
             case WIDGET_LAYOUT_TOP_QUARTER: // widget in top 1/4
-                return WEIGHT_SUM_QUARTER * 3;
+                return WEIGHT_SUM_QUARTER * QUARTER_MULTIPLIER;
             case WIDGET_LAYOUT_TOP_THIRD: // widget in top 1/3
-                return WEIGHT_SUM_THIRD * 2;
+                return WEIGHT_SUM_THIRD * THIRD_MULTIPLIER;
             case WIDGET_LAYOUT_TOP_HALF: // widget in top 1/2
                 return WEIGHT_SUM_HALF;
             case WIDGET_LAYOUT_CENTER: // widget center with height adjusted
