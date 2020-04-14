@@ -67,7 +67,7 @@ jobs:
       - name: get branches
         run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: ${{ matrix.devices.profile }}
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@v2.7.0
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
