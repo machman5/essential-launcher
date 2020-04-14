@@ -32,6 +32,7 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 repositories {
     jcenter()
@@ -112,7 +113,32 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['test', 'createDebugCovera
     ])
 }
 
-tasks.sonarqube.dependsOn jacocoTestReport
+task checkstyle(type: Checkstyle) {
+    source 'src/main/java'
+    include '**/*.java'
+    exclude '**/gen/**'
+    showViolations true
+
+    reports {
+        xml {
+            enabled true
+        }
+        html {
+            enabled true
+        }
+    }
+
+    classpath = files()
+}
+
+tasks.sonarqube.dependsOn jacocoTestReport, check
+tasks.check.dependsOn checkstyle
+
+checkstyle {
+    ignoreFailures false
+    maxErrors 0
+    maxWarnings 0
+}
 
 sonarqube {
     properties {
@@ -120,6 +146,7 @@ sonarqube {
         property "sonar.organization", "clemensbartz"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", System.getenv("SONAR_LOGIN")
+        property "sonar.java.checkstyle.reportPaths", "build/reports/"
     }
 }
 

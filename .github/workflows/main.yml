@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  lintRelease:
+  codeQuality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -11,10 +11,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Test with Gradle
+      - name: Link Release
         run: ./gradlew lintRelease -x lint --stacktrace
+      - name: Checkstyle
+        run: ./gradlew checkstyle -x lint --stacktrace
   test:
-    needs: lintRelease
+    needs: codeQuality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
