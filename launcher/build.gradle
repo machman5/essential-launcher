@@ -67,8 +67,10 @@ android {
     testOptions {
         animationsDisabled true
 
-        unitTests {
-            includeAndroidResources = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
         }
     }
 
@@ -96,21 +98,11 @@ tasks.withType(Test) {
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['test', 'createDebugCoverageReport', 'lintRelease']) {
-
     reports {
         xml.enabled = true
-        html.enabled = true
+        html.enabled = false
+        csv.enabled = false
     }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "$project.projectDir/src/main/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-    ])
 }
 
 task checkstyleMain(type: Checkstyle) {
@@ -146,7 +138,24 @@ sonarqube {
         property "sonar.organization", "clemensbartz"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", System.getenv("SONAR_LOGIN")
+
         property "sonar.java.checkstyle.reportPaths", "build/reports/"
+        property "sonar.android.lint.report", "build/outputs/lint-results-release.xml"
+        property "sonar.jacoco.reportPath","build/jacoco/coverageReport.exec"
+        property "sonar.junit.reportsPath", "build/test-results/testDebugUnitTest"
+        property "sonar.java.coveragePlugin", "jacoco"
+
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java, src/androidTest/java"
+        property "sonar.java.binaries", "build/intermediates/classes/debug"
+        property "sonar.binaries", "build/intermediates/classes/debug"
+        property "sonar.java.test.binaries", "build/intermediates/classes/debug"
+
+        def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
+        def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
+        unit.addAll(ui);
+        def files = unit.join(", ");
+        property "sonar.jacoco.reportPaths", files
     }
 }
 
