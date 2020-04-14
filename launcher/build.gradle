@@ -113,7 +113,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['test', 'createDebugCovera
     ])
 }
 
-task checkstyle(type: Checkstyle) {
+task checkstyleMain(type: Checkstyle) {
     source 'src/main/java'
     include '**/*.java'
     exclude '**/gen/**'
@@ -132,7 +132,7 @@ task checkstyle(type: Checkstyle) {
 }
 
 tasks.sonarqube.dependsOn jacocoTestReport, check
-tasks.check.dependsOn checkstyle
+tasks.check.dependsOn checkstyleMain
 
 checkstyle {
     ignoreFailures false
