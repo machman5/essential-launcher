@@ -147,9 +147,6 @@ sonarqube {
 
         property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java, src/androidTest/java"
-        property "sonar.java.binaries", "build/intermediates/classes/debug"
-        property "sonar.binaries", "build/intermediates/classes/debug"
-        property "sonar.java.test.binaries", "build/intermediates/classes/debug"
 
         def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
         def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
