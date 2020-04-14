@@ -28,6 +28,7 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 
 import de.clemensbartz.android.launcher.Launcher;
@@ -63,27 +64,54 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     /** Id to identify the list layout. */
     private static final int SHOW_SEARCH_ID = 2;
 
-    /** Keys and default values for gestures **/
+    /**
+     * Keys and default values for gestures.
+     */
     public enum Gestures {
+        /** Gesture for swiping up.*/
         SWIPE_UP("gestureSwipeUp", 1, SHOW_DRAWER_ID),
+        /** Gesture for swiping down. */
         SWIPE_DOWN("gestureSwipeDown", 2, SHOW_STATUS_BAR_ID);
 
+        /** The key of the gesture. */
         private final String key;
+        /** The id for the gesture. */
         private final Integer id;
+        /** The default value for the gesture. */
         private final Integer defaultValue;
 
-        Gestures(String key, Integer id, Integer defaultValue) {
+        /**
+         * Create a new gesture.
+         * @param key the key
+         * @param id the id
+         * @param defaultValue the default value
+         */
+        Gestures(final String key, final Integer id, final Integer defaultValue) {
             this.key = key;
             this.id = id;
             this.defaultValue = defaultValue;
         }
 
+        /**
+         *
+         * @return the key for the gesture
+         */
         String getKey() {
             return key;
         }
+
+        /**
+         *
+         * @return the id of the gesture
+         */
         Integer getId() {
             return id;
         }
+
+        /**
+         *
+         * @return the default value of the gesture
+         */
         Integer getDefaultValue() {
             return defaultValue;
         }
@@ -101,7 +129,7 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     private final ViewFlipper viewFlipper;
     /** The launcher. */
     @NonNull
-    private final Launcher launcher;
+    private final WeakReference<Launcher> launcherWeakReference;
     /** The shared preference dao. */
     @NonNull
     private final SharedPreferencesDAO sharedPreferencesDAO;
@@ -122,10 +150,12 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     /**
      * Create a new controller around a view flipper.
      * @param viewFlipper the view flipper
+     * @param launcher the launcher
+     * @param sharedPreferencesDAO the shared preference dao
      */
     public ViewController(@NonNull final ViewFlipper viewFlipper, @NonNull final Launcher launcher, @NonNull final SharedPreferencesDAO sharedPreferencesDAO) {
         this.viewFlipper = viewFlipper;
-        this.launcher = launcher;
+        this.launcherWeakReference = new WeakReference<>(launcher);
         this.sharedPreferencesDAO = sharedPreferencesDAO;
     }
 
@@ -145,8 +175,9 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     private void switchTo(final int index) {
         if (index == HOME_ID) {
             if (actionBar != null && actionBar.isShowing()) {
-                if (actionBarMenu != null)
+                if (actionBarMenu != null) {
                     actionBarMenu.findItem(R.id.app_bar_search).collapseActionView();
+                }
                 actionBar.hide();
             }
         } else {
@@ -198,21 +229,23 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     }
 
     /**
-     * Show search on the detail page
+     * Show search on the detail page.
      */
     private void showSearch() {
         showDetail();
-        if (actionBarMenu != null)
+        if (actionBarMenu != null) {
             actionBarMenu.findItem(R.id.app_bar_search).expandActionView();
+        }
     }
 
     /**
-     * Show assigned gesture target page
+     * Show target assigned to gesture.
+     * @param gesture the gesture to evaluate
      */
     private void showGestureTarget(final Gestures gesture) {
         final int gestureTarget = sharedPreferencesDAO.getInt(gesture.getKey(), gesture.getDefaultValue());
 
-        switch(gestureTarget) {
+        switch (gestureTarget) {
             case SHOW_STATUS_BAR_ID:
                 expandStatusBar();
                 break;
@@ -286,9 +319,16 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     }
 
     /**
-     * Request to layout the widget.
+     * Show popup menu for gesture.
+     * @param gesture the gesture to change
      */
     public void requestGestureChange(@NonNull final Gestures gesture) {
+        if (launcherWeakReference.get() == null) {
+            return;
+        }
+
+        final Launcher launcher = launcherWeakReference.get();
+
         final PopupMenu popupMenu = new PopupMenu(launcher, launcher.findViewById(R.id.topFiller));
 
         final int currentGestureTarget = sharedPreferencesDAO.getInt(gesture.getKey(), gesture.getDefaultValue());
@@ -322,12 +362,12 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     }
 
     @Override
-    public void onLongPress(@Nullable MotionEvent e) {
+    public void onLongPress(@Nullable final MotionEvent e) {
         showDetail();
     }
 
     @Override
-    public boolean onDown(@Nullable MotionEvent e) {
+    public boolean onDown(@Nullable final MotionEvent e) {
         return true;
     }
 
