@@ -65,7 +65,7 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     private static final int SHOW_SEARCH_ID = 2;
 
     /** Array of valid ids. */
-    protected static final int[] VALID_IDS = {SHOW_STATUS_BAR_ID, SHOW_DRAWER_ID, SHOW_SEARCH_ID};
+    static final int[] VALID_IDS = {SHOW_STATUS_BAR_ID, SHOW_DRAWER_ID, SHOW_SEARCH_ID};
 
     /**
      * Keys and default values for gestures.
