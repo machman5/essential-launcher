@@ -13,8 +13,8 @@ jobs:
           java-version: 1.8
       - name: Link Release
         run: ./gradlew lintRelease -x lint --stacktrace
-      - name: Checkstyle
-        run: ./gradlew checkstyle -x lint --stacktrace
+      - name: Checkstyle Main
+        run: ./gradlew checkstyleMain -x lint --stacktrace
       - name: PMD Main
           run: ./gradlew pmdMain -x lint --stacktrace
   test:
