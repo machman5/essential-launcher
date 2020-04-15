@@ -33,6 +33,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
+apply plugin: 'pmd'
 
 repositories {
     jcenter()
@@ -123,8 +124,29 @@ task checkstyleMain(type: Checkstyle) {
     classpath = files()
 }
 
+task pmdMain(type:Pmd) {
+    source 'src/main/java'
+    includes = ['**/*.java']
+    excludes = ['**/gen/**']
+
+    ruleSets = []
+    ruleSetConfig resources.text.fromFile(rootProject.file("config/pmd/pmd.xml"))
+    consoleOutput true
+
+    reports {
+        xml {
+            enabled true
+        }
+        html {
+            enabled true
+        }
+    }
+
+    classpath = files()
+}
+
 tasks.sonarqube.dependsOn jacocoTestReport, check
-tasks.check.dependsOn checkstyleMain
+tasks.check.dependsOn checkstyleMain, pmdMain
 
 checkstyle {
     ignoreFailures false
