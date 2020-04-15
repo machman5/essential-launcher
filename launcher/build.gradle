@@ -99,20 +99,9 @@ tasks.withType(Test) {
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['test', 'createDebugCoverageReport', 'lintRelease']) {
-    def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
-    def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
-    unit.addAll(ui);
-    def files = unit.join(", ");
-
-    getExecutionData().setFrom(files)
-
-    onlyIf {
-        true
-    }
-
     reports {
         xml.enabled = true
-        html.enabled = false
+        html.enabled = true
         csv.enabled = false
     }
 }
@@ -172,14 +161,14 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", System.getenv("SONAR_LOGIN")
 
-        property "sonar.java.checkstyle.reportPaths", "build/reports/"
-        property "sonar.android.lint.report", "build/outputs/lint-results-release.xml"
-        property "sonar.junit.reportsPath", "build/test-results/testDebugUnitTest"
+        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
+        property "sonar.java.pmd.reportPaths", "build/reports/pmd/main.xml"
+        property "sonar.android.lint.report", "build/reports/lint-results-release.xml"
         property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/coverage/debug/report.xml"
 
         property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java, src/androidTest/java"
-        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/coverage/debug/report.xml"
     }
 }
 
