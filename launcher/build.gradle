@@ -99,6 +99,17 @@ tasks.withType(Test) {
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['test', 'createDebugCoverageReport', 'lintRelease']) {
+    def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
+    def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
+    unit.addAll(ui);
+    def files = unit.join(", ");
+
+    getExecutionData().setFrom(files)
+
+    onlyIf {
+        true
+    }
+
     reports {
         xml.enabled = true
         html.enabled = false
@@ -168,12 +179,7 @@ sonarqube {
 
         property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java, src/androidTest/java"
-
-        def unit = fileTree(dir: project.projectDir, includes: ['**/*.exec']).files;
-        def ui = fileTree(dir: project.projectDir, includes: ['**/*.ec']).files;
-        unit.addAll(ui);
-        def files = unit.join(", ");
-        property "sonar.jacoco.reportPaths", files
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/coverage/debug/report.xml"
     }
 }
 
