@@ -16,7 +16,7 @@ jobs:
       - name: Checkstyle Main
         run: ./gradlew checkstyleMain -x lint --stacktrace
       - name: PMD Main
-          run: ./gradlew pmdMain -x lint --stacktrace
+        run: ./gradlew pmdMain -x lint --stacktrace
   test:
     needs: codeQuality
     runs-on: ubuntu-latest
