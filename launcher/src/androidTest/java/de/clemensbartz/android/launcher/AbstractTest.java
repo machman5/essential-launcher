@@ -34,9 +34,12 @@ import org.junit.Rule;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews;
 import static de.clemensbartz.androidx.matcher.ViewMatchers.childAtPosition;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
 
 /**
  * Abstract test class. All instrumentation tests have to have this
@@ -82,7 +85,7 @@ public abstract class AbstractTest {
      */
     private static Matcher<? super AccessibilityViewCheckResult> getSuppressingResultMatcher() {
         //noinspection unchecked
-        return allOf(
+        return anyOf(
                 // Exclude the "More Options" ActionBar overflow button for API 23 and higher
                 matchesViews(
                         allOf(
@@ -93,6 +96,12 @@ public abstract class AbstractTest {
                                                 2),
                                         1),
                                 isDisplayed()
+                        )
+                ),
+                // The letter bar in the list view
+                matchesViews(
+                        allOf(
+                                withParent(withId(R.id.lvApplicationsSections))
                         )
                 )
         );
