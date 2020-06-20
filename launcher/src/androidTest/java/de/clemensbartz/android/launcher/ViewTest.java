@@ -35,9 +35,13 @@ import de.clemensbartz.android.launcher.util.SystemServiceUtil;
 import de.clemensbartz.androidx.resources.WaitingIdlingResource;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.Espresso.pressBack;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -136,5 +140,47 @@ public class ViewTest extends AbstractTest {
         onView(withText(R.string.up)).perform(longClick());
 
         onView(withId(R.id.gvApplications)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Check that "Show notifications" is grayed out for swipe up.
+     */
+    @Test
+    public void test5() {
+        // Go to the drawer
+        onView(withText(R.string.up)).perform(longClick());
+
+        // Open the action bar menu
+        openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
+
+        onView(withText(R.string.gestureSwipeUp)).perform(click());
+
+        onView(withText(R.string.showStatusbar)).check(doesNotExist());
+    }
+
+    /**
+     * Check that "Show notifications" is grayed out for swipe down after setting it for swipe up.
+     */
+    @Test
+    public void test6() {
+        // Go to the drawer
+        onView(withText(R.string.up)).perform(longClick());
+
+        openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
+
+        onView(withText(R.string.gestureSwipeDown)).perform(click());
+        onView(withText(R.string.showStatusbar)).check(matches(isDisplayed()));
+        onView(withText(R.string.showDrawer)).perform(click());
+
+        openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
+
+        onView(withText(R.string.gestureSwipeUp)).perform(click());
+        onView(withText(R.string.showStatusbar)).check(matches(isDisplayed()));
+        onView(withText(R.string.showStatusbar)).perform(click());
+
+        openActionBarOverflowOrOptionsMenu(launcherActivityTestRule.getActivity());
+
+        onView(withText(R.string.gestureSwipeDown)).perform(click());
+        onView(withText(R.string.showStatusbar)).check(doesNotExist());
     }
 }

@@ -57,14 +57,14 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
     @NonNull
     public static final String KEY_DRAWER_LAYOUT = "drawerLayout";
 
-    /** Id to identify the home layout. */
+    /** Id for the status bar gesture target. */
     private static final int SHOW_STATUS_BAR_ID = 0;
-    /** Id to identify the grid layout. */
+    /** Id for the drawer gesture target. */
     private static final int SHOW_DRAWER_ID = 1;
-    /** Id to identify the list layout. */
+    /** Id for the search gesture target. */
     private static final int SHOW_SEARCH_ID = 2;
 
-    /** Array of valid ids. */
+    /** Array of valid ids for gesture targets. */
     static final int[] VALID_IDS = {SHOW_STATUS_BAR_ID, SHOW_DRAWER_ID, SHOW_SEARCH_ID};
 
     /**
@@ -336,7 +336,24 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
 
         final int currentGestureTarget = sharedPreferencesDAO.getInt(gesture.getKey(), gesture.getDefaultValue());
 
-        addGesturePopupMenuItem(popupMenu, SHOW_STATUS_BAR_ID, currentGestureTarget, R.string.showStatusbar);
+        /*
+         * Hide the status bar action (i. e. notification) from the other ones if it has been selected already
+         * Reasoning behind it: The user should be able to lock himself out of the app.
+         */
+        boolean hideStatusBar = false;
+        for (Gestures otherGesture : Gestures.values()) {
+            if (gesture == otherGesture) {
+                continue;
+            }
+
+            if (SHOW_STATUS_BAR_ID == sharedPreferencesDAO.getInt(otherGesture.getKey(), otherGesture.getDefaultValue())) {
+                hideStatusBar = true;
+            }
+        }
+
+        if (!hideStatusBar) {
+            addGesturePopupMenuItem(popupMenu, SHOW_STATUS_BAR_ID, currentGestureTarget, R.string.showStatusbar);
+        }
         addGesturePopupMenuItem(popupMenu, SHOW_DRAWER_ID, currentGestureTarget, R.string.showDrawer);
         addGesturePopupMenuItem(popupMenu, SHOW_SEARCH_ID, currentGestureTarget, R.string.showSearch);
 
