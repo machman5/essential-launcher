@@ -342,7 +342,7 @@ public final class ViewController extends GestureDetector.SimpleOnGestureListene
          */
         boolean hideStatusBar = false;
         for (Gestures otherGesture : Gestures.values()) {
-            if (gesture == otherGesture) {
+            if (otherGesture.equals(gesture)) {
                 continue;
             }
 
