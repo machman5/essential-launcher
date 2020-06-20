@@ -12,11 +12,11 @@ jobs:
         with:
           java-version: 1.8
       - name: Link Release
-        run: ./gradlew lintRelease -x lint --stacktrace
+        run: sudo ./gradlew lintRelease -x lint --stacktrace
       - name: Checkstyle Main
-        run: ./gradlew checkstyleMain -x lint --stacktrace
+        run: sudo ./gradlew checkstyleMain -x lint --stacktrace
       - name: PMD Main
-        run: ./gradlew pmdMain -x lint --stacktrace
+        run: sudo ./gradlew pmdMain -x lint --stacktrace
   test:
     needs: codeQuality
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Test with Gradle
-        run: ./gradlew test
+        run: sudo ./gradlew test
   build:
     needs: codeQuality
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew build
+        run: sudo ./gradlew build
   connectedCheck:
     needs: codeQuality
     runs-on: macOS-latest
@@ -72,7 +72,7 @@ jobs:
           profile: ${{ matrix.devices.profile }}
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           disable-animations: true
-          script: ./gradlew build lintRelease test connectedCheck jacocoTestReport sonarqube -x lint --stacktrace
+          script: sudo ./gradlew build lintRelease test connectedCheck jacocoTestReport sonarqube -x lint --stacktrace
   uploadArtifact:
     needs: connectedCheck
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew build
+        run: sudo ./gradlew build
       - name: Upload launcher-debug.apk
         uses: actions/upload-artifact@v1
         with:
