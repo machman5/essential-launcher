@@ -36,6 +36,7 @@ import androidx.annotation.RequiresApi;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.clemensbartz.android.launcher.BuildConfig;
@@ -125,7 +126,14 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
                 return null;
             }
 
-            drawerListAdapter.addAll(getApplicationModelsByLauncherApps(launcherApps, context.getPackageManager(), drawerController));
+            final List<UserHandle> userHandles = new ArrayList<>();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                userHandles.addAll(launcherApps.getProfiles());
+            } else {
+                userHandles.add(Process.myUserHandle());
+            }
+
+            drawerListAdapter.addAll(getApplicationModelsByLauncherAppsWithUserHandles(launcherApps, context.getPackageManager(), drawerController, userHandles));
         } else {
             // For older Android versions, use Package Manager
             drawerListAdapter.addAll(getApplicationModelByResolveInfos(context.getPackageManager(), drawerController));
@@ -156,24 +164,44 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
      * @param launcherApps the launcher apps instance to query on
      * @param packageManager the package manager
      * @param drawerController the drawer list adapter
+     * @param userHandles the user handles to query for
      * @return a list of application models
      */
-    @TargetApi(Build.VERSION_CODES.Q)
+    @TargetApi(Build.VERSION_CODES.R)
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @NonNull
-    private List<ApplicationModel> getApplicationModelsByLauncherApps(@NonNull final LauncherApps launcherApps, @NonNull final PackageManager packageManager, @NonNull final DrawerController drawerController) {
-        final UserHandle userHandle = Process.myUserHandle();
+    private List<ApplicationModel> getApplicationModelsByLauncherAppsWithUserHandles(@NonNull final LauncherApps launcherApps, @NonNull final PackageManager packageManager, @NonNull final DrawerController drawerController, @NonNull final List<UserHandle> userHandles) {
+        final List<ApplicationModel> applicationModels = new ArrayList<>();
 
+        for (UserHandle userHandle : userHandles) {
+            applicationModels.addAll(getApplicationModelsByLauncherAppsForUserHandle(launcherApps, packageManager, drawerController, userHandle));
+        }
+
+        return applicationModels;
+    }
+
+    /**
+     * Return all launchable application models.
+     * @param launcherApps the launcher apps instance to query on
+     * @param packageManager the package manager
+     * @param drawerController the drawer list adapter
+     * @param userHandle the user handles to query for
+     * @return a list of application models
+     */
+    @TargetApi(Build.VERSION_CODES.R)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @NonNull
+    private List<ApplicationModel> getApplicationModelsByLauncherAppsForUserHandle(@NonNull final LauncherApps launcherApps, @NonNull final PackageManager packageManager, @NonNull final DrawerController drawerController, @Nullable final UserHandle userHandle) {
         if (userHandle == null) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
 
         final List<ApplicationModel> applicationModels = new ArrayList<>();
 
-        for (final LauncherActivityInfo launcherActivityInfo : launcherApps.getActivityList(null, Process.myUserHandle())) {
+        for (final LauncherActivityInfo launcherActivityInfo : launcherApps.getActivityList(null, userHandle)) {
             // Break if the task has been stopped
             if (isCancelled()) {
-                return new ArrayList<>();
+                return Collections.emptyList();
             }
 
             //noinspection ConstantConditions
@@ -194,16 +222,14 @@ public final class LoadDrawerListAdapterTask extends AsyncTask<Integer, Integer,
                 continue;
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // Check if activity is enabled for a user
-                if (!launcherApps.isActivityEnabled(launcherActivityInfo.getComponentName(), Process.myUserHandle())) {
-                    continue;
-                }
+            // Check if activity is enabled for a user
+            if (!launcherApps.isActivityEnabled(launcherActivityInfo.getComponentName(), userHandle)) {
+                continue;
+            }
 
-                // Check if package is enabled for a user
-                if (!launcherApps.isPackageEnabled(launcherActivityInfo.getComponentName().getPackageName(), Process.myUserHandle())) {
-                    continue;
-                }
+            // Check if package is enabled for a user
+            if (!launcherApps.isPackageEnabled(launcherActivityInfo.getComponentName().getPackageName(), userHandle)) {
+                continue;
             }
 
             final ApplicationInfo applicationInfo = launcherActivityInfo.getApplicationInfo();
