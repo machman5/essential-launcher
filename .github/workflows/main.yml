@@ -3,6 +3,14 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  job_id:
+     - name: Download a Build Artifact
+  uses: actions/download-artifact@v2.0.5
+  with:
+    # Artifact name
+    name: # optional
+    # Destination path
+    path: # optional
   lintRelease:
     runs-on: ubuntu-latest
     steps:
