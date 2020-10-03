@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   job_id:
-     - name: Download a Build Artifact
+  name: Download a Build Artifact
   uses: actions/download-artifact@v2.0.5
   with:
     # Artifact name
