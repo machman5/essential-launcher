@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Test with Gradle
-        run: ./gradlew lintRelease -x lint --stacktrace
+        run: ./gradlew lintRelease -x lint
   test:
     needs: lintRelease
     runs-on: ubuntu-latest
