@@ -48,22 +48,9 @@ jobs:
     strategy:
       matrix:
         devices: # we are limited here to 5 jobs running in parallel under MacOS
-          - api-level: 21
+          - api-level: 24
             profile: Nexus 4
-            arch: x86
-            target: default
-          - api-level: 22
-            profile: Nexus 7
-            arch: x86_64
-            target: default
-          - api-level: 25
-            profile: Nexus 6
-            arch: x86_64
-            target: default
-          - api-level: 29
-            profile: Nexus 6
-            arch: x86_64
-            target: default
+            arch: arm
     steps:
       - name: checkout
         uses: actions/checkout@v2
